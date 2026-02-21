@@ -3,57 +3,56 @@ using UnityEngine;
 
 namespace Game.ShipRelated
 {
-    [RequireComponent(typeof(MoveComponent))]
+    [RequireComponent(typeof(MoveComponent)), RequireComponent(typeof(HealthComponent)),
+     RequireComponent(typeof(WeaponComponent))]
     public sealed class Ship : MonoBehaviour
     {
-        [field:SerializeField] public Transform firePoint { get; private set; }
-
-        [field: SerializeField] public TeamType Team { get; private set; }
+        //current and max health
+        public event Action<int, int> OnHealthChanged
+        {
+            add => _health.OnHealthChanged += value;
+            remove => _health.OnHealthChanged -= value;
+        }
+        
+        public event Action<GameObject> OnDeath
+        {
+            add => _health.OnDeath += value;
+            remove => _health.OnDeath -= value;
+        }
+        
+        public event Action OnFired
+        {
+            add => _weapon.OnFired += value;
+            remove => _weapon.OnFired -= value;
+        }
         
         public Vector3 MoveDirection => _move.MoveDirection;
-        public float MoveSpeed => _move.MoveSpeed;
+        public float MoveSpeed => _config.MoveSpeed;
 
         [SerializeField] private ShipConfig _config;
         [SerializeField] private MoveComponent _move;
+        [SerializeField] private HealthComponent _health;
+        [SerializeField] private WeaponComponent _weapon;
         
-        private HealthComponent _health;
-        private AttackComponent _attack;
-
-        public event Action<int, int> OnHealthChanged; //current and max health
-        public event Action OnDeath;
-        public event Action OnFired;
-        public event Action OnInitialized;
-
         private void Awake()
         {
-            _health = new HealthComponent(_config);
-            _attack = new AttackComponent(_config);
-            
-            _move.Initialize(_config);
-            
-            _attack.AddFireCondition(() => _health.IsAlive());
+            _health.SetConfig(_config);
+            _move.SetConfig(_config);
+            _weapon.SetConfig(_config);
+
             _move.AddMoveCondition(() => _health.IsAlive());
-            
-            OnInitialized?.Invoke();
+            _weapon.AddFireCondition(() => _health.IsAlive());
         }
 
         private void OnEnable() => _health.Reset();
 
-        public void Fire()
-        { 
-            if(_attack.Fire())
-                OnFired?.Invoke();
-        }
+        public void Fire() => _weapon.Fire();
 
         public void TakeDamage(int damage)
         {
             _health.TakeDamage(damage);
-            OnHealthChanged?.Invoke(_health.CurrentHealth, _health.MaxHealth);
-            if (_health.CurrentHealth <= 0)
-            {
-                OnDeath?.Invoke();
+            if (_health.CurrentHealth <= 0) 
                 gameObject.SetActive(false);
-            }
         }
 
         public bool IsAlive() => _health.IsAlive();

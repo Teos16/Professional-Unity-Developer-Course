@@ -1,15 +1,13 @@
 using Game.ShipRelated;
-using Modules.Utils;
 using UnityEngine;
 
 namespace Game.Player
 {
-    public sealed class PlayerShipInputController : MonoBehaviour
+    public sealed class PlayerInputController : MonoBehaviour
     {
         private const string HORIZONTAL_AXIS = "Horizontal";
         private const string VERTICAL_AXIS = "Vertical";
         
-        [SerializeField] private TransformBounds _playerArea;
         [SerializeField] private Ship _playerShip;
         
         private Vector2 _moveDirection;
@@ -28,7 +26,5 @@ namespace Game.Player
             
             _playerShip.MoveStep(_moveDirection);
         }
-
-        private void LateUpdate() => transform.position = _playerArea.ClampInBounds(transform.position);
     }
 }

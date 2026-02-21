@@ -20,44 +20,15 @@ namespace Game.ShipRelated
         [SerializeField] private ParticleSystem _fireVFX;
         [SerializeField] private Renderer _renderer;
         [SerializeField] private Transform _viewTransform;
-
-        private AudioSource _audioSource;
+        [SerializeField] private AudioSource _audioSource;
+        
         private Material _material;
         private Tweener _damageAnimation;
         
-        private ParticleSystem _destroyEffectPrefab;
-        private AudioClip _fireSFX;
-        private AudioClip _damageSFX;
-
-        private AnimationCurve _hitAnimationCurve;
-        private float _moveSpeed;
-        private float _hitDuration;
-        private string _hitPropertyName;
-        private float _moveRotationAngle;
-
         private void Start()
         {
             _material = new Material(_viewConfig.MaterialPrefab);
             _renderer.material = _material;
-            
-            _audioSource = GetComponent<AudioSource>();
-
-            _destroyEffectPrefab = _viewConfig.DestroyEffectPrefab;
-            _fireSFX = _viewConfig.FireSFX;
-            _damageSFX = _viewConfig.DamageSFX;
-            
-            _hitDuration = _viewConfig.HitDuration; 
-            _hitPropertyName = _viewConfig.HitPropertyName;
-            _moveRotationAngle = _viewConfig.MoveRotationAngle;
-            _hitAnimationCurve = _viewConfig.HitAnimationCurve;
-            
-            OnShipInitialized();
-            _ship.OnInitialized += OnShipInitialized;
-        }
-
-        private void OnShipInitialized()
-        {
-            _moveSpeed = _ship.MoveSpeed;
         }
 
         private void OnEnable()
@@ -84,15 +55,15 @@ namespace Game.ShipRelated
 
         private void OnFire()
         {
-            if (_fireSFX)
-                _audioSource.PlayOneShot(_fireSFX);
+            if (_viewConfig.FireSFX)
+                _audioSource.PlayOneShot(_viewConfig.FireSFX);
             if (_fireVFX)
                 _fireVFX.Play();
         }
 
-        private void OnDeath()
+        private void OnDeath(GameObject _)
         {
-            ParticleSystem prefab = _destroyEffectPrefab;
+            ParticleSystem prefab = _viewConfig.DestroyEffectPrefab;
             Instantiate(prefab, _viewTransform.position, prefab.transform.rotation);
         }
         
@@ -104,23 +75,23 @@ namespace Game.ShipRelated
             _damageAnimation = DOVirtual.Float(
                 NORMALIZED_ANIMATION_START,
                 NORMALIZED_ANIMATION_END,
-                _hitDuration,
+                _viewConfig.HitDuration,
                 progress => _material?.SetFloat(
-                    _hitPropertyName, _hitAnimationCurve.Evaluate(progress))
+                    _viewConfig.HitPropertyName, _viewConfig.HitAnimationCurve.Evaluate(progress))
             ).SetLink(_renderer.gameObject);
 
-            if (_damageSFX)
-                _audioSource.PlayOneShot(_damageSFX);
+            if (_viewConfig.DamageSFX)
+                _audioSource.PlayOneShot(_viewConfig.DamageSFX);
         }
         
         private void AnimateMovement(float deltaTime)
         {
             Vector3 shipAngles = _viewTransform.localEulerAngles;
-            shipAngles.x = _moveRotationAngle * _ship.MoveDirection.y;
-            shipAngles.y = _moveRotationAngle * YAW_SCALE * _ship.MoveDirection.x * YAW_DIRECTION;
+            shipAngles.x = _viewConfig.MoveRotationAngle * _ship.MoveDirection.y;
+            shipAngles.y = _viewConfig.MoveRotationAngle * YAW_SCALE * _ship.MoveDirection.x * YAW_DIRECTION;
             
             Quaternion shipRotation = Quaternion.Euler(shipAngles);
-            float t = _moveSpeed * deltaTime;
+            float t = _ship.MoveSpeed * deltaTime;
             _viewTransform.localRotation = Quaternion.Lerp(_viewTransform.localRotation, shipRotation, t);
         }
     }

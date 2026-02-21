@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.Bullet
+namespace Game.BulletRelated
 {
     [CreateAssetMenu(menuName = "Game/BulletConfig", order = 0)]
 

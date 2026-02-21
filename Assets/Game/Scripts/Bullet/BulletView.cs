@@ -1,35 +1,31 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
+using UnityEngine;
 
-namespace Game.Bullet
+namespace Game.BulletRelated
 {
-    public class BulletView : MonoBehaviour
+    public sealed class BulletView : MonoBehaviour
     {
+        [SerializeField] private SerializedDictionary<TeamType, GameObject> _skinsByTeams;
         [SerializeField] private GameObject _explosionPrefab;
-        
-        private Bullet _bullet;
+        [SerializeField] private Bullet _bullet;
 
-        private void Awake()
-        {
-            if (TryGetComponent(out Bullet bullet)) 
-                _bullet = bullet;
-        }
-        
-        private void OnEnable()
-        {
-            if(_bullet != null)
-                _bullet.OnTriggerEntered += OnHit;
-        }
+        private void Start() => _bullet.OnConfigChanged += SetupSkins;
 
-        private void OnDisable()
-        {
-            if(_bullet != null)
-                _bullet.OnTriggerEntered -= OnHit;
-        }
+        private void OnEnable() => _bullet.OnHit += OnHit;
+
+        private void OnDisable() => _bullet.OnHit -= OnHit;
 
         private void OnDestroy()
         {
-            if(_bullet != null)
-                _bullet.OnTriggerEntered -= OnHit;
+            _bullet.OnHit -= OnHit;
+            _bullet.OnConfigChanged -= SetupSkins;
+        }
+
+        private void SetupSkins(TeamType team)
+        {
+            foreach (KeyValuePair<TeamType, GameObject> skin in _skinsByTeams) 
+                skin.Value.SetActive(skin.Key == team);
         }
 
         private void OnHit() => Instantiate(_explosionPrefab, transform.position, _explosionPrefab.transform.rotation);

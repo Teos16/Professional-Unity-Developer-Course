@@ -20,16 +20,5 @@ namespace Modules.Utils
                 (array[i], array[j]) = (array[j], array[i]);
             }
         }
-        
-        public static Vector3 Next(this Transform[] array, ref int currentIndex)
-        {
-            if (currentIndex >= array.Length)
-            {
-                array.Shuffle();
-                currentIndex = 0;
-            }
-
-            return array[currentIndex++].position;
-        }
     }
 }

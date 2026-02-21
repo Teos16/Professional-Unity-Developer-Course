@@ -1,30 +1,14 @@
-﻿using AYellowpaper.SerializedCollections;
+﻿using Game.BulletRelated;
 using Modules.Utils;
 using UnityEngine;
 
-namespace Game.Bullet
+namespace Game
 {
-    public sealed class BulletFactory : MonoBehaviour
+    public sealed class BulletFactory : Factory
     {
-        [SerializeField] private SerializedDictionary<TeamType, Bullet> _teamToBulletPrefab;
-        [SerializeField] private TransformBounds _levelBounds;
-        [SerializeField] private Transform _container;
+        [SerializeField] private TransformBounds _bounds;
 
-        private readonly Vector2 _defaultPosition = Vector2.zero;
-        private readonly Vector2 _defaultDirection = Vector2.up;
-        
-        public Bullet SpawnBullet(Vector2 position, Vector2 direction, TeamType team)
-        {
-            Bullet bullet = Instantiate(_teamToBulletPrefab[team], _container);
-            bullet.Initialize(position, direction, _levelBounds);
-            return bullet;
-        }
-        
-        public Bullet SpawnDefaultBullet(TeamType team)
-        {
-            Bullet bullet = Instantiate(_teamToBulletPrefab[team], _container);
-            bullet.Initialize(_defaultPosition, _defaultDirection, _levelBounds);
-            return bullet;
-        }
+        protected override void Setup(GameObject instance) =>
+            instance.GetComponent<Bullet>().Construct(_bounds);
     }
 }

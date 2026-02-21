@@ -1,22 +1,14 @@
-﻿using Game.Bullet;
+﻿using Game.Enemy;
 using Game.ShipRelated;
 using UnityEngine;
 
-namespace Game.Enemy
+namespace Game
 {
-    public sealed class EnemyFactory : MonoBehaviour
+    public sealed class EnemyFactory : Factory
     {
-        [SerializeField] private EnemyShipAIController _prefab;
-        [SerializeField] private Transform _container;
-        [SerializeField] private BulletPool _bulletPool;
         [SerializeField] private Ship _target;
 
-        public EnemyShipAIController SpawnEnemy()
-        {
-            EnemyShipAIController enemy = Instantiate(_prefab, _container);
-            enemy.GetComponent<AimedBulletCreator>()?.Initialize(_bulletPool, _target);
-            enemy.gameObject.SetActive(false);
-            return enemy;
-        }
+        protected override void Setup(GameObject instance) => 
+            instance.GetComponent<EnemyBehaviour>().Construct(_target);
     }
 }
