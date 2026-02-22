@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Game.ShipRelated
+namespace Game.Ships
 {
     public sealed class HealthComponent : MonoBehaviour
     {

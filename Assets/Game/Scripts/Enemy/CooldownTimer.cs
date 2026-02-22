@@ -4,8 +4,8 @@ namespace Game.Enemy
 {
     public sealed class CooldownTimer : MonoBehaviour
     {
-        private float _minCooldown = 2;
-        private float _maxCooldown = 3;
+        private float _minCooldown;
+        private float _maxCooldown;
         private float _lastTime;
         private float _cooldown;
 

@@ -2,7 +2,7 @@
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
-namespace Game.BulletRelated
+namespace Game.Bullets
 {
     public sealed class BulletView : MonoBehaviour
     {
@@ -10,21 +10,33 @@ namespace Game.BulletRelated
         [SerializeField] private GameObject _explosionPrefab;
         [SerializeField] private Bullet _bullet;
 
-        private void Start() => _bullet.OnConfigChanged += SetupSkins;
+        private TeamType _currentTeam;
 
-        private void OnEnable() => _bullet.OnHit += OnHit;
+        private void Awake() => _bullet.OnConfigChanged += OnConfigChangedHandler;
+
+        private void OnEnable()
+        {
+            _bullet.OnHit += OnHit;
+            SetupSkins(_currentTeam);
+        }
 
         private void OnDisable() => _bullet.OnHit -= OnHit;
 
         private void OnDestroy()
         {
             _bullet.OnHit -= OnHit;
-            _bullet.OnConfigChanged -= SetupSkins;
+            _bullet.OnConfigChanged -= OnConfigChangedHandler;
+        }
+
+        private void OnConfigChangedHandler(TeamType team)
+        {
+            _currentTeam = team;
+            SetupSkins(team);
         }
 
         private void SetupSkins(TeamType team)
         {
-            foreach (KeyValuePair<TeamType, GameObject> skin in _skinsByTeams) 
+            foreach (KeyValuePair<TeamType, GameObject> skin in _skinsByTeams)
                 skin.Value.SetActive(skin.Key == team);
         }
 

@@ -1,4 +1,4 @@
-﻿namespace Game.ShipRelated
+﻿namespace Game.Ships
 {
     public interface ICondition
     {

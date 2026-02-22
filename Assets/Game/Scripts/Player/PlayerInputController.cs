@@ -1,4 +1,4 @@
-using Game.ShipRelated;
+using Game.Ships;
 using UnityEngine;
 
 namespace Game.Player

@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 
-namespace Game.ShipRelated
+namespace Game.Ships
 {
     public sealed class AimedFireDirection : FireDirection
     {
-        [SerializeField] private Ship _target;
+        private Ship _target;
+        
+        public void Construct(Ship target) => _target = target;
 
         public override Vector3 GetBulletDirection() => (_target.transform.position - _firePoint.position).normalized;
     }

@@ -1,5 +1,5 @@
 ﻿using Game.Enemy;
-using Game.ShipRelated;
+using Game.Ships;
 using Modules.UI;
 using UnityEngine;
 

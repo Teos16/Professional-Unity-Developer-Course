@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Game.ShipRelated
+namespace Game.Ships
 {
     public sealed class CompositeCondition : ICondition
     {

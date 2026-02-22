@@ -1,8 +1,8 @@
-﻿using Game.ShipRelated;
+﻿using Game.Ships;
 using Modules.Utils;
 using UnityEngine;
 
-namespace Game.UI
+namespace Game.Player
 {
     public sealed class CameraController : MonoBehaviour
     {

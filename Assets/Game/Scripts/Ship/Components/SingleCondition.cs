@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.ShipRelated
+namespace Game.Ships
 {
     public sealed class SingleCondition : ICondition
     {

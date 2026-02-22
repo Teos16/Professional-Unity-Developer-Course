@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Game.ShipRelated
+namespace Game.Ships
 {
     [RequireComponent(typeof(MoveComponent)), RequireComponent(typeof(HealthComponent)),
      RequireComponent(typeof(WeaponComponent))]
@@ -27,7 +27,6 @@ namespace Game.ShipRelated
         }
         
         public Vector3 MoveDirection => _move.MoveDirection;
-        public float MoveSpeed => _config.MoveSpeed;
 
         [SerializeField] private ShipConfig _config;
         [SerializeField] private MoveComponent _move;
@@ -42,6 +41,8 @@ namespace Game.ShipRelated
 
             _move.AddMoveCondition(() => _health.IsAlive());
             _weapon.AddFireCondition(() => _health.IsAlive());
+            
+            _health.Reset();
         }
 
         private void OnEnable() => _health.Reset();

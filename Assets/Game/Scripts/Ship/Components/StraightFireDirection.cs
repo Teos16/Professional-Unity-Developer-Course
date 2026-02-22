@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.ShipRelated
+namespace Game.Ships
 {
     public sealed class StraightFireDirection : FireDirection
     {

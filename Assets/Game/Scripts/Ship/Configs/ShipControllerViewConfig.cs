@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.ShipRelated
+namespace Game.Ships
 {
     [CreateAssetMenu(menuName = "Game/ShipControllerViewConfig", order = 0)]
     public sealed class ShipControllerViewConfig : ScriptableObject

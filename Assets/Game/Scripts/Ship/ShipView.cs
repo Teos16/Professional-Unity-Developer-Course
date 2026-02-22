@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace Game.ShipRelated
+namespace Game.Ships
 {
     [RequireComponent(typeof(Ship))]
     public sealed class ShipView : MonoBehaviour
@@ -91,7 +91,7 @@ namespace Game.ShipRelated
             shipAngles.y = _viewConfig.MoveRotationAngle * YAW_SCALE * _ship.MoveDirection.x * YAW_DIRECTION;
             
             Quaternion shipRotation = Quaternion.Euler(shipAngles);
-            float t = _ship.MoveSpeed * deltaTime;
+            float t = _viewConfig.MoveSpeed * deltaTime;
             _viewTransform.localRotation = Quaternion.Lerp(_viewTransform.localRotation, shipRotation, t);
         }
     }

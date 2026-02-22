@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
@@ -7,8 +8,9 @@ namespace Game
     {
         [SerializeField] private Factory _factory;
         [SerializeField] private int _initialCapacity = 10;
+        [SerializeField] private bool returnOnDeactivation;
 
-        private readonly Stack<GameObject> _pool = new();
+        private readonly List<GameObject> _pool = new();
         
         private void Start()
         {
@@ -16,21 +18,36 @@ namespace Game
                 CreateNewInstance();
         }
 
+        private void LateUpdate()
+        {
+            if (!returnOnDeactivation) 
+                return;
+            
+            for (int i = _pool.Count - 1; i >= 0; i--)
+            {
+                if (!_pool[i].activeSelf) 
+                    _pool[i].SetActive(false);
+            }
+        }
+
         private void CreateNewInstance()
         {
             GameObject instance = _factory.Create(); 
-            instance.gameObject.SetActive(false);
-            _pool.Push(instance);
+            instance.SetActive(false);
+            _pool.Add(instance);
         }
 
         public GameObject Rent()
         {
-            if (_pool.TryPop(out GameObject instance))
+            for (int i = _pool.Count - 1; i >= 0; i--)
             {
-                instance.gameObject.SetActive(true);
-                return instance;
+                if (!_pool[i].activeSelf)
+                {
+                    _pool[i].SetActive(true);
+                    return _pool[i];
+                }
             }
-            
+
             return _factory.Create();
         }
 
@@ -38,9 +55,11 @@ namespace Game
         {
             if (instance == null)
                 return;
-            
-            instance.gameObject.SetActive(false);
-            _pool.Push(instance);
+
+            instance.SetActive(false);
+
+            if (!_pool.Contains(instance))
+                _pool.Add(instance);
         }
     }
 }

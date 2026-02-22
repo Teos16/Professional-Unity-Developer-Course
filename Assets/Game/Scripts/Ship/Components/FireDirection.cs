@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.ShipRelated
+namespace Game.Ships
 {
     public abstract class FireDirection : MonoBehaviour
     {

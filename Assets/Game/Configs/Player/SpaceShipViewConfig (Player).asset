@@ -50,6 +50,6 @@ MonoBehaviour:
   <HitDuration>k__BackingField: 0.2
   <DamageSFX>k__BackingField: {fileID: 8300000, guid: eb67c69f46d35834bab81d0fa7289f9b, type: 3}
   <FireSFX>k__BackingField: {fileID: 8300000, guid: e4b023a2bc338764085b73f4da815168, type: 3}
-  <MoveRotationAngle>k__BackingField: 50
-  <MoveSpeed>k__BackingField: 10
+  <MoveRotationAngle>k__BackingField: 30
+  <MoveSpeed>k__BackingField: 5
   <DestroyEffectPrefab>k__BackingField: {fileID: 198423008863891152, guid: 91acdbd2820f9ce418996a0a24d91079, type: 3}

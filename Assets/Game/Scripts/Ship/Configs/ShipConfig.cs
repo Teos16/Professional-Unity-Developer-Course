@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.ShipRelated
+namespace Game.Ships
 {
     [CreateAssetMenu(menuName = "Game/ShipConfig", order = 0)]
     public sealed class ShipConfig : ScriptableObject

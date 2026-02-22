@@ -1,33 +1,30 @@
 using System;
-using Game.ShipRelated;
+using Game.Ships;
 using Modules.Utils;
 using UnityEngine;
 
-namespace Game.BulletRelated
+namespace Game.Bullets
 {
     public class Bullet : MonoBehaviour
     {
-        public event Action OnHit;
-        public event Action<TeamType> OnConfigChanged; 
+        private const string PLAYER_BULLET_LAYER = "PlayerBullet";
+        private const string ENEMY_BULLET_LAYER = "EnemyBullet";
         
-        public TeamType Team => _config.TeamType;
-        private Vector2 _direction;
+        public event Action OnHit;
+        public event Action<TeamType> OnConfigChanged;
 
         [SerializeField] private BulletConfig _config;
 
         private TransformBounds _levelBounds;
-        private Pool _bulletPool;
+        private Vector2 _direction;
 
         private void FixedUpdate()
         {
             Vector3 moveStep = _direction * (_config.BulletSpeed * Time.fixedDeltaTime);
             transform.position += moveStep;
 
-            if (!_levelBounds.InBounds(transform.position))
-            {
-                _bulletPool.Return(gameObject);
+            if (!_levelBounds.InBounds(transform.position)) 
                 gameObject.SetActive(false);
-            }
         }
         
         private void OnTriggerEnter2D(Collider2D other)
@@ -35,16 +32,16 @@ namespace Game.BulletRelated
             OnHit?.Invoke();
             if(other.TryGetComponent(out Ship ship))
                 ship.TakeDamage(_config.BulletDamage);
-            _bulletPool.Return(gameObject);
             gameObject.SetActive(false);
         }
 
-        public void Construct(TransformBounds levelBounds) => _levelBounds ??= levelBounds;
-        
+        public void Construct(TransformBounds levelBounds) => _levelBounds = levelBounds;
+
         public void SetConfig(BulletConfig config)
         {
             _config = config;
-            OnConfigChanged?.Invoke(Team);
+            SetupCollisionLayer();
+            OnConfigChanged?.Invoke(_config.TeamType);
         }
 
         public void SetDirection(Vector2 direction)
@@ -54,5 +51,15 @@ namespace Game.BulletRelated
         }
 
         public void SetPosition(Vector2 position) => transform.position = position;
+
+        private void SetupCollisionLayer()
+        {
+            gameObject.layer = _config.TeamType switch
+            {
+                TeamType.Player => LayerMask.NameToLayer(PLAYER_BULLET_LAYER),
+                TeamType.Enemy => LayerMask.NameToLayer(ENEMY_BULLET_LAYER),
+                _ => gameObject.layer
+            };
+        }
     }
 }
