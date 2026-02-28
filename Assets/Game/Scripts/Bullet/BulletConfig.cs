@@ -6,8 +6,8 @@ namespace Game.Bullets
 
     public sealed class BulletConfig : ScriptableObject
     {
-        [field: SerializeField] public TeamType TeamType { get; private set; } = TeamType.None;
-        [field: SerializeField] public float BulletSpeed { get; private set; } = 2;
-        [field: SerializeField] public int BulletDamage { get; private set; } = 2;
+        [field: SerializeField] public TeamType Team { get; private set; } = TeamType.None;
+        [field: SerializeField] public float Speed { get; private set; } = 2;
+        [field: SerializeField] public int Damage { get; private set; } = 2;
     }
 }

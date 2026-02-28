@@ -15,7 +15,7 @@ namespace Game.Player
         private void Update()
         {
             if (Input.GetKey(KeyCode.Space))
-                _playerShip.Fire();
+                _playerShip.FireUp();
         }
 
         private void FixedUpdate()
@@ -24,7 +24,7 @@ namespace Game.Player
             float dy = Input.GetAxisRaw(VERTICAL_AXIS);
             _moveDirection = new Vector2(dx, dy);
             
-            _playerShip.MoveStep(_moveDirection);
+            _playerShip.MoveStep(_moveDirection.normalized);
         }
     }
 }

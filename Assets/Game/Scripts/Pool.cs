@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
 {
-    public sealed class Pool : MonoBehaviour
+    public abstract class Pool<T> : MonoBehaviour where T : Component
     {
-        [SerializeField] private Factory _factory;
+        [SerializeField] private Factory<T> _factory;
         [SerializeField] private int _initialCapacity = 10;
         [SerializeField] private bool returnOnDeactivation;
 
-        private readonly List<GameObject> _pool = new();
+        private readonly List<T> _pool = new();
         
         private void Start()
         {
@@ -22,44 +21,44 @@ namespace Game
         {
             if (!returnOnDeactivation) 
                 return;
-            
+
             for (int i = _pool.Count - 1; i >= 0; i--)
-            {
-                if (!_pool[i].activeSelf) 
-                    _pool[i].SetActive(false);
-            }
+                if(!_pool[i].gameObject.activeSelf)
+                    Return(_pool[i]);
         }
 
-        private void CreateNewInstance()
-        {
-            GameObject instance = _factory.Create(); 
-            instance.SetActive(false);
-            _pool.Add(instance);
-        }
-
-        public GameObject Rent()
+        public T Rent()
         {
             for (int i = _pool.Count - 1; i >= 0; i--)
-            {
-                if (!_pool[i].activeSelf)
+                if (!_pool[i].gameObject.activeSelf)
                 {
-                    _pool[i].SetActive(true);
+                    OnRent(i);
                     return _pool[i];
                 }
-            }
 
             return _factory.Create();
         }
 
-        public void Return(GameObject instance)
+        public void Return(T instance)
         {
             if (instance == null)
                 return;
 
-            instance.SetActive(false);
+            OnReturn(instance);
 
             if (!_pool.Contains(instance))
                 _pool.Add(instance);
+        }
+
+        protected virtual void OnRent(int i) => _pool[i].gameObject.SetActive(true);
+
+        protected virtual void OnReturn(T instance) => instance.gameObject.SetActive(false);
+
+        private void CreateNewInstance()
+        {
+            T instance = _factory.Create(); 
+            instance.gameObject.SetActive(false);
+            _pool.Add(instance);
         }
     }
 }

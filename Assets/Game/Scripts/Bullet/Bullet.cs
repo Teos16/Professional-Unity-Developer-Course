@@ -11,7 +11,7 @@ namespace Game.Bullets
         private const string ENEMY_BULLET_LAYER = "EnemyBullet";
         
         public event Action OnHit;
-        public event Action<TeamType> OnConfigChanged;
+        public event Action<TeamType> OnTeamChanged;
 
         [SerializeField] private BulletConfig _config;
 
@@ -20,7 +20,7 @@ namespace Game.Bullets
 
         private void FixedUpdate()
         {
-            Vector3 moveStep = _direction * (_config.BulletSpeed * Time.fixedDeltaTime);
+            Vector3 moveStep = _direction * (_config.Speed * Time.fixedDeltaTime);
             transform.position += moveStep;
 
             if (!_levelBounds.InBounds(transform.position)) 
@@ -31,7 +31,7 @@ namespace Game.Bullets
         {
             OnHit?.Invoke();
             if(other.TryGetComponent(out Ship ship))
-                ship.TakeDamage(_config.BulletDamage);
+                ship.TakeDamage(_config.Damage);
             gameObject.SetActive(false);
         }
 
@@ -41,7 +41,7 @@ namespace Game.Bullets
         {
             _config = config;
             SetupCollisionLayer();
-            OnConfigChanged?.Invoke(_config.TeamType);
+            OnTeamChanged?.Invoke(_config.Team);
         }
 
         public void SetDirection(Vector2 direction)
@@ -54,7 +54,7 @@ namespace Game.Bullets
 
         private void SetupCollisionLayer()
         {
-            gameObject.layer = _config.TeamType switch
+            gameObject.layer = _config.Team switch
             {
                 TeamType.Player => LayerMask.NameToLayer(PLAYER_BULLET_LAYER),
                 TeamType.Enemy => LayerMask.NameToLayer(ENEMY_BULLET_LAYER),

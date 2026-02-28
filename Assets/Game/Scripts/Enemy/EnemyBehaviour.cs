@@ -28,7 +28,7 @@ namespace Game.Enemy
 
             _ship.MoveStep(_moveDirection);
             if (!isNotReached)
-                _ship.Fire();
+                _ship.FireAt(_target.transform.position);
         }
 
         public void Construct(Ship target) => _target = target;

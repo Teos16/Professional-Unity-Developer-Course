@@ -93,9 +93,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7585219330949237567, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
-      propertyPath: _fireDirection
+      propertyPath: _bulletConfig
       value: 
-      objectReference: {fileID: 3767082530122243220}
+      objectReference: {fileID: 11400000, guid: d382a86e1c9db02438b1cf46058709a3, type: 2}
     - target: {fileID: 7585219330949237567, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
       propertyPath: _usedBulletConfig
       value: 
@@ -171,9 +171,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4109394316656653739, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
       insertIndex: 4
       addedObject: {fileID: -1024654233215550323}
-    - targetCorrespondingSourceObject: {fileID: 4109394316656653739, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3767082530122243220}
   m_SourcePrefab: {fileID: 100100000, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
 --- !u!4 &192985460026671694 stripped
 Transform:
@@ -200,24 +197,6 @@ MonoBehaviour:
   _ship: {fileID: 7987144975830583689}
   _target: {fileID: 0}
   _stoppingDistance: 0.5
---- !u!114 &3767082530122243220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3097587623408105968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02f9e817e7e241debdad3c3d0bf45f46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.ShipRelated.AimedFireDirection
-  _firePoint: {fileID: 7347927245995086807}
---- !u!4 &7347927245995086807 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8503432944885784460, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
-  m_PrefabInstance: {fileID: 1439841073512238171}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7987144975830583689 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9017154071057614290, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}

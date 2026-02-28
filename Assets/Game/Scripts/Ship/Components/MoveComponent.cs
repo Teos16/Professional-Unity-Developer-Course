@@ -25,7 +25,7 @@ namespace Game.Ships
         public void SetConfig(ShipConfig config) => _config = config;
 
         public void AddMoveCondition(Func<bool> condition) => 
-            _moveConditions.AddCondition(new SingleCondition(condition));
+            _moveConditions.AddCondition(new InlineCondition(condition));
 
         public void MoveStep(Vector2 direction) => MoveDirection = direction;
     }

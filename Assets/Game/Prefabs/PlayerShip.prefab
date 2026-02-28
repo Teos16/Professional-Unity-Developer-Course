@@ -18,9 +18,7 @@ GameObject:
   - component: {fileID: -40745526528168194}
   - component: {fileID: 9035725908078984344}
   - component: {fileID: 7585219330949237567}
-  - component: {fileID: 6896364063162490615}
   - component: {fileID: 7220320010238453008}
-  - component: {fileID: -4965438672849402608}
   m_Layer: 10
   m_Name: PlayerShip
   m_TagString: Untagged
@@ -264,7 +262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034e4a3db38246df81116b1231213f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.MoveComponent
-  <MoveDirection>k__BackingField: {x: 0, y: 0, z: 0}
   _rigidbody: {fileID: 4575139502811685103}
   _config: {fileID: 11400000, guid: 0b9a4576e5f0a4babb44b3c82e6480d0, type: 2}
 --- !u!114 &9035725908078984344
@@ -293,22 +290,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game::Game.ShipRelated.WeaponComponent
   _cooldownTimer: {fileID: 7220320010238453008}
   _firePoint: {fileID: 8503432944885784460}
-  _fireDirection: {fileID: 6896364063162490615}
-  _usedBulletConfig: {fileID: 11400000, guid: 7006f3afe4af2b8408664dcb57f173d8, type: 2}
+  _bulletConfig: {fileID: 11400000, guid: 7006f3afe4af2b8408664dcb57f173d8, type: 2}
   _bulletPool: {fileID: 0}
---- !u!114 &6896364063162490615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4109394316656653739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78d83aa0d69b4ca498593689d198b909, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.ShipRelated.StraightFireDirection
-  _firePoint: {fileID: 8503432944885784460}
 --- !u!114 &7220320010238453008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,19 +304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fcc743e287f409d9f924e4112a2614f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.Enemy.CooldownTimer
---- !u!114 &-4965438672849402608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4109394316656653739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5db099425e4e409e82ed9a125e8e16b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Player.ClampingComponent
-  _bounds: {fileID: 0}
 --- !u!1 &7932017922939402051
 GameObject:
   m_ObjectHideFlags: 0

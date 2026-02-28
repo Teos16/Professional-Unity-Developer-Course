@@ -2,10 +2,10 @@
 
 namespace Game.Ships
 {
-    public sealed class SingleCondition : ICondition
+    public sealed class InlineCondition : ICondition
     {
         private readonly Func<bool> _func;
-        public SingleCondition(Func<bool> func) => _func = func;
+        public InlineCondition(Func<bool> func) => _func = func;
         public bool Evaluate() => _func();
     }
 }

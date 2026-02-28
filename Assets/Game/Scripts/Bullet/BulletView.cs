@@ -12,7 +12,7 @@ namespace Game.Bullets
 
         private TeamType _currentTeam;
 
-        private void Awake() => _bullet.OnConfigChanged += OnConfigChangedHandler;
+        private void Awake() => _bullet.OnTeamChanged += OnConfigChangedHandler;
 
         private void OnEnable()
         {
@@ -25,7 +25,7 @@ namespace Game.Bullets
         private void OnDestroy()
         {
             _bullet.OnHit -= OnHit;
-            _bullet.OnConfigChanged -= OnConfigChangedHandler;
+            _bullet.OnTeamChanged -= OnConfigChangedHandler;
         }
 
         private void OnConfigChangedHandler(TeamType team)

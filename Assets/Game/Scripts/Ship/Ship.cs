@@ -39,15 +39,17 @@ namespace Game.Ships
             _move.SetConfig(_config);
             _weapon.SetConfig(_config);
 
-            _move.AddMoveCondition(() => _health.IsAlive());
-            _weapon.AddFireCondition(() => _health.IsAlive());
+            _move.AddMoveCondition(IsAlive);
+            _weapon.AddFireCondition(IsAlive);
             
             _health.Reset();
         }
 
         private void OnEnable() => _health.Reset();
 
-        public void Fire() => _weapon.Fire();
+        public void FireAt(Vector2 position) => _weapon.FireAt(position);
+        
+        public void FireUp() => _weapon.FireTowards(transform.up);
 
         public void TakeDamage(int damage)
         {

@@ -2,16 +2,16 @@
 
 namespace Game
 {
-    public abstract class Factory : MonoBehaviour
+    public abstract class Factory<T> : MonoBehaviour where T : Component
     {
-        [SerializeField] private GameObject _prefab;
+        [SerializeField] private T _prefab;
         [SerializeField] private Transform _container;
         
-        protected abstract void Setup(GameObject instance);
+        protected abstract void Setup(T instance);
         
-        public GameObject Create()
+        public T Create()
         {
-            GameObject instance = Instantiate(_prefab, _container);
+            T instance = Instantiate(_prefab, _container);
             Setup(instance);
             return instance;
         }

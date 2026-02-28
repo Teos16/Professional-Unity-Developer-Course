@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Game.Ships;
 using UnityEngine;
 
@@ -13,8 +12,6 @@ namespace Game.Enemy
         [SerializeField] private Ship _playerShip;
         [SerializeField] private CooldownTimer _spawnCooldownTimer;
         [SerializeField] private EnemySpawner _enemySpawner;
-        
-        private readonly List<EnemyBehaviour> _activeEnemies = new();
         
         private int _destroyedEnemiesCount;
         
@@ -37,14 +34,12 @@ namespace Game.Enemy
         {
             EnemyBehaviour enemyBehaviour = _enemySpawner.Spawn();
             enemyBehaviour.GetComponent<Ship>().OnDeath += OnEnemyDeath;
-            _activeEnemies.Add(enemyBehaviour);
         }
 
         private void OnEnemyDeath(GameObject ship)
         {
             ship.GetComponent<Ship>().OnDeath -= OnEnemyDeath;
-            _enemySpawner.Despawn(ship);
-            _activeEnemies.Remove(ship.GetComponent<EnemyBehaviour>());
+            _enemySpawner.Despawn(ship.GetComponent<EnemyBehaviour>());
             _destroyedEnemiesCount++;
             OnDestroyedEnemiesCountChanged?.Invoke(_destroyedEnemiesCount);
         }

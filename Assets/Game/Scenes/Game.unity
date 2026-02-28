@@ -563,8 +563,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 363245576}
-  - component: {fileID: 363245578}
   - component: {fileID: 363245577}
+  - component: {fileID: 363245578}
   m_Layer: 0
   m_Name: <BulletPool>
   m_TagString: Untagged
@@ -600,7 +600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9841d3aeb241bf92c9d1c182ada8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.BulletFactory
-  _prefab: {fileID: 2743036428890533592, guid: 5fe72886874b4e445b06cf777ca4920d, type: 3}
+  _prefab: {fileID: 201757604187811891, guid: 5fe72886874b4e445b06cf777ca4920d, type: 3}
   _container: {fileID: 957437472}
   _bounds: {fileID: 2572952653776768186}
 --- !u!114 &363245578
@@ -612,9 +612,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 363245575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c5afdc2e8984996b2f15f4d94c6feec, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d9f8a19d2df439dbc624ee7d1186319, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Game::Game.Pool
+  m_EditorClassIdentifier: Game::Game.BulletPool
   _factory: {fileID: 363245577}
   _initialCapacity: 100
   returnOnDeactivation: 1
@@ -998,9 +998,9 @@ GameObject:
   - component: {fileID: 562298204}
   - component: {fileID: 562298209}
   - component: {fileID: 562298208}
-  - component: {fileID: 562298206}
   - component: {fileID: 562298205}
   - component: {fileID: 562298210}
+  - component: {fileID: 562298211}
   m_Layer: 0
   m_Name: <EnemySystem>
   m_TagString: Untagged
@@ -1037,25 +1037,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b406c14e91494489b719a6697fb454b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.EnemyFactory
-  _prefab: {fileID: 3097587623408105968, guid: 7dfaf4d6db0e38d43a53db75923b9773, type: 3}
+  _prefab: {fileID: -1024654233215550323, guid: 7dfaf4d6db0e38d43a53db75923b9773, type: 3}
   _container: {fileID: 1052031097}
   _target: {fileID: 1470733261}
   _bulletPool: {fileID: 363245578}
---- !u!114 &562298206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 562298203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c5afdc2e8984996b2f15f4d94c6feec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Pool
-  _factory: {fileID: 562298205}
-  _initialCapacity: 10
-  returnOnDeactivation: 0
 --- !u!114 &562298208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1098,7 +1083,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game::Game.Enemy.EnemySpawner
   _spawnPositions: {fileID: 4914023371208914564}
   _attackPositions: {fileID: 9048567252472711236}
-  _enemyPool: {fileID: 562298206}
+  _enemyPool: {fileID: 562298211}
+--- !u!114 &562298211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562298203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 362fa1018cde462fad4f824cbf5f4b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.EnemyPool
+  _factory: {fileID: 562298205}
+  _initialCapacity: 10
+  returnOnDeactivation: 0
 --- !u!1 &574514311
 GameObject:
   m_ObjectHideFlags: 0
@@ -1898,10 +1898,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1879759789}
     m_Modifications:
-    - target: {fileID: -4965438672849402608, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
-      propertyPath: _bounds
-      value: 
-      objectReference: {fileID: 1498479408}
     - target: {fileID: -3962892833321737632, guid: 0446acb84a7c9424d841676cef3b1d04, type: 3}
       propertyPath: bulletPool
       value: 
@@ -1978,7 +1974,8 @@ PrefabInstance:
       propertyPath: _bulletPool
       value: 
       objectReference: {fileID: 363245578}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2733,6 +2730,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1879759789}
+  - component: {fileID: 1879759790}
   m_Layer: 0
   m_Name: <PlayerSystem>
   m_TagString: Untagged
@@ -2757,6 +2755,20 @@ Transform:
   - {fileID: 1084504668}
   m_Father: {fileID: 739865810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1879759790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879759788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db099425e4e409e82ed9a125e8e16b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Player.ClampingComponent
+  _bounds: {fileID: 1498479408}
+  _ship: {fileID: 1470733261}
 --- !u!1 &1954893900
 GameObject:
   m_ObjectHideFlags: 0
