@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SpaceShipConfig (Enemy)
   m_EditorClassIdentifier: 
   <Health>k__BackingField: 2
-  <MoveSpeed>k__BackingField: 2
-  <FireCooldown>k__BackingField: 0.5
+  <MoveSpeed>k__BackingField: 3
+  <FireCooldown>k__BackingField: 0.35

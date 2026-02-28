@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BulletConfig (Enemy)
   m_EditorClassIdentifier: Game::Game.BulletConfig
   <Team>k__BackingField: 2
-  <Speed>k__BackingField: 7
+  <Speed>k__BackingField: 10
   <Damage>k__BackingField: 1
