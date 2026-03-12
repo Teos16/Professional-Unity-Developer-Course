@@ -1,4 +1,5 @@
 using System;
+using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Modules.Inventories
         public event Action OnCleared;
 
         private readonly Item[,] _grid;
+        private readonly Dictionary<Item, Vector2Int> _items;
 
         public int Width { get; }
         public int Height { get; }
@@ -31,14 +33,16 @@ namespace Modules.Inventories
             
             Width = width;
             Height = height;
+            
             _grid = new Item[Width, Height];
+            _items = new Dictionary<Item, Vector2Int>();
         }
 
         public Inventory(int width, int height, IEnumerable<KeyValuePair<Item, Vector2Int>> items)
             : this(width, height)
         {
             if (items == null) throw new ArgumentNullException(nameof(items));
-            foreach (KeyValuePair<Item, Vector2Int> pair in items)
+            foreach (KeyValuePair<Item, Vector2Int> pair in items) 
                 AddItem(pair.Key, pair.Value);
         }
 
@@ -87,7 +91,7 @@ namespace Modules.Inventories
         public bool AddItem(Item item, int startX, int startY)
         {
             if (!CanAddItem(item, startX, startY)) return false;
-
+            
             PlaceItem(item, startX, startY);
             OnAdded?.Invoke(item, new Vector2Int(startX, startY));
             return true;
@@ -99,13 +103,12 @@ namespace Modules.Inventories
 
         public bool RemoveItem(Item item, out Vector2Int position)
         {
-            if (item == null || !Contains(item))
+            if (item == null || !_items.TryGetValue(item, out position))
             {
                 position = default;
                 return false;
             }
 
-            position = FindItemStartPoint(item);
             ClearCells(item);
             OnRemoved?.Invoke(item, position);
             return true;
@@ -115,6 +118,7 @@ namespace Modules.Inventories
         {
             if (GetItemCount() == 0) return;
             Array.Clear(_grid, 0, _grid.Length);
+            _items.Clear();
             OnCleared?.Invoke();
         }
 
@@ -125,9 +129,8 @@ namespace Modules.Inventories
         public bool MoveItem(Item item, Vector2Int position)
         {
             if (item is null) throw new ArgumentNullException(nameof(item));
-            if (!Contains(item)) return false;
+            if (!_items.TryGetValue(item, out Vector2Int origin)) return false;
 
-            var origin = FindItemStartPoint(item);
             ClearCells(item);
 
             if (!CanAddItem(item, position))
@@ -148,13 +151,7 @@ namespace Modules.Inventories
         public bool Contains(Item item)
         {
             if (item is null) return false;
-            
-            for (int x = 0; x < Width; x++)
-            for (int y = 0; y < Height; y++)
-                if (Equals(_grid[x, y], item))
-                    return true;
-
-            return false;
+            return _items.ContainsKey(item);
         }
         
         public bool IsOccupied(int x, int y) => _grid[x, y] != null;
@@ -192,14 +189,17 @@ namespace Modules.Inventories
         {
             if (item is null) throw new NullReferenceException(nameof(item));
             if (!Contains(item)) throw new KeyNotFoundException($"Item '{item}' is not in the inventory.");
-            
-            List<Vector2Int> positions = new();
-            for (int x = 0; x < Width; x++)
-            for (int y = 0; y < Height; y++)
-                if (Equals(_grid[x, y], item))
-                    positions.Add(new Vector2Int(x, y));
 
-            return positions.ToArray();
+            Vector2Int startPoint = _items[item];
+            Vector2Int size = item.Size;
+            Vector2Int[] positions = new Vector2Int[size.x * size.y];
+    
+            int i = 0;
+            for (int x = startPoint.x; x < startPoint.x + size.x; x++)
+                for (int y = startPoint.y; y < startPoint.y + size.y; y++)
+                    positions[i++] = new Vector2Int(x, y);
+    
+            return positions;
         }
 
         public bool TryGetPositions(Item item, out Vector2Int[] positions)
@@ -218,9 +218,16 @@ namespace Modules.Inventories
 
         #region GetItemCount
 
-        public int GetItemCount() => GetItemCount(item => true);
-        
-        public int GetItemCount(string name) => GetItemCount(item => item.Name == name);
+        public int GetItemCount() => _items.Count;
+
+        public int GetItemCount(string name)
+        {
+            int count = 0;
+            foreach (Item item in _items.Keys)
+                if (item.Name == name) 
+                    count++;
+            return count;
+        }
 
         #endregion
         
@@ -228,25 +235,31 @@ namespace Modules.Inventories
 
         public void OptimizeSpace()
         {
-            HashSet<Item> seen = new();
-            List<Item> items = new();
-            
-            for (int x = 0; x < Width; x++)
-            for (int y = 0; y < Height; y++)
+            Dictionary<Item, Vector2Int>.KeyCollection keys = _items.Keys;
+            int count = keys.Count;
+            if (count == 0) return;
+
+            Item[] rentedArray = ArrayPool<Item>.Shared.Rent(count);
+            try
             {
-                Item item = _grid[x, y];
-                if (item != null && seen.Add(item))
-                    items.Add(item);
+                keys.CopyTo(rentedArray, 0);
+                Array.Sort(rentedArray, 0, count, new ItemComparer());
+                Clear();
+
+                for (int i = 0; i < count; i++)
+                {
+                    Item item = rentedArray[i];
+                    if (FindFreePosition(item.Size, out Vector2Int pos))
+                        PlaceItem(item, pos.x, pos.y);
+                    else
+                        throw new InvalidOperationException(
+                            $"Not enough space to place item {item} after optimization.");
+                }
             }
-
-            Array.Clear(_grid, 0, _grid.Length);
-
-            List<Item> sorted = new List<Item>(items);
-            sorted.Sort(CompareItems);
-
-            foreach (var item in sorted)
-                if (FindFreePosition(item.Size, out var pos))
-                    PlaceItem(item, pos.x, pos.y);
+            finally
+            {
+                ArrayPool<Item>.Shared.Return(rentedArray);
+            }
         }
 
         #endregion
@@ -255,14 +268,9 @@ namespace Modules.Inventories
 
         public IEnumerator<Item> GetEnumerator()
         {
-            HashSet<Item> uniqueItems = new();
-            for (int x = 0; x < Width; x++)
-            for (int y = 0; y < Height; y++)
-            {
-                var item = _grid[x, y];
-                if (item != null && uniqueItems.Add(item))
-                    yield return item;
-            }
+            Dictionary<Item, Vector2Int>.KeyCollection.Enumerator enumerator = _items.Keys.GetEnumerator();
+            while (enumerator.MoveNext())
+                yield return enumerator.Current;
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -328,21 +336,9 @@ namespace Modules.Inventories
             position = default;
             return false;
         }
-        
-        private int GetItemCount(Func<Item, bool> condition)
-        {
-            var items = new HashSet<Item>();
-            for (int x = 0; x < Width; x++)
-            for (int y = 0; y < Height; y++)
-            {
-                var item = _grid[x, y];
-                if (item != null && condition(item))
-                    items.Add(item);
-            }
-            return items.Count;
-        }
 
         private bool AreCoordinatesNonNegative(int x, int y) => x >= 0 && y >= 0;
+        
         private bool IsWithinBounds(int endX, int endY) => endX < Width && endY < Height;
 
         private bool IsFreeSpace(int startX, int startY, int endX, int endY)
@@ -355,51 +351,45 @@ namespace Modules.Inventories
             return true;
         }
 
-        private Vector2Int FindItemStartPoint(Item item)
-        {
-            int minX = int.MaxValue, minY = int.MaxValue;
-            for (int x = 0; x < Width; x++)
-                for (int y = 0; y < Height; y++)
-                    if (Equals(_grid[x, y], item))
-                    {
-                        if (x < minX) minX = x;
-                        if (y < minY) minY = y;
-                    }
-
-            return minX == int.MaxValue ? default : new Vector2Int(minX, minY);
-        }
-
         private void PlaceItem(Item item, int startX, int startY)
         {
             for (int x = startX; x < startX + item.Size.x; x++)
                 for (int y = startY; y < startY + item.Size.y; y++)
                     _grid[x, y] = item;
+            
+            _items.Add(item, new Vector2Int(startX, startY));
         }
 
         private void ClearCells(Item item)
         {
-            for (int x = 0; x < Width; x++)
-                for (int y = 0; y < Height; y++)
-                    if (Equals(_grid[x, y], item))
-                        _grid[x, y] = null;
+            Vector2Int startPoint = _items[item];
+            
+            for (int x = startPoint.x; x < startPoint.x + item.Size.x; x++)
+                for (int y = startPoint.y; y < startPoint.y + item.Size.y; y++)
+                    _grid[x, y] = null;
+            
+            _items.Remove(item);
         }
 
-        private int CompareItems(Item a, Item b)
+        private class ItemComparer : IComparer<Item>
         {
-            // Area comparison
-            int areaComparison = CompareByAreaDesc(a, b);
-            if (areaComparison != 0)
-                return areaComparison;
+            public int Compare(Item a, Item b)
+            {
+                if (a == null && b == null) return 0;
+                if (a == null) return -1;
+                if (b == null) return 1;
 
-            // ID comparison
-            return CompareByIdAsc(a, b);
+                // Area comparison
+                int areaComparison = GetArea(b).CompareTo(GetArea(a));
+                if (areaComparison != 0)
+                    return areaComparison;
+                
+                // ID comparison
+                return a.Id.CompareTo(b.Id);
+            }
+
+            private int GetArea(Item item) => item.Size.x * item.Size.y;
         }
-
-        private int CompareByAreaDesc(Item a, Item b) => GetArea(b).CompareTo(GetArea(a));
-        
-        private int GetArea(Item item) => item.Size.x * item.Size.y;
-
-        private int CompareByIdAsc(Item a, Item b) => a.Id.CompareTo(b.Id);
         
         #endregion
     }
