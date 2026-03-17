@@ -243,7 +243,7 @@ namespace Modules.Inventories
             try
             {
                 keys.CopyTo(rentedArray, 0);
-                Array.Sort(rentedArray, 0, count, new ItemComparer());
+                Array.Sort(rentedArray, 0, count, ItemComparator.Instance);
                 Clear();
 
                 for (int i = 0; i < count; i++)
@@ -268,9 +268,8 @@ namespace Modules.Inventories
 
         public IEnumerator<Item> GetEnumerator()
         {
-            Dictionary<Item, Vector2Int>.KeyCollection.Enumerator enumerator = _items.Keys.GetEnumerator();
-            while (enumerator.MoveNext())
-                yield return enumerator.Current;
+            foreach (var item in _items.Keys)
+                yield return item;
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -371,20 +370,22 @@ namespace Modules.Inventories
             _items.Remove(item);
         }
 
-        private class ItemComparer : IComparer<Item>
+        private class ItemComparator : IComparer<Item>
         {
+            private static readonly Lazy<ItemComparator> _instance = new(() => new ItemComparator());
+
+            public static ItemComparator Instance => _instance.Value;
+
             public int Compare(Item a, Item b)
             {
                 if (a == null && b == null) return 0;
                 if (a == null) return -1;
                 if (b == null) return 1;
 
-                // Area comparison
                 int areaComparison = GetArea(b).CompareTo(GetArea(a));
                 if (areaComparison != 0)
                     return areaComparison;
-                
-                // ID comparison
+
                 return a.Id.CompareTo(b.Id);
             }
 
