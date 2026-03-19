@@ -8,6 +8,10 @@ namespace Game.Scripts.UI
     {
         [InjectOptional]
         [ShowInInspector, HideInEditorMode]
-        private ItemPopupPresenter _presenter;
+        private ItemPopupPresenter _itemPresenter;
+        
+        [InjectOptional]
+        [ShowInInspector, HideInEditorMode]
+        private InventoryPopupPresenter _inventoryPresenter;
     }
 }

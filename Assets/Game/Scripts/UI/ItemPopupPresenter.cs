@@ -6,18 +6,28 @@ namespace Game.Scripts.UI
 {
     public sealed class ItemPopupPresenter
     {
-        private readonly ItemPopupView _view;
+        private readonly IItemPopupView _view;
 
         private readonly Inventory<Item> _inventory;
         private readonly ItemConsumer _itemConsumer;
         
         [ShowInInspector, ReadOnly] private Item _targetItem;
 
-        public ItemPopupPresenter(ItemPopupView view, Inventory<Item> inventory, ItemConsumer itemConsumer)
+        public ItemPopupPresenter(IItemPopupView view, Inventory<Item> inventory, ItemConsumer itemConsumer)
         {
             _view = view;
             _inventory = inventory;
             _itemConsumer = itemConsumer;
+        }
+
+        [Button]
+        public void ChangeItem(Item item)
+        {
+            if(_targetItem == item)
+                return;
+            
+            _targetItem = item;
+            UpdateView();
         }
         
         [Button]
@@ -28,25 +38,29 @@ namespace Game.Scripts.UI
             UpdateView();
             _view.Show();
             
+            _view.OnCloseClicked += OnClose;
+            _view.OnConsumeClicked += OnConsume;
             _inventory.OnCountChanged += OnItemCountChanged;
         }
         
         [Button]
         public void Hide()
         {
+            _view.OnCloseClicked -= OnClose;
+            _view.OnConsumeClicked -= OnConsume;
             _inventory.OnCountChanged -= OnItemCountChanged;
             _view.Hide();
         }
         
         // View Event
-        public void OnConsume()
+        private void OnConsume()
         {
             if(_targetItem != null && _itemConsumer.CanConsume(_targetItem))
                 _itemConsumer.Consume(_targetItem);
         }
 
         // View Event
-        public void OnClose() => Hide();
+        private void OnClose() => Hide();
 
         private void UpdateView()
         {
