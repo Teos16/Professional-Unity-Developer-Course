@@ -266,11 +266,7 @@ namespace Modules.Inventories
         
         #region IEnumerator
 
-        public IEnumerator<Item> GetEnumerator()
-        {
-            foreach (var item in _items.Keys)
-                yield return item;
-        }
+        public IEnumerator<Item> GetEnumerator() => _items.Keys.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
