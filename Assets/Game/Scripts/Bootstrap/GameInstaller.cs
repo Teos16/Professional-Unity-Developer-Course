@@ -19,16 +19,24 @@ namespace Game
             InstallGameplayMechanics();
             InstallPool();
             InstallUI();
-            
         }
 
         private void InstallGameplayMechanics()
         {
-            Container.BindInterfacesAndSelfTo<DeathHandler>().AsCached();
-            Container.BindInterfacesAndSelfTo<RewardApplier>().AsCached();
-            Container.BindInterfacesAndSelfTo<Progression>().AsCached();
+            Container.Bind<GameCycle>().AsSingle();
+
+            Container.BindInterfacesAndSelfTo<OutOfBordersController>().AsCached();
+            Container.BindInterfacesAndSelfTo<SelfCollisionController>().AsCached();
+
+            Container.BindInterfacesAndSelfTo<CoinPickupController>().AsCached();
+            Container.BindInterfacesAndSelfTo<SnakeExpandController>().AsCached();
+            Container.BindInterfacesAndSelfTo<ScoreController>().AsCached();
+
+            Container.BindInterfacesAndSelfTo<CoinSpawnController>().AsCached();
+            Container.BindInterfacesAndSelfTo<SnakeSpeedController>().AsCached();
+            Container.BindInterfacesAndSelfTo<DifficultyController>().AsCached();
+
             Container.Bind<CoinManager>().AsSingle();
-            Container.Bind<CoinSpawner>().AsSingle();
         }
 
         private void InstallModules()

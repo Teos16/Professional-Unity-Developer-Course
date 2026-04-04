@@ -7,20 +7,17 @@ namespace Game
 {
     public sealed class GameUIController : IInitializable, IDisposable
     {
-        private IGameUI _gameUI;
-        private IDifficulty _difficulty;
-        private IScore _score;
-        private DeathHandler _deathHandler;
-        private Progression _progression;
+        private readonly IGameUI _gameUI;
+        private readonly IDifficulty _difficulty;
+        private readonly IScore _score;
+        private readonly GameCycle _gameCycle;
 
-        public GameUIController(IGameUI gameUI, IDifficulty difficulty, IScore score, 
-            DeathHandler deathHandler, Progression progression)
+        public GameUIController(IGameUI gameUI, IDifficulty difficulty, IScore score, GameCycle gameCycle)
         {
             _gameUI = gameUI;
             _difficulty = difficulty;
             _score = score;
-            _deathHandler = deathHandler;
-            _progression = progression;
+            _gameCycle = gameCycle;
         }
         
         public void Initialize()
@@ -30,16 +27,16 @@ namespace Game
             
             _difficulty.OnStateChanged += DisplayDifficulty;
             _score.OnStateChanged += DisplayScore;
-            _deathHandler.OnDeath += DisplayGameOverOnDeath;
-            _progression.OnVictory += DisplayGameOverOnVictory;
+            _gameCycle.OnDeath += DisplayGameOverOnDeath;
+            _gameCycle.OnVictory += DisplayGameOverOnVictory;
         }
 
         public void Dispose()
         {
             _difficulty.OnStateChanged -= DisplayDifficulty;
             _score.OnStateChanged -= DisplayScore;
-            _deathHandler.OnDeath -= DisplayGameOverOnDeath;
-            _progression.OnVictory -= DisplayGameOverOnVictory;
+            _gameCycle.OnDeath -= DisplayGameOverOnDeath;
+            _gameCycle.OnVictory -= DisplayGameOverOnVictory;
         }
 
         private void DisplayDifficulty() => _gameUI.SetDifficulty(_difficulty.Current, _difficulty.Max);
