@@ -25,7 +25,5 @@ namespace Game.Scripts.UI
         public void SetCount(string count) => _count.text = count;
         
         public void SetIcon(Sprite icon) => _icon.sprite = icon;
-
-        public class Pool : MonoMemoryPool<ItemCardView> { }
     }
 }

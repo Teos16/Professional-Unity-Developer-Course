@@ -785,6 +785,7 @@ GameObject:
   m_Component:
   - component: {fileID: 927510461709449721}
   - component: {fileID: 2637839306074181002}
+  - component: {fileID: -7591133906637103276}
   m_Layer: 5
   m_Name: InventoryPopup
   m_TagString: Untagged
@@ -825,9 +826,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76199a79f95e429d983abed923fba701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.InventoryPopupView
+  _animationDuration: 0.35
+  _animationRoot: {fileID: 1078624010915681947}
   _closeButton: {fileID: 1100906618251229741}
+--- !u!114 &-7591133906637103276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6495445288798783470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace83c0e4f584a61b565b09a7b7a0ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.InventoryPopupPresenter
+  _inventoryView: {fileID: 2637839306074181002}
   _container: {fileID: 8404738603871487210}
-  _itemPrefab: {fileID: -3427875620951454677, guid: e5fef2a7bc69247099bdd0aad287dcda, type: 3}
 --- !u!1 &7989612346115207013
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,21 +1,32 @@
 ﻿using Modules.Inventories;
+using Modules.Popups;
 using SampleGame.Gameplay;
 using Sirenix.OdinInspector;
+using UnityEngine;
+using Zenject;
 
 namespace Game.Scripts.UI
 {
-    public sealed class ItemPopupPresenter
+    public sealed class ItemPopupPresenter : PopupPresenter<ItemPopupPresenter.Args>
     {
-        private readonly IItemPopupView _view;
+        public readonly struct Args : IPopupArgs
+        {
+            public readonly Item item;
+            
+            public Args(Item item) => this.item = item;
+        }
+        
+        [SerializeField]
+        private ItemPopupView _view;
 
-        private readonly Inventory<Item> _inventory;
-        private readonly ItemConsumer _itemConsumer;
+        private Inventory<Item> _inventory;
+        private ItemConsumer _itemConsumer;
         
         [ShowInInspector, ReadOnly] private Item _targetItem;
-
-        public ItemPopupPresenter(IItemPopupView view, Inventory<Item> inventory, ItemConsumer itemConsumer)
+        
+        [Inject]
+        public void Construct(Inventory<Item> inventory, ItemConsumer itemConsumer)
         {
-            _view = view;
             _inventory = inventory;
             _itemConsumer = itemConsumer;
         }
@@ -30,10 +41,9 @@ namespace Game.Scripts.UI
             UpdateView();
         }
         
-        [Button]
-        public void Show(Item item)
+        public override void Show(Args args)
         {
-            _targetItem = item;
+            _targetItem = args.item;
             
             UpdateView();
             _view.Show();
@@ -43,8 +53,7 @@ namespace Game.Scripts.UI
             _inventory.OnCountChanged += OnItemCountChanged;
         }
         
-        [Button]
-        public void Hide()
+        public override void Hide()
         {
             _view.OnCloseClicked -= OnClose;
             _view.OnConsumeClicked -= OnConsume;
@@ -60,7 +69,13 @@ namespace Game.Scripts.UI
         }
 
         // View Event
-        private void OnClose() => Hide();
+        private void OnClose()
+        {
+            Manager.Show<InventoryPopupPresenter>(new InventoryPopupPresenter.Args
+            {
+                animateShow = false
+            });
+        }
 
         private void UpdateView()
         {

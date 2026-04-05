@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 4173924324186843193}
   - component: {fileID: 4173924324186843192}
   - component: {fileID: 4173924324186843194}
+  - component: {fileID: 750644641695772883}
   m_Layer: 5
   m_Name: InventoryButton
   m_TagString: Untagged
@@ -196,3 +197,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &750644641695772883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4173924324186843190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4496ad06167b49f68fbd7212f6ddd18e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.InventoryButtonPresenter
+  _button: {fileID: 4173924324186843194}

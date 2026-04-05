@@ -223,6 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1902519625245352144}
   - component: {fileID: 5183240899256467749}
+  - component: {fileID: -2112657735750662569}
   m_Layer: 5
   m_Name: ItemPopup
   m_TagString: Untagged
@@ -263,12 +264,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8038e43fa441f0bb3f21425b6b3e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.ItemPopupView
+  _animationDuration: 0.35
+  _animationRoot: {fileID: 1836734647262205427}
   _title: {fileID: 1636597493764598980}
   _description: {fileID: 2368632243306278604}
   _count: {fileID: 6339253097907884684}
   _icon: {fileID: 3672262115325699976}
   _closeButton: {fileID: 2758162274448275246}
   _consumeButton: {fileID: 904667749947029423}
+--- !u!114 &-2112657735750662569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366350498785767438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8be243724f6d45e1bb4baff5e0f725b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Scripts.UI.ItemPopupPresenter
+  _view: {fileID: 5183240899256467749}
 --- !u!1 &2738617979660080296
 GameObject:
   m_ObjectHideFlags: 0

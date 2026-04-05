@@ -1,23 +1,26 @@
-﻿using System;
+﻿using Modules.Popups;
+using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Game.Scripts.UI
 {
-    public sealed class InventoryButtonPresenter : IDisposable
+    public sealed class InventoryButtonPresenter : MonoBehaviour
     {
-        private readonly Button _button;
-        private readonly InventoryPopupPresenter _inventoryPresenter;
+        [SerializeField] private Button _button;
         
-        public InventoryButtonPresenter(Button button, InventoryPopupPresenter inventoryPresenter)
+        private PopupManager _manager;
+        
+        [Inject]
+        public void Construct(PopupManager manager) => _manager = manager;
+
+        private void OnEnable() => _button.onClick.AddListener(OnClicked);
+
+        private void OnDisable() => _button.onClick.RemoveListener(OnClicked);
+
+        private void OnClicked() => _manager.Show<InventoryPopupPresenter>(new InventoryPopupPresenter.Args
         {
-            _button = button;
-            _inventoryPresenter = inventoryPresenter;
-            
-            button.onClick.AddListener(OnClicked);
-        }
-
-        public void Dispose() => _button.onClick.RemoveListener(OnClicked);
-
-        private void OnClicked() => _inventoryPresenter.Show();
+            animateShow = true
+        });
     }
 }

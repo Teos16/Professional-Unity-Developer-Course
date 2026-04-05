@@ -1,11 +1,12 @@
-﻿using TMPro;
+﻿using Modules.Popups;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Game.Scripts.UI
 {
-    public sealed class ItemPopupView : MonoBehaviour, IItemPopupView
+    public sealed class ItemPopupView : PopupView
     {
         public event UnityAction OnConsumeClicked
         {
@@ -37,9 +38,5 @@ namespace Game.Scripts.UI
         public void SetConsumable(bool consumable) => _consumeButton.gameObject.SetActive(consumable);
         
         public void SetConsumeAllowed(bool allowed) => _consumeButton.interactable = allowed;
-
-        public void Show() => gameObject.SetActive(true);
-        
-        public void Hide() => gameObject.SetActive(false);
     }
 }

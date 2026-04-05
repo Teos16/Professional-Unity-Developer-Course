@@ -32,7 +32,7 @@ namespace Modules.Popups
 
         private void Awake()
         {
-            _pool.gameObject.SetActive(false);
+            _pool.gameObject.SetActive(true);
         }
 
         public void Show<T>(IPopupArgs args = null)

@@ -1,43 +1,57 @@
 ﻿using System.Collections.Generic;
 using Modules.Inventories;
+using Modules.Popups;
 using SampleGame.Gameplay;
 using Sirenix.OdinInspector;
+using UnityEngine;
+using Zenject;
 
 namespace Game.Scripts.UI
 {
-    public sealed class InventoryPopupPresenter
+    public sealed class InventoryPopupPresenter : PopupPresenter<InventoryPopupPresenter.Args>
     {
-        private readonly InventoryPopupView _inventoryView;
-        private readonly Inventory<Item> _inventory;
-        private readonly ItemCardPresenter.Factory _itemFactory;
+
+        public struct Args : IPopupArgs
+        {
+            public bool animateShow;
+        }
+        
+        [SerializeField] private InventoryPopupView _inventoryView;
+        [SerializeField] private Transform _container;
+        
+        private Inventory<Item> _inventory;
+        private ItemCardPresenter.Pool _cardPresenterPool;
         
         private readonly Dictionary<Item, ItemCardPresenter> _cards = new();
         
-        public InventoryPopupPresenter(
-            InventoryPopupView inventoryView, 
-            Inventory<Item> inventory, 
-            ItemCardPresenter.Factory itemFactory)
+        [Inject]
+        public void Construct(Inventory<Item> inventory, ItemCardPresenter.Pool itemPool)
         {
-            _inventoryView = inventoryView;
             _inventory = inventory;
-            _itemFactory = itemFactory;
+            _cardPresenterPool = itemPool;
         }
         
         [Button]
-        public void Show()
+        public override void Show(Args args)
         {
-            _inventoryView.Show();
+            if (args.animateShow) 
+                _inventoryView.AnimateShow();
+            else
+                _inventoryView.Show();
+
             _inventoryView.OnClosedClicked += OnCloseClicked;
 
             _inventory.OnCellAdded += OnItemAdded;
             _inventory.OnCellRemoved += OnItemRemoved;
-            
-            foreach (KeyValuePair<Item, int> pair in _inventory.GetItems()) 
+
+            foreach (KeyValuePair<Item, int> pair in _inventory.GetItems())
+            {
                 CreateCard(pair.Key);
+            }
         }
 
         [Button]
-        public void Hide()
+        public override void Hide()
         {
             _inventoryView.Hide();
             _inventoryView.OnClosedClicked -= OnCloseClicked;
@@ -48,9 +62,8 @@ namespace Game.Scripts.UI
             foreach (KeyValuePair<Item, ItemCardPresenter> pair in _cards)
             {
                 ItemCardPresenter presenter = pair.Value;
-                ItemCardView view = presenter.View;
-                _inventoryView.DespawnItem(view);
-                presenter.Dispose();
+                presenter.Hide();
+                _cardPresenterPool.Despawn(presenter);
             }
             
             _cards.Clear();
@@ -65,19 +78,19 @@ namespace Game.Scripts.UI
         {
             if (_cards.Remove(item, out ItemCardPresenter presenter))
             {
-                ItemCardView view = presenter.View;
-                _inventoryView.DespawnItem(view);
-                presenter.Dispose();
+                presenter.Hide();
+                _cardPresenterPool.Despawn(presenter);
             }
         }
 
         private void CreateCard(Item item)
         {
-            ItemCardView cardView = _inventoryView.SpawnItem();
-            ItemCardPresenter cardPresenter = _itemFactory.Create(item, cardView);
+            ItemCardPresenter cardPresenter = _cardPresenterPool.Spawn();
+            cardPresenter.transform.SetParent(_container, false);
+            cardPresenter.Show(item);
             _cards.Add(item, cardPresenter);
         }
 
-        private void OnCloseClicked() => Hide();
+        private void OnCloseClicked() => _inventoryView.AnimateHide(() => Manager.Hide());
     }
 }

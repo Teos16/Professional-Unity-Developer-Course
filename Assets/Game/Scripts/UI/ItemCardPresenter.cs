@@ -1,42 +1,46 @@
 ﻿using System;
 using Modules.Inventories;
+using Modules.Popups;
 using SampleGame.Gameplay;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Scripts.UI
 {
-    public sealed class ItemCardPresenter : IDisposable
+    public sealed class ItemCardPresenter : MonoBehaviour
     {
         public ItemCardView View => _view;
         
-        private readonly ItemCardView _view;
-        private readonly Item _item;
-        private readonly Inventory<Item> _inventory;
-        private readonly ItemPopupPresenter _itemPopup;
+        [SerializeField] private ItemCardView _view;
+        private Item _item;
+        private Inventory<Item> _inventory;
+        private PopupManager _popupManager;
 
-        public ItemCardPresenter(
-            ItemCardView view, 
-            Item item, 
-            Inventory<Item> inventory, 
-            ItemPopupPresenter popupPresenter)
+        [Inject]
+        public void Construct(Inventory<Item> inventory, PopupManager popupManager)
         {
-            _view = view;
-            _item = item;
             _inventory = inventory;
-            _itemPopup = popupPresenter;
+            _popupManager = popupManager;
+        }
 
-            _view.SetTitle(_item.Title);
-            _view.SetCount(_inventory.GetCount(_item).ToString());
-            _view.SetIcon(_item.Icon);
-            _view.OnClicked += OnClicked;
+        public void Show(Item item)
+        {
+            if( _item != item)
+            {
+                _item = item;
+                _view.SetTitle(_item.Title);
+                _view.SetCount(_inventory.GetCount(_item).ToString());
+                _view.SetIcon(_item.Icon);
+            }
             
+            _view.OnClicked += OnClicked;
             _inventory.OnCountChanged += OnCountChanged;
         }
 
-        public void Dispose()
+        public void Hide()
         {
+            _view.OnClicked -= OnClicked;
             _inventory.OnCountChanged -= OnCountChanged;
-            _view.OnClicked += OnClicked;
         }
 
         // Model Event
@@ -47,8 +51,8 @@ namespace Game.Scripts.UI
         }
     
         // UI Event
-        private void OnClicked() => _itemPopup.Show(_item);
-        
-        public class Factory : PlaceholderFactory<Item, ItemCardView, ItemCardPresenter> { }
+        private void OnClicked() => _popupManager.Show<ItemPopupPresenter>(new ItemPopupPresenter.Args(_item));
+
+        public class Pool : MonoMemoryPool<ItemCardPresenter> { }
     }
 }
