@@ -54,11 +54,11 @@ namespace Game.Views
 
         public void SetPlanetName(string planetName) => _planetName.text = planetName;
         
-        public void SetPlanetPopulation(string population) => _planetPopulation.text = $"Population: {population}";
+        public void SetPlanetPopulation(string population) => _planetPopulation.text = population;
 
-        public void SetPlanetLevel(string level, string maxLevel) => _planetLevel.text = $"Level: {level} / {maxLevel}";
+        public void SetPlanetLevel(string level) => _planetLevel.text = level;
 
-        public void SetPlanetIncome(string income) => _planetIncome.text = $"Income: {income} / sec";
+        public void SetPlanetIncome(string income) => _planetIncome.text = income;
         
         public void SetAvatar(Sprite sprite) => _avatar.sprite = sprite;
 

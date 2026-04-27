@@ -13,8 +13,6 @@ namespace Game.Views
             add => _planetButton.OnClick += value;  
             remove => _planetButton.OnClick -= value;  
         }
-
-        public event Action OnCoinParticleAnimationComplete;
         
         [SerializeField] private SmartButton _planetButton;
         [SerializeField] private Image _progressBarBackground;
@@ -41,22 +39,16 @@ namespace Game.Views
 
         public void SetProgressTimeEnabled(bool isEnabled) => _incomeProgressTime.gameObject.SetActive(isEnabled);
 
-        public void SetProgressTime(int minutes, int seconds)
-        {
-            if (seconds < 0 && minutes <= 0)
-                return;
-            
-            _incomeProgressTime.text = $"{minutes}m : {seconds:D2}s";
-        }
+        public void SetProgressTime(string formattedTime) => _incomeProgressTime.text = formattedTime;
         
         public void SetProgressOnBar(float progress) => _progressBarFilling.fillAmount = progress;
         
-        public void LaunchCoin()
+        public void LaunchCoin(Action callback)
         {
             _coinParticleAnimator.Emit(_coin.transform.position, 
                                         _coinParticleTarget.position, 
                                         _coinAnimationDuration,
-                                        () => OnCoinParticleAnimationComplete?.Invoke());
+                                        callback);
         }
     }
 }

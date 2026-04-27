@@ -19,6 +19,8 @@ namespace Game.Presenters
             _moneyStorage.OnMoneyChanged += ChangeMoney;
             ChangeMoney(_moneyStorage.Money, 0);
         }
+        
+        private void OnDestroy() => _moneyStorage.OnMoneyChanged -= ChangeMoney;
 
         private void ChangeMoney(int newValue, int prevValue) => _view.AnimateMoneyChange(newValue, prevValue);
     }

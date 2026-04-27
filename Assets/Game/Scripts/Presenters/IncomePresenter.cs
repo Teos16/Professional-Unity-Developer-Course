@@ -1,4 +1,5 @@
-﻿using Game.Views;
+﻿using System.Text;
+using Game.Views;
 using Modules.Planets;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -7,10 +8,17 @@ namespace Game.Presenters
 {
     public sealed class IncomePresenter : MonoBehaviour
     {
+        private const string MINUTES_TEXT = "m : ";
+        private const string SECONDS_TEXT = "s";
+        
         [SerializeField] private IncomeView _view;
         [SerializeField] private float _coinAnimationDuration = 1f;
         
         private IPlanet _planet;
+        
+        private readonly StringBuilder _builder = new();
+
+        private bool _isCollected;
         
         private void Start()
         {
@@ -19,14 +27,9 @@ namespace Game.Presenters
             _view.SetCoinAnimationDuration(_coinAnimationDuration);
             
             _view.OnPlanetClicked += StartIncomeGathering;
-            _view.OnCoinParticleAnimationComplete += GatherIncome;
         }
 
-        private void OnDestroy()
-        {
-            _view.OnPlanetClicked -= StartIncomeGathering;
-            _view.OnCoinParticleAnimationComplete -= GatherIncome;
-        }
+        private void OnDestroy() => _view.OnPlanetClicked -= StartIncomeGathering;
 
 
         public void SetPlanet(IPlanet planet)
@@ -43,11 +46,13 @@ namespace Game.Presenters
         [Button]
         private void StartIncomeGathering()
         {
-            if (CanCollectIncome()) 
-                _view.LaunchCoin();
+            if (CanCollectIncome())
+            {
+                _view.LaunchCoin(OnCoinLaunch);
+                _view.EnableCoin(false);
+                _isCollected = true;
+            }
         }
-
-        private void GatherIncome() => _planet.GatherIncome();
 
         [Button]
         private void Show()
@@ -89,11 +94,29 @@ namespace Game.Presenters
             {
                 int minutes = Mathf.FloorToInt(timeLeft / 60f);
                 int seconds = Mathf.FloorToInt(timeLeft % 60f);
-                _view.SetProgressTime(minutes, seconds);
+                var formattedTime = FormattedTime(minutes, seconds);
+                _view.SetProgressTime(
+                    formattedTime);
                 _view.SetProgressOnBar(_planet.IncomeProgress);
             }
         }
 
-        private bool CanCollectIncome() => _planet != null && _planet.IsUnlocked && _planet.IsIncomeReady;
+        private string FormattedTime(int minutes, int seconds)
+        {
+            _builder.Clear();
+            _builder.Append(minutes)
+                .Append(MINUTES_TEXT)
+                .Append(seconds)
+                .Append(SECONDS_TEXT);
+            return _builder.ToString();
+        }
+
+        private void OnCoinLaunch()
+        {
+            _planet.GatherIncome();
+            _isCollected = false;
+        }
+
+        private bool CanCollectIncome() => _planet is { IsUnlocked: true, IsIncomeReady: true } && !_isCollected;
     }
 }

@@ -8,6 +8,9 @@ namespace Game.Presenters
 {
     public sealed class PlanetPresenter : MonoBehaviour
     {
+        public string Name => _config.Name;
+        
+        [SerializeField] private PlanetConfig _config;
         [SerializeField] private PlanetView _view;
         [SerializeField] private IncomePresenter _incomePresenter;
         
@@ -17,13 +20,22 @@ namespace Game.Presenters
         [Inject]
         public void Construct(PlanetPopupPresenter popupPresenter) => _popupPresenter = popupPresenter;
 
-        private void Start() => _view.OnPlanetClicked += Interact;
+        private void Start()
+        {
+            _view.OnPlanetClicked += Unlock;
+            _view.OnPlanetHold += ShowPopup;
+        }
 
-        private void OnDestroy() => _view.OnPlanetClicked -= Interact;
+        private void OnDestroy()
+        {
+            _view.OnPlanetClicked -= Unlock;
+            _view.OnPlanetHold -= ShowPopup;
+        }
 
         public void Show(IPlanet planet)
         {
             _planet = planet;
+            _planet.OnUnlocked += UpdateView;
             _incomePresenter.SetPlanet(_planet);
             UpdateView();
         }
@@ -39,26 +51,19 @@ namespace Game.Presenters
             if (showPrice)
                 _view.SetPurchasePrice(_planet.Price.ToString());
         }
-
-        private void Interact()
-        {
-            if (_planet != null && _planet.CanUnlock)
-                Unlock();
-            else if (_planet != null && _planet.IsUnlocked)
-                ShowPopup();
-        }
         
+        [Button]
         private void ShowPopup()
         {
-            _popupPresenter.gameObject.SetActive(true);
-            _popupPresenter.Show(_planet);
+            if (_planet is { IsUnlocked: true }) 
+                _popupPresenter.Show(_planet);
         }
 
         [Button]
         private void Unlock()
         {
-            _planet.Unlock();
-            UpdateView();
+            if (_planet is { CanUnlock: true }) 
+                _planet.Unlock();
         }
     }
 }
