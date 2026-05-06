@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7983fbfdef8f4a1fa6dc6a48c9c5fe4f, type: 3}
+  m_Name: SaveFeatureInstaller
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.Gameplay.SaveFeatureInstaller
+  _uri: http://127.0.0.1:8888
+  _fileName: SaveData.txt
+  _version: 1.0

@@ -1,0 +1,18 @@
+{
+    "name": "Modules.Repositories",
+    "rootNamespace": "",
+    "references": [
+        "UniTask",
+        "Modules.Hashing",
+        "Modules.Encryption"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
