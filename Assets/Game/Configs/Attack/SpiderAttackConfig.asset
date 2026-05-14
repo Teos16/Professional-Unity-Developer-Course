@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45bff6ac99c94203bc2d52d3e40e326f, type: 3}
+  m_Name: SpiderAttackConfig
+  m_EditorClassIdentifier: Assembly-CSharp::Game.AttackConfig
+  <CanDamage>k__BackingField: 1
+  <Damage>k__BackingField: 1
+  <CanPush>k__BackingField: 1
+  <PushConfig>k__BackingField: {fileID: 11400000, guid: b3b118e38c0f9f54a9d006c59dc2313a, type: 2}
+  <ForceMode>k__BackingField: 0
+  <Cooldown>k__BackingField: 0.5
