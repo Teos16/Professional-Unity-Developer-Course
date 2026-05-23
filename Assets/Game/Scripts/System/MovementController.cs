@@ -18,7 +18,7 @@ namespace Game.Scripts.System
                 moveDirection = Vector2.zero;
                  
             if (moveDirection != Vector2.zero)
-                _character.GetComponent<MoveRequestComponent>().Move(moveDirection);
+                _character.GetComponent<MoveComponent>().RequestMove(moveDirection);
         }
     }
 }

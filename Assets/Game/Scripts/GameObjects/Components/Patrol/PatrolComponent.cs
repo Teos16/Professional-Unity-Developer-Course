@@ -2,7 +2,7 @@
 
 namespace Game
 {
-    [RequireComponent(typeof(MoveRequestComponent))]
+    [RequireComponent(typeof(MoveComponent), typeof(LookComponent))]
     public sealed class PatrolComponent : MonoBehaviour
     {
         public interface ICondition
@@ -14,14 +14,17 @@ namespace Game
         
         [SerializeField] private Transform[] _waypoints;
         
-        private MoveRequestComponent _moveRequestComponent;
+        private MoveComponent _moveComponent;
+        private LookComponent _lookComponent;
         private ICondition _condition;
 
         private int _currentIndex;
 
         private void Awake()
         {
-            _moveRequestComponent = GetComponent<MoveRequestComponent>();
+            _moveComponent = GetComponent<MoveComponent>();
+            _lookComponent = GetComponent<LookComponent>();
+            
             if (_waypoints.Length < 2) 
                 Debug.LogError($"PatrolComponent of {gameObject.name}: Waypoints array is empty");
         }
@@ -30,19 +33,16 @@ namespace Game
         {
             if (_waypoints.Length < 2 && !_condition.Evaluate()) 
                 return;
-            Move();
-        }
-        
-        public void SetCondition(ICondition condition) => _condition = condition;
-
-        private void Move()
-        {
+            
             Vector2 target = _waypoints[_currentIndex].position;
             Vector2 direction = (target - (Vector2)transform.position).normalized;
-            _moveRequestComponent.Move(direction);
+            _moveComponent.Move(direction, Time.fixedDeltaTime);
+            _lookComponent.Look(direction.x);
             
             if (Vector2.Distance(transform.position, target) < EPSILON) 
                 _currentIndex = (_currentIndex + 1) % _waypoints.Length;
         }
+        
+        public void SetCondition(ICondition condition) => _condition = condition;
     }
 }

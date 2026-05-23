@@ -2,7 +2,7 @@
 
 namespace Game
 {
-    public sealed class OnDeathAnimationComponent : MonoBehaviour
+    public sealed class DeathAnimationComponent : MonoBehaviour
     {
         private static readonly int Death = Animator.StringToHash("Death");
         

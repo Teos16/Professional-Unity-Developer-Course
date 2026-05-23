@@ -64,9 +64,10 @@ GameObject:
   - component: {fileID: 2743180993930163208}
   - component: {fileID: 4375523871547856432}
   - component: {fileID: 9080652144006767103}
-  - component: {fileID: 1701657753057520663}
-  - component: {fileID: 7648397645795343756}
   - component: {fileID: 3599242807852986046}
+  - component: {fileID: 1701657753057520663}
+  - component: {fileID: 8659510259958386809}
+  - component: {fileID: 7648397645795343756}
   - component: {fileID: 4514367243071328691}
   - component: {fileID: 6010190589186941509}
   - component: {fileID: 8367810768963099258}
@@ -74,7 +75,6 @@ GameObject:
   - component: {fileID: 5066360522692975241}
   - component: {fileID: 4500639671765698328}
   - component: {fileID: 4701414999039816859}
-  - component: {fileID: 8659510259958386809}
   m_Layer: 9
   m_Name: Character
   m_TagString: Character
@@ -200,6 +200,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.2542764}
   m_Radius: 0.2457236
+--- !u!114 &3599242807852986046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3322474405303096178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c52d70147064bf7816d1a953d6fc2db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Character
 --- !u!114 &1701657753057520663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,6 +226,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.HealthComponent
   _maxHealth: 5
   <CurrentHealth>k__BackingField: 0
+--- !u!114 &8659510259958386809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3322474405303096178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84f7176383bb47dcaa99e393be611250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.OnDeathComponent
 --- !u!114 &7648397645795343756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,18 +256,6 @@ MonoBehaviour:
     m_Bits: 8
   _groundDistance: 0.15
   _ground: {fileID: 0}
---- !u!114 &3599242807852986046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3322474405303096178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c52d70147064bf7816d1a953d6fc2db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.Character
 --- !u!114 &4514367243071328691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,18 +348,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.ExtraGravityComponent
   _gravity: -7
---- !u!114 &8659510259958386809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3322474405303096178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84f7176383bb47dcaa99e393be611250, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.OnDeathComponent
 --- !u!1 &3661016561165312903
 GameObject:
   m_ObjectHideFlags: 0

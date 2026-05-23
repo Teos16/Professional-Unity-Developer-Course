@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    [RequireComponent(typeof(PushRigidbodyComponent), typeof(OverlapDetectComponent))]
+    [RequireComponent(typeof(PushRigidbodyComponent), typeof(OverlapComponent))]
     public sealed class Staff : MonoBehaviour,
         PushRigidbodyComponent.ICondition
     {
@@ -15,7 +15,7 @@ namespace Game
         [SerializeField] private MoveRigidbodyConfig _tossConfig;
         
         private PushRigidbodyComponent _pushRigidbodyComponent;
-        private OverlapDetectComponent _detectComponent;
+        private OverlapComponent _component;
 
         private readonly Dictionary<MoveRigidbodyConfig, float> _lastUsedTimes = new();
         
@@ -24,7 +24,7 @@ namespace Game
         private void Awake()
         {
             _pushRigidbodyComponent = GetComponent<PushRigidbodyComponent>();
-            _detectComponent = GetComponent<OverlapDetectComponent>();
+            _component = GetComponent<OverlapComponent>();
 
             _lastUsedTimes[_pushConfig] = -100f;
             _lastUsedTimes[_tossConfig] = -100f;
@@ -55,7 +55,7 @@ namespace Game
 
         private void Execute(MoveRigidbodyConfig config)
         {
-            int count = _detectComponent.Detect(out Collider2D[] colliders);
+            int count = _component.Detect(out Collider2D[] colliders);
             if (count == 0) return;
             
             for (int i = 0; i < count; i++)

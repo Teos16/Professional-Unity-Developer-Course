@@ -1,106 +1,117 @@
-﻿using System.Collections.Generic;
-using Sirenix.OdinInspector;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game
 {
-    [RequireComponent(typeof(HealthComponent), typeof(JumpRequestComponent), typeof(JumpRigidbodyComponent))] 
-    [RequireComponent(typeof(ExtraGravityComponent), typeof(LookComponent), typeof(CollisionComponent))] 
-    [RequireComponent(typeof(GroundedComponent))]
+    [RequireComponent(typeof(HealthComponent), typeof(JumpRequestComponent), typeof(JumpRigidbodyComponent))]
+    [RequireComponent(typeof(GroundedComponent), typeof(CollisionComponent), typeof(OverlapComponent))]
+    [RequireComponent(typeof(OverlapDetectTargetComponent), typeof(PushRigidbodyComponent), typeof(ExtraGravityComponent))]
     public sealed class Monkey : MonoBehaviour, 
         JumpRequestComponent.IAction, 
         JumpRequestComponent.ICondition,
+        OverlapDetectTargetComponent.ICondition,
         PushRigidbodyComponent.ICondition
     {
-        [SerializeField, Title("Attack Parameters")] private AttackComponent _attackOnLandingComponent;
-        [SerializeField] private PushRigidbodyComponent _pushRigidbodyComponent;
-        [SerializeField] private OverlapDetectComponent _attackOnLandingDetectComponent;
-        [SerializeField] private AttackComponent _attackOnCollisionComponent;
-        [SerializeField, Title("Detect Parameters")] private TriggerComponent _lookTriggerComponent;
-
+        [SerializeField] private AttackConfig _attackConfig;
+        [SerializeField] private float _pushRange = 5f;
+        
         private HealthComponent _healthComponent;
         private JumpRequestComponent _jumpRequestComponent;
         private JumpRigidbodyComponent _jumpRigidbodyComponent;
-        private ExtraGravityComponent _extraGravityComponent;
-        private LookComponent _lookComponent;
         private GroundedComponent _groundedComponent;
         private CollisionComponent _collisionComponent;
+        private OverlapComponent _overlapComponent;
+        private OverlapDetectTargetComponent _overlapDetectTargetComponent;
+        private PushRigidbodyComponent _pushRigidbodyComponent;
 
         private void Awake()
         {
             _healthComponent = GetComponent<HealthComponent>();
+            _groundedComponent = GetComponent<GroundedComponent>();
             _jumpRequestComponent = GetComponent<JumpRequestComponent>();
             _jumpRigidbodyComponent = GetComponent<JumpRigidbodyComponent>();
-            _extraGravityComponent = GetComponent<ExtraGravityComponent>();
-            _lookComponent = GetComponent<LookComponent>();
-            _groundedComponent = GetComponent<GroundedComponent>();
             _collisionComponent = GetComponent<CollisionComponent>();
+            _overlapComponent = GetComponent<OverlapComponent>();
+            _overlapDetectTargetComponent = GetComponent<OverlapDetectTargetComponent>();
+            _pushRigidbodyComponent = GetComponent<PushRigidbodyComponent>();
             
             _jumpRequestComponent.SetAction(this);
             _jumpRequestComponent.SetCondition(this);
+            _overlapDetectTargetComponent.SetCondition(this);
             _pushRigidbodyComponent.SetCondition(this);
-            _attackOnCollisionComponent.SetConditions(EvaluateAttackTarget, EvaluateConditionsOnCollision);
-            _attackOnLandingComponent.SetConditions(EvaluateAttackTarget, EvaluateConditionsOnLanding);
         }
 
         private void OnEnable()
         {
             _groundedComponent.OnGrounded += AttackOnLanding;
             _collisionComponent.OnEntered += AttackOnCollision;
-            _lookTriggerComponent.OnTargetsChanged += LookAtTarget;
         }
 
         private void OnDisable()
         {
             _groundedComponent.OnGrounded -= AttackOnLanding;
             _collisionComponent.OnEntered -= AttackOnCollision;
-            _lookTriggerComponent.OnTargetsChanged -= LookAtTarget;
         }
 
         void JumpRequestComponent.IAction.Invoke() => _jumpRigidbodyComponent.Jump();
 
         bool JumpRequestComponent.ICondition.Evaluate() => _healthComponent.IsAlive && _groundedComponent.IsGrounded;
 
-        bool PushRigidbodyComponent.ICondition.Evaluate() => _healthComponent.IsAlive && _groundedComponent.IsGrounded;
+        bool OverlapDetectTargetComponent.ICondition.EvaluateTarget(GameObject target) =>
+            target.TryGetComponent(out Character character) 
+            && target.TryGetComponent(out HealthComponent healthComponent) 
+            && healthComponent.IsAlive;
 
-        private void AttackOnCollision(Collision2D col) => _attackOnCollisionComponent.Attack(col);
+        private void AttackOnCollision(Collision2D col)
+        {
+            if(!_healthComponent.IsAlive) 
+                return;
 
-        private bool EvaluateAttackTarget(GameObject target) => 
-            target.TryGetComponent(out HealthComponent enemyHealth) && enemyHealth.IsAlive;
+            AttackTarget(col);
+        }
 
-        private bool EvaluateConditionsOnLanding() => _healthComponent.IsAlive && _groundedComponent.IsGrounded;
-
-        private bool EvaluateConditionsOnCollision() => _healthComponent.IsAlive;
+        private void AttackTarget(Collision2D col)
+        {
+            if (!col.otherRigidbody)
+                return;
+            
+            if (!col.gameObject.TryGetComponent(out HealthComponent targetHealth) || !targetHealth.IsAlive)
+                return;
+            
+            _pushRigidbodyComponent.TryPush(col.otherRigidbody, _attackConfig.PushConfig, transform.position);
+            targetHealth.TakeDamage(_attackConfig.Damage);
+        }
 
         private void AttackOnLanding(bool _)
         {
-            _jumpRequestComponent.TryJump();
-            GetTargetsAndAttack();
-        }
-
-        private void LookAtTarget(IReadOnlyCollection<Collider2D> targets)
-        {
-            foreach (Collider2D col in targets)
-            {
-                if (!col.TryGetComponent(out Character character)) continue;
-                
-                _lookComponent.Look(character.transform);
+            if(!_healthComponent.IsAlive || !_groundedComponent.IsGrounded)
                 return;
-            }
+            
+            _jumpRequestComponent.TryJump();
+            GetTargetsAndPush();
         }
 
-        private void GetTargetsAndAttack()
+        private void GetTargetsAndPush()
         {
-            int count = _attackOnLandingDetectComponent.Detect(out Collider2D[] colliders);
+            int count = _overlapComponent.Detect(out Collider2D[] colliders);
             if (count == 0) return;
             
             for (int i = 0; i < count; i++)
             {
                 Collider2D col = colliders[i];
-                if (col == null || col.attachedRigidbody == null) 
+                
+                if (!col || col.gameObject == gameObject || !col.attachedRigidbody) 
                     continue;
-                _attackOnLandingComponent.Attack(col);
+                
+                if (!col.TryGetComponent(out GroundedComponent targetGrounded) || !targetGrounded.IsGrounded) 
+                    continue;
+                
+                if (Vector2.Distance(transform.position, col.transform.position) > _pushRange)
+                    continue;
+                
+                _pushRigidbodyComponent.TryPush(col.attachedRigidbody, _attackConfig.PushConfig, transform.position);
             }
         }
+        
+        bool PushRigidbodyComponent.ICondition.Evaluate() => _healthComponent.IsAlive && _groundedComponent.IsGrounded;
     }
 }

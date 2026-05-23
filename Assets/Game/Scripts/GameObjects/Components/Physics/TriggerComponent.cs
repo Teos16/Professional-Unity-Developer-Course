@@ -8,13 +8,13 @@ namespace Game
     {
         public event Action<Collider2D> OnEntered;
         public event Action<Collider2D> OnExited;
-        public event Action<IReadOnlyCollection<Collider2D>> OnTargetsChanged;
+        public event Action OnStateChanged;
+        
+        public IReadOnlyCollection<Collider2D> Colliders => _currentColliders;
 
         private readonly HashSet<Collider2D> _currentColliders = new();
 
         private bool _isDirty;
-
-        public IReadOnlyCollection<Collider2D> CurrentTargets => _currentColliders;
 
         private void OnTriggerEnter2D(Collider2D col)
         {
@@ -51,7 +51,7 @@ namespace Game
             if (_isDirty)
             {
                 _isDirty = false;
-                OnTargetsChanged?.Invoke(_currentColliders);
+                OnStateChanged?.Invoke();
             }
         }
     }

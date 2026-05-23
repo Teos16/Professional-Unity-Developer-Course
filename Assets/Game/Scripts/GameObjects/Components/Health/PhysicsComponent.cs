@@ -2,7 +2,7 @@
 
 namespace Game
 {
-    public sealed class OnDeathComponent : MonoBehaviour
+    public sealed class PhysicsComponent : MonoBehaviour
     {
         private Collider2D[] _colliders;
         
@@ -11,7 +11,7 @@ namespace Game
         public void TurnOffPhysics()
         {
             foreach (Collider2D col in _colliders) 
-                col.isTrigger = true;
+                col.enabled = false;
         }
     }
 }

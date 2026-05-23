@@ -29,7 +29,7 @@ namespace Game
         
         public bool TryPush(Rigidbody2D rb, MoveRigidbodyConfig config, Vector2 sourcePosition)
         {
-            if (!_condition.Evaluate()) 
+            if (!_condition.Evaluate() || !rb) 
                 return false;
     
             int side = rb.position.x > sourcePosition.x ? 1 : -1;
@@ -45,7 +45,9 @@ namespace Game
         
         private void Push()
         {
-            _rigidbody?.AddForce(_pushForce, ForceMode2D.Impulse);
+            if(_rigidbody != null)
+                _rigidbody.AddForce(_pushForce, ForceMode2D.Impulse);
+            
             _rigidbody = null;
             _pushForce = Vector2.zero;
             _pushTimer = -1f;

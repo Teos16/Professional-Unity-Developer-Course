@@ -2,7 +2,7 @@
 
 namespace Game
 {
-    public sealed class StaffViewComponent : MonoBehaviour
+    public sealed class StaffView : MonoBehaviour
     {
         private static readonly int Push = Animator.StringToHash("BlowForward");
         private static readonly int Toss = Animator.StringToHash("BlowUp");

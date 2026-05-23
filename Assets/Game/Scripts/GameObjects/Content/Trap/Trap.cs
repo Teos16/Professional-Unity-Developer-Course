@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Game
 {
@@ -28,13 +29,24 @@ namespace Game
             _healthComponent.OnDied -= OnDeath;
         }
 
-        private void OnCollision(Collision2D obj)
+        private void OnCollision(Collision2D col)
         {
-            if (!obj.gameObject.TryGetComponent(out HealthComponent healthComponent)) return;
+            if (col.collider.gameObject == gameObject)
+                return;
+                
+            if (!col.collider.TryGetComponent(out HealthComponent healthComponent)) 
+                return;
+                
             healthComponent.TakeDamage(_damageToEnemy);
             _healthComponent.SetZero();
         }
 
-        private void OnDeath() => Destroy(gameObject);
+        private void OnDeath() => StartCoroutine(DestroyNextFrame());
+
+        private IEnumerator DestroyNextFrame()
+        {
+            yield return null;
+            Destroy(gameObject);
+        }
     }
 }

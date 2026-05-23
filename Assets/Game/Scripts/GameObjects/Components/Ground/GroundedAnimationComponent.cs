@@ -2,10 +2,9 @@
 
 namespace Game
 {
-    public sealed class GroundedComponentView : MonoBehaviour
+    public sealed class GroundedAnimationComponent : MonoBehaviour
     {
         private static readonly int IsGrounded = Animator.StringToHash("IsGrounded");
-        private static readonly int IsFalling = Animator.StringToHash("IsFalling");
         
         private Animator _animator;
         private GroundedComponent _groundedComponent;
@@ -20,10 +19,6 @@ namespace Game
 
         private void OnDisable() => _groundedComponent.OnGrounded -= OnGrounded;
 
-        private void OnGrounded(bool b)
-        {
-            _animator.SetBool(IsGrounded, b);
-            _animator.SetBool(IsFalling, !_groundedComponent.IsGrounded);
-        }
+        private void OnGrounded(bool b) => _animator.SetBool(IsGrounded, b);
     }
 }

@@ -9,9 +9,9 @@ namespace Game.Scripts.System
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
-                _character.GetComponent<IStaff>().Push();
+                _character.GetComponent<IPushComponent>().Push();
             else if (Input.GetKeyDown(KeyCode.Mouse1))
-                _character.GetComponent<IStaff>().Toss();
+                _character.GetComponent<ITossComponent>().Toss();
         }
     }
 }

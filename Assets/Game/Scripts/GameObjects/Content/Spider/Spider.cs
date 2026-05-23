@@ -1,78 +1,77 @@
-﻿using UnityEngine;
+﻿using System;
+using Sirenix.OdinInspector.Editor.Validation;
+using UnityEngine;
 
 namespace Game
 {
-    [RequireComponent(typeof(PatrolComponent), typeof(MoveRequestComponent), typeof(MoveTransformComponent))]
-    [RequireComponent(typeof(LookComponent), typeof(HealthComponent), typeof(CollisionComponent))]
-    [RequireComponent(typeof(PushRigidbodyComponent), typeof(ExtraGravityComponent), typeof(AttackComponent))]
-    [RequireComponent(typeof(GroundedComponent), typeof(OnDeathComponent))]
+    [RequireComponent(typeof(HealthComponent), typeof(PhysicsComponent), typeof(PatrolComponent))]
+    [RequireComponent(typeof(MoveComponent), typeof(MoveTransformComponent), typeof(GroundedComponent))]
+    [RequireComponent(typeof(CollisionComponent), typeof(PushRigidbodyComponent), typeof(ExtraGravityComponent))]
     public sealed class Spider : MonoBehaviour, 
-        MoveRequestComponent.IAction, 
-        MoveRequestComponent.ICondition, 
-        PushRigidbodyComponent.ICondition,
-        //AttackComponent.ICondition,
-        PatrolComponent.ICondition
+        PatrolComponent.ICondition,
+        MoveComponent.ICondition, 
+        MoveComponent.IAction, 
+        PushRigidbodyComponent.ICondition
     {
-        private PatrolComponent _patrolComponent;
-        private MoveRequestComponent _moveRequestComponent;
-        private MoveTransformComponent _moveTransformComponent;
-        private LookComponent _lookComponent;
+        [SerializeField] private AttackConfig _attackConfig;
+
         private HealthComponent _healthComponent;
+        private PhysicsComponent _physicsComponent;
+        private PatrolComponent _patrolComponent;
+        private MoveComponent _moveComponent;
+        private MoveTransformComponent _moveTransformComponent;
+        private GroundedComponent _groundedComponent;
         private CollisionComponent _collisionComponent;
         private PushRigidbodyComponent _pushRigidbodyComponent;
-        private ExtraGravityComponent _extraGravityComponent;
-        private GroundedComponent _groundedComponent;
-        private OnDeathComponent _onDeathComponent;
-        private AttackComponent _attackComponent;
         
         private void Awake()
         {
-            _patrolComponent = GetComponent<PatrolComponent>();
-            _moveRequestComponent = GetComponent<MoveRequestComponent>();
-            _moveTransformComponent = GetComponent<MoveTransformComponent>();
-            _lookComponent = GetComponent<LookComponent>();
             _healthComponent = GetComponent<HealthComponent>();
-            _collisionComponent = GetComponent<CollisionComponent>();
+            _physicsComponent = GetComponent<PhysicsComponent>();
+            _patrolComponent = GetComponent<PatrolComponent>();
+            _moveComponent = GetComponent<MoveComponent>();
+            _moveTransformComponent = GetComponent<MoveTransformComponent>();
             _groundedComponent = GetComponent<GroundedComponent>();
+            _collisionComponent = GetComponent<CollisionComponent>();
             _pushRigidbodyComponent = GetComponent<PushRigidbodyComponent>();
-            _extraGravityComponent = GetComponent<ExtraGravityComponent>();
-            _onDeathComponent = GetComponent<OnDeathComponent>();
-            _attackComponent = GetComponent<AttackComponent>();
-            
-            _moveRequestComponent.SetCondition(this);
-            _moveRequestComponent.SetAction(this);
-            _pushRigidbodyComponent.SetCondition(this);
-            _attackComponent.SetConditions(EvaluateAttackTarget, EvaluateOtherAttackConditions);
+
             _patrolComponent.SetCondition(this);
+            _moveComponent.SetCondition(this);
+            _moveComponent.SetAction(this);
+            _pushRigidbodyComponent.SetCondition(this);
         }
 
         private void OnEnable()
         {
-            _healthComponent.OnDied += _onDeathComponent.TurnOffPhysics;
-            _collisionComponent.OnEntered += _attackComponent.Attack;
+            _healthComponent.OnDied += _physicsComponent.TurnOffPhysics;
+            _collisionComponent.OnEntered += Attack;
         }
-
+        
         private void OnDisable()
         {
-            _healthComponent.OnDied -= _onDeathComponent.TurnOffPhysics;
-            _collisionComponent.OnEntered -= _attackComponent.Attack;
+            _healthComponent.OnDied -= _physicsComponent.TurnOffPhysics;
+            _collisionComponent.OnEntered -= Attack;
         }
 
-        bool MoveRequestComponent.ICondition.Evaluate() => _healthComponent.IsAlive && _groundedComponent.IsGrounded;
+        bool PatrolComponent.ICondition.Evaluate() => _healthComponent.IsAlive && _groundedComponent.IsGrounded;
+        
+        bool MoveComponent.ICondition.Evaluate() => _healthComponent.IsAlive && _groundedComponent.IsGrounded;
+        
+        void MoveComponent.IAction.Invoke(Vector2 direction, float deltaTime) => 
+            _moveTransformComponent.Move(direction, deltaTime);
 
-        void MoveRequestComponent.IAction.Invoke(Vector2 direction)
+        private void Attack(Collision2D col)
         {
-            _moveTransformComponent.Move(direction);
-            _lookComponent.Look(direction.x);
+            GameObject target = col.gameObject;
+            HealthComponent targetHealth = target.GetComponent<HealthComponent>();
+            
+            if (!col.rigidbody || !targetHealth || !targetHealth.IsAlive) 
+                return;
+            
+            _pushRigidbodyComponent.TryPush(col.rigidbody, _attackConfig.PushConfig, transform.position);
+            targetHealth.TakeDamage(_attackConfig.Damage);
         }
 
         bool PushRigidbodyComponent.ICondition.Evaluate() => _healthComponent.IsAlive && _groundedComponent.IsGrounded;
-        
-        bool PatrolComponent.ICondition.Evaluate() => _healthComponent.IsAlive && _groundedComponent.IsGrounded;
-
-        private bool EvaluateAttackTarget(GameObject target) => 
-            target.TryGetComponent(out HealthComponent enemyHealth) && enemyHealth.IsAlive;
-
-        private bool EvaluateOtherAttackConditions() => _healthComponent.IsAlive && _groundedComponent.IsGrounded;
     }
 }
