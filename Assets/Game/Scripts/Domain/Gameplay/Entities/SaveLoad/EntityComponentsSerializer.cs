@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
-using SampleGame.Gameplay;
 using UnityEngine;
 
 namespace SampleGame.Gameplay
@@ -10,13 +9,8 @@ namespace SampleGame.Gameplay
     {
         private readonly List<IComponentSerializer> _serializers;
 
-        public EntityComponentsSerializer(List<IComponentSerializer> serializers = null)
-        {
+        public EntityComponentsSerializer(List<IComponentSerializer> serializers = null) => 
             _serializers = serializers ?? new List<IComponentSerializer>();
-            _serializers = _serializers
-                .OrderBy(s => s is TargetObjectSerializer ? 1 : 0)
-                .ToList();
-        }
 
         public Dictionary<string, object> Serialize(GameObject go)
         {

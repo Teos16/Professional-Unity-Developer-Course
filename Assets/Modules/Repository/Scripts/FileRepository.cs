@@ -30,11 +30,7 @@ namespace Modules.Repositories
             try
             {
                 string filePath = BuildFilePath(version);
-
-                byte[] bytes = await UniTask.RunOnThreadPool(
-                    () => BuildSaveBody(data),
-                    cancellationToken: ct);
-
+                byte[] bytes = BuildSaveBody(data);
                 await File.WriteAllBytesAsync(filePath, bytes, ct);
                 return true;
             }
@@ -45,6 +41,7 @@ namespace Modules.Repositories
             }
             catch
             {
+                Debug.Log("Save failed");
                 return false;
             }
         }
@@ -55,14 +52,11 @@ namespace Modules.Repositories
 
             if (!File.Exists(filePath))
                 return (false, null);
-
+            
             try
             {
                 byte[] bytes = await File.ReadAllBytesAsync(filePath, ct);
-
-                return await UniTask.RunOnThreadPool(
-                    () => ParseLoadBody(bytes),
-                    cancellationToken: ct);
+                return ParseLoadBody(bytes);
             }
             catch (OperationCanceledException)
             {
@@ -71,6 +65,7 @@ namespace Modules.Repositories
             }
             catch
             {
+                Debug.Log("Load failed");
                 return (false, null);
             }
         }

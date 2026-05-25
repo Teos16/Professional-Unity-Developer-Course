@@ -8,32 +8,27 @@ namespace SampleGame.Gameplay
     {
         private const string ENTITIES_KEY = "Entities";
         
-        private readonly EntitySerializer _serializer;
+        private readonly EntityWorldSerializer _worldSerializer;
         private readonly IRepository _gameRepository;
         private readonly IVersionProvider _versionProvider;
         
-        public EntitySaveManager(EntitySerializer serializer, 
+        public EntitySaveManager(EntityWorldSerializer worldSerializer, 
             IRepository gameRepository, 
             IVersionProvider versionProvider)
         {
-            _serializer = serializer;
+            _worldSerializer = worldSerializer;
             _gameRepository = gameRepository;
             _versionProvider = versionProvider;
         }
         
         public async UniTask<(bool success, int version)> Save()
         {
-            EntityData[] entityData = _serializer.Serialize(); 
+            EntityData[] entityData = _worldSerializer.Serialize(); 
 
-            JObject gameData = await UniTask.RunOnThreadPool(() =>
-            {
-                JObject data = new();
-                data.Add(ENTITIES_KEY, JToken.FromObject(entityData));
-                return data;
-            });
+            JObject data = new() { { ENTITIES_KEY, JToken.FromObject(entityData) } };
 
             int version = _versionProvider.GetNextVersion();
-            bool success = await _gameRepository.Save(gameData, version);
+            bool success = await _gameRepository.Save(data, version);
             return (success, version);
         }
         
@@ -44,9 +39,8 @@ namespace SampleGame.Gameplay
                 (bool success, JObject gameData) = await _gameRepository.Load(parsedVersion);
                 if (success && gameData.TryGetValue(ENTITIES_KEY, out JToken data))
                 {
-                    EntityData[] entityDataArray = await UniTask.RunOnThreadPool(
-                        () => data.ToObject<EntityData[]>());
-                    _serializer.Deserialize(entityDataArray);
+                    EntityData[] entityDataArray = data.ToObject<EntityData[]>();
+                    _worldSerializer.Deserialize(entityDataArray);
                 }
 
                 return success;

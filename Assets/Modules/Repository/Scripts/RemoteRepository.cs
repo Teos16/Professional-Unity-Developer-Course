@@ -5,7 +5,6 @@ using Cysharp.Threading.Tasks;
 using Modules.Encryption;
 using Modules.Hashing;
 using Newtonsoft.Json.Linq;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -28,18 +27,23 @@ namespace Modules.Repositories
         
         public async UniTask<bool> Save(JObject gameData, int version, CancellationToken ct = default)
         {
-            byte[] requestBytes = await UniTask.RunOnThreadPool(
-                () => BuildSaveRequestBody(gameData),
-                cancellationToken: ct);
-
+            byte[] requestBytes = BuildSaveRequestBody(gameData);
+            
+            await UniTask.SwitchToMainThread(ct);
+            
             using UnityWebRequest request = BuildPutRequest(version, requestBytes);
 
             bool sent = await SendRequest(request, "Save", ct);
+
+            await UniTask.SwitchToThreadPool();
+            
             return sent;
         }
 
         public async UniTask<(bool, JObject)> Load(int version, CancellationToken ct = default)
         {
+            await UniTask.SwitchToMainThread(ct);
+            
             using UnityWebRequest request = BuildGetRequest(version);
 
             bool sent = await SendRequest(request, "Load", ct);
@@ -47,12 +51,12 @@ namespace Modules.Repositories
                 return (false, null);
 
             string responseText = request.downloadHandler.text;
+            
+            await UniTask.SwitchToThreadPool();
 
             try
             {
-                return await UniTask.RunOnThreadPool(
-                    () => ParseLoadResponse(responseText),
-                    cancellationToken: ct);
+                return ParseLoadResponse(responseText);
             }
             catch (Exception e)
             {

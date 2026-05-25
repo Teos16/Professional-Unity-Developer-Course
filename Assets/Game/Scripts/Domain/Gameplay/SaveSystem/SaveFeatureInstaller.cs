@@ -1,6 +1,3 @@
-using Modules.Encryption;
-using Modules.Hashing;
-using Modules.Repositories;
 using UnityEngine;
 using Zenject;
 
@@ -12,27 +9,21 @@ namespace SampleGame.Gameplay
     )]
     public sealed class SaveFeatureInstaller : ScriptableObjectInstaller
     {
-        private const string EncryptionKey = "my-secret-encryption-key";
-        private const string HmacKey = "my-secret-hmac-key";
-        
-        [SerializeField] private string _uri = "http://127.0.0.1:8888";
-        [SerializeField] private string _fileName = "SaveData.txt";
 
         public override void InstallBindings()
         {
-            InstallEntitySaveComponents();
-            InstallEntitySerializers();
-            InstallRepositories();
+            InstallSaveComponents();
+            InstallSerializers();
         }
-
-        private void InstallEntitySaveComponents()
+        
+        private void InstallSaveComponents()
         {
             Container.Bind<EntitySaveManager>().AsSingle();
             Container.Bind<EntityComponentsSerializer>().AsSingle();
-            Container.Bind<EntitySerializer>().AsSingle();
+            Container.Bind<EntityWorldSerializer>().AsSingle();
         }
 
-        private void InstallEntitySerializers()
+        private void InstallSerializers()
         {
             Container.Bind<IComponentSerializer>()
                 .To(x => x.AllNonAbstractClasses()
@@ -41,53 +32,5 @@ namespace SampleGame.Gameplay
                 .FromNew()
                 .AsCached();
         }
-
-        private void InstallRepositories()
-        {
-            Container.Bind<RemoteRepository>()
-                .AsCached()
-                .WithArguments(_uri);
-        
-            Container.Bind<FileRepository>()
-                .AsCached()
-                .WithArguments(_fileName);
-            
-            Container
-                .Bind<IEncryptor>()
-                .To<AesEncryptor>()
-                .WithArguments(EncryptionKey)
-                .WhenInjectedInto<RemoteRepository>();
-
-            Container
-                .Bind<IHashProvider>()
-                .FromInstance(new HmacSha256Provider(HmacKey))
-                .WhenInjectedInto<RemoteRepository>();
-
-            Container
-                .Bind<IEncryptor>()
-                .To<AesEncryptor>()
-                .WithArguments(EncryptionKey)
-                .WhenInjectedInto<FileRepository>();
-
-            Container
-                .Bind<IHashProvider>()
-                .FromInstance(new HmacSha256Provider(HmacKey))
-                .WhenInjectedInto<FileRepository>();
-            
-            Container
-                .Bind<IRepository>()
-                .To<SyncRepository>()
-                .FromMethod(this.CreateSyncRepository)
-                .AsSingle();
-            
-            Container.Bind<IVersionProvider>()
-                .To<LastVersionStorage>()
-                .AsSingle();
-        }
-        
-        private SyncRepository CreateSyncRepository(InjectContext ctx) => new(
-            ctx.Container.Resolve<FileRepository>(),
-            ctx.Container.Resolve<RemoteRepository>()
-        );
     }
 }

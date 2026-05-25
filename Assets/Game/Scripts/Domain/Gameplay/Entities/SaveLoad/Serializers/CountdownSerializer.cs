@@ -13,7 +13,7 @@ namespace SampleGame.Gameplay
                 data = countdown.Current;
                 return true;
             }
-            data = default;
+            data = 0;
             return false;
         }
 
