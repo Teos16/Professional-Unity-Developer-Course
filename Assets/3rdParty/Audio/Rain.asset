@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966df4d6c0dc4ec0b855f32895a79c89, type: 3}
+  m_Name: Rain
+  m_EditorClassIdentifier: AudioEngine::Modules.AudioEvents.AudioEvent
+  _poolable: 1
+  output: {fileID: 94905217914382134, guid: cea6ca8085d9e4c24ad2ef67d8a0c36f, type: 2}
+  loop: 1
+  startTime:
+    rid: 90822072420794541
+  duration: 10
+  overrideDuration: 1
+  spatialBlend: 1
+  clip:
+    rid: 90822072420794542
+  pitch:
+    rid: 90822072420794543
+  volume:
+    rid: 90822072420794544
+  reverbZoneMix:
+    rid: 90822072420794545
+  rolloffMode: 2
+  rolloffCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.9963989
+      inSlope: -5.300759
+      outSlope: -5.300759
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.17079116
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.05193671
+      outSlope: -0.05193671
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.23035741
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minDistance:
+    rid: 90822072420794546
+  maxDistance:
+    rid: 90822072420794547
+  dopplerLevel:
+    rid: 90822072420794548
+  spread:
+    rid: 90822072420794549
+  behaviours:
+  - value:
+      rid: 90822072420794555
+    mute: 0
+    fullTime: 1
+    startTime: 0
+    endTime: 0
+  actions:
+  - value:
+      rid: 90822072420794614
+    mute: 0
+    time: 4
+  - value:
+      rid: 90822072420794625
+    mute: 0
+    time: 3
+  references:
+    version: 2
+    RefIds:
+    - rid: 90822072420794541
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 1
+    - rid: 90822072420794542
+      type: {class: ClipConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        clip: {fileID: 8300000, guid: 437ee6fd16357411d86ebd1c1e321fce, type: 3}
+    - rid: 90822072420794543
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 1
+    - rid: 90822072420794544
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 1
+    - rid: 90822072420794545
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 1
+    - rid: 90822072420794546
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 1
+    - rid: 90822072420794547
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 50
+    - rid: 90822072420794548
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 0
+    - rid: 90822072420794549
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 360
+    - rid: 90822072420794555
+      type: {class: AudioLowPassFilter, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        cutoffFrequency:
+          rid: 90822072420794556
+        lowpassResonanceQ:
+          rid: 90822072420794557
+    - rid: 90822072420794556
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 1000
+    - rid: 90822072420794557
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 1
+    - rid: 90822072420794614
+      type: {class: AudioEventAction_PlayAudioEvent, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        eventId:
+          bank: {fileID: 11400000, guid: 1398adfd55c4b42e88d0989cb4131ec6, type: 2}
+          eventId: Thunder
+          identifier: Environment.Thunder
+        _threshold: 0
+    - rid: 90822072420794625
+      type: {class: AudioEventAction_InvokeCallback, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        callback:
+          bank: {fileID: 11400000, guid: 1398adfd55c4b42e88d0989cb4131ec6, type: 2}
+          callbackId: Thunder
+          identifier: Environment.Thunder

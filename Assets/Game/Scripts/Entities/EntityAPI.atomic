@@ -1,0 +1,33 @@
+﻿namespace: SampleGame
+className: EntityAPI
+directory: Assets/Game/Scripts/Entities/
+aggressiveInlining: true
+unsafe: false
+entityType: IEntity
+
+imports:
+- Atomic.Entities
+- UnityEngine
+- Atomic.Elements
+
+tags:
+- Moveable
+- Damageable
+
+values:
+- Position: IVariable<Vector3>
+- Rotation: IVariable<Quaternion>
+
+- MoveSpeed: IValue<float>
+- MoveDirection: IVariable<Vector3>
+- MoveConditon: IExpression<bool>
+
+- RotationSpeed: IValue<float>
+- RotationDirection: IVariable<Vector3>
+
+- Damage: IValue<int>
+- Health: IReactiveVariable<int>
+- TakeDamageAction: IAction<int>
+- Target: IVariable<IEntity>
+- Trigger: TriggerEvents
+- GameObject: GameObject
