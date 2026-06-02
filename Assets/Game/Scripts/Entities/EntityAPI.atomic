@@ -1,0 +1,72 @@
+namespace: Game
+className: EntityAPI
+directory: Assets/Game/Scripts/Entities/
+aggressiveInlining: true
+unsafe: false
+entityType: IEntity
+
+imports:
+- Atomic.Entities
+- UnityEngine
+- Atomic.Elements
+- Game
+
+tags:
+- Moveable
+- Damageable
+- Interactible
+- Character
+
+values:
+- Position: IVariable<Vector3>
+- Rotation: IVariable<Quaternion>
+- Transform: Transform
+
+# Movement
+- MoveRequest: IRequest<Vector3>
+- MoveCondition: IExpression<Vector3, bool>
+- MoveAction: ICompositeAction<Vector3, float>
+- MoveEvent: IEvent<Vector3>
+- MoveSpeed: IValue<float>
+- MoveTime: IVariable<float>
+- MoveDuration: IValue<float>
+
+# Rotation
+- RotateRequest: IRequest<Vector3>
+- RotateCondition: IExpression<Vector3, bool>
+- RotateAction: ICompositeAction<Vector3, float>
+- RotateEvent: IEvent<Vector3>
+- RotationSpeed: IValue<float>
+
+# Fire
+- FireRequest: IRequest
+- FireCondition: IExpression<bool>
+- FireAction: ICompositeAction
+- FireEvent: IEvent
+- FireCooldown: Cooldown
+
+# LifeTime
+- Lifetime: ICooldown
+- DestroyAction: IAction
+- RespawnAction: IAction
+
+# Interact
+- InteractCondition: IExpression<IEntity, bool>
+- InteractAction: ICompositeAction<IEntity>
+- InteractEvent: IEvent<IEntity>
+- TargetInteractible: IVariable<IEntity>
+
+- Weapon: IReactiveVariable<IEntity>
+- PickUpPrefab: SceneEntity
+- WeaponPrefab: SceneEntity
+
+- Ammo: IVariable<int>
+- Damage: IValue<int>
+- Health: IReactiveVariable<int>
+- TakeDamageAction: IAction<int>
+- Target: IVariable<IEntity>
+- Trigger: TriggerEvents
+
+- Animator: Animator
+
+- CurrentCar: IVariable<CarController>
