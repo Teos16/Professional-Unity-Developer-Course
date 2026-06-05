@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74bb92bd50764d9497b34be88f37159b, type: 3}
+  m_Name: Team (Red)
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.TeamConfig
+  _team: 2
+  _material: {fileID: 2100000, guid: 030c39dd72f464cfb9b57b109ffe4cc2, type: 2}
+  _inputMap: {fileID: 11400000, guid: 6a7da1fbce7bb4e699aee4da0664238c, type: 2}

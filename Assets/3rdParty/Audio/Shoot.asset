@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966df4d6c0dc4ec0b855f32895a79c89, type: 3}
+  m_Name: Shoot
+  m_EditorClassIdentifier: AudioEngine::Modules.AudioEvents.AudioEvent
+  _poolable: 1
+  output: {fileID: 94905217914382134, guid: cea6ca8085d9e4c24ad2ef67d8a0c36f, type: 2}
+  loop: 0
+  startTime:
+    rid: 90822072420794428
+  duration: 0.60489583
+  overrideDuration: 0
+  spatialBlend: 1
+  clip:
+    rid: 90822072420794446
+  pitch:
+    rid: 90822072420794447
+  volume:
+    rid: 90822072420794448
+  reverbZoneMix:
+    rid: 90822072420794432
+  rolloffMode: 0
+  rolloffCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minDistance:
+    rid: 90822072420794433
+  maxDistance:
+    rid: 90822072420794434
+  dopplerLevel:
+    rid: 90822072420794435
+  spread:
+    rid: 90822072420794436
+  behaviours: []
+  actions: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 90822072420794428
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 0
+    - rid: 90822072420794432
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 1
+    - rid: 90822072420794433
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 1
+    - rid: 90822072420794434
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 500
+    - rid: 90822072420794435
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 0.8
+    - rid: 90822072420794436
+      type: {class: FloatConst, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        value: 0
+    - rid: 90822072420794446
+      type: {class: ClipRandom, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        clips:
+        - {fileID: 8300000, guid: ae32288ab1d5d40f099549e5b2eb634f, type: 3}
+        - {fileID: 8300000, guid: a3f494c1bb1694c7682f4ab94df8890a, type: 3}
+    - rid: 90822072420794447
+      type: {class: FloatRandom, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        minValue: 0.9
+        maxValue: 1.1
+    - rid: 90822072420794448
+      type: {class: FloatRandom, ns: Modules.AudioEvents, asm: AudioEngine}
+      data:
+        minValue: 0.6
+        maxValue: 0.8

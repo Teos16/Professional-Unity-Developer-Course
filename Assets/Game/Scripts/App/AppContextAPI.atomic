@@ -1,0 +1,32 @@
+className: AppContextAPI
+directory: Assets/Game/Scripts/App/
+aggressiveInlining: true
+unsafe: false
+entityType: IAppContext
+namespace: Game.App
+
+imports:
+- Game.App
+- Atomic.Elements
+- Game.Gameplay
+- Game.UI
+
+tags:
+  # Add your tags here
+  # - Player
+  # - Enemy
+
+values:
+
+#Level
+- StartLevel: IValue<int>
+- MaxLevel: IValue<int>
+- CurrentLevel: IReactiveVariable<int>
+- LevelRepository: ILevelRepository
+
+# Menu
+- MenuLoadedEvent: IEvent
+
+#Game
+- GameContextPrefab: GameContext
+- GameUIPrefab: GameUI

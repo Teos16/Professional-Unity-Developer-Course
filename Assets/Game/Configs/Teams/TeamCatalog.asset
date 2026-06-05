@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f456d261d0994fc9b410fb52e9ee90a0, type: 3}
+  m_Name: TeamCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.TeamCatalog
+  _teams:
+  - {fileID: 11400000, guid: fe5181701078541778603acb96521e9b, type: 2}
+  - {fileID: 11400000, guid: 5010502e289b94946b1526bab757dd4b, type: 2}
+  - {fileID: 11400000, guid: b7367797de21149d39894093282b4e51, type: 2}
+  - {fileID: 11400000, guid: 7f38d1d4a088544d186a4275d846f8cc, type: 2}
+  - {fileID: 11400000, guid: db7e3fc973cfc4264b93cc5ca4b27c17, type: 2}
