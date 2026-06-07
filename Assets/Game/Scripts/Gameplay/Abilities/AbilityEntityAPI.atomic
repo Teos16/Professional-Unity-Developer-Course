@@ -1,0 +1,30 @@
+namespace: Game.Gameplay
+className: AbilityEntityAPI
+directory: Assets/Game/Scripts/Gameplay/Abilities/
+aggressiveInlining: true
+unsafe: false
+entityType: IAbilityEntity
+
+imports:
+- Game.Gameplay
+- Atomic.Elements
+- UnityEngine
+
+tags:
+
+values:
+# Click
+- ClickRequest: IRequest
+- ClickCommand: ICommand
+
+# Point
+- PointRequest: IRequest<Vector3>
+- PointCommand: ICommand<Vector3>
+
+# Target
+- TargetRequest: IRequest<IGameEntity>
+- TargetCommand: ICommand<IGameEntity>
+
+# Optional
+- Charges: IVariable<int>
+- Cooldown: ICooldown

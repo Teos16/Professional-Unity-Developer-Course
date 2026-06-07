@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c59311ed514f81aa536eb0ff91b011, type: 3}
+  m_Name: Environment
+  m_EditorClassIdentifier: AudioEngine::Modules.AudioEvents.AudioBank
+  _events:
+  - identifier: Rain
+    value: {fileID: 11400000, guid: f60ea9c8e3ea548b8aadf9e407db87b4, type: 2}
+  - identifier: Thunder
+    value: {fileID: 11400000, guid: 5900a69a9078b4037b91e1ce9a2d186b, type: 2}
+  _boolParameters: []
+  _intParameters: []
+  _floatParameters: []
+  _callbacks:
+  - Thunder
+  _namespace: SampleGame
+  _identifier: Environment
+  _directoryPath: Assets/Game/Scripts/Codegen

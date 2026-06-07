@@ -1,0 +1,99 @@
+namespace: Game.Gameplay
+className: GameEntityAPI
+directory: Assets/Game/Scripts/Gameplay/GameEntities/
+aggressiveInlining: true
+unsafe: false
+entityType: IGameEntity
+
+imports:
+- Atomic.Entities
+- UnityEngine
+- Atomic.Elements
+- Game
+- Game.Gameplay
+- System.Collections.Generic
+- System.IO
+
+tags:
+- Moveable
+- Damageable
+- Interactible
+- Character
+
+values:
+- Position: IVariable<Vector3>
+- Rotation: IVariable<Quaternion>
+- Transform: Transform
+
+# Fire
+- FireRequest: IRequest
+- FireCommand: ICommand
+- FireCooldown: ICooldown
+
+# Movement
+- MoveRequest: IRequest<Vector3>
+- MoveCommand: ICommand<MoveArgs>
+- MoveTime: ICooldown
+- MoveSpeed: IValue<float>
+- MoveSpeedMultiplier : IExpression<float>
+
+# Rotation
+- RotateRequest: IRequest<Vector3>
+- RotateCommand: ICommand<RotateArgs>
+- RotationSpeed: IValue<float>
+
+# Interact
+- InteractCommand: ICommand<IGameEntity>
+- TargetInteractible: IVariable<IGameEntity>
+
+# Health
+- Health: IReactiveVariable<int>
+- MaxHealth: IValue<int>
+
+# Armor
+- Armor: IValue<float>
+- ArmorMultiplier: IExpression<float> 
+
+# TakeDamage
+- TakeDamageCommand: ICommand<int>
+
+# Death
+- DeathEvent: IEvent
+
+# Respawn
+- RespawnCommand: ICommand
+
+- IsStunned: IExpression<bool>
+- Team: IReactiveVariable<TeamType>
+- ActivateAction: IAction 
+- DeactivateAction: IAction 
+
+- Weapon: IReactiveVariable<IWeaponEntity>
+- WeaponPrefab: WeaponEntity
+
+- CurrentTransport: IVariable<IGameEntity>
+- ExitPoint: Transform
+- Lifetime: ICooldown
+- DestroyAction: IAction
+
+- Effects: IReactiveList<Effect>
+- Effect: IVariable<EffectConfig>
+
+- Ammo : IVariable<int>
+- Damage: IValue<int>
+- DamageMultiplier: IExpression<float> 
+
+- Target: IVariable<IGameEntity>
+- Trigger: TriggerEvents
+
+- VerticalSpeed: IVariable<float>
+
+# Jump
+- JumpRequest: IRequest
+- JumpCommand: ICommand
+- JumpForce: IVariable<float>
+- JumpCooldown: ICooldown
+
+- IsSheep: IReactiveVariable<bool>
+
+- Animator: Animator

@@ -1,0 +1,30 @@
+namespace: Game.Gameplay
+className: GameContextAPI
+directory: Assets/Game/Scripts/Gameplay/GameContext/
+aggressiveInlining: true
+unsafe: false
+entityType: IGameContext
+
+imports:
+- Game.Gameplay
+- Atomic.Entities
+- System.Collections.Generic
+- Atomic.Elements
+- UnityEngine
+
+tags:
+
+values:
+- BulletPool : IEntityPool<IGameEntity>
+- PrefabPool: PrefabEntityPool
+
+- WorldTransform: Transform 
+- GameStartedEvent: IEvent
+- GameFinishedEvent: IEvent
+- GameTime: IReactiveVariable<float>
+- Players: IDictionary<TeamType, IPlayerContext>
+
+- Leaderboard: IReactiveDictionary<TeamType, int>
+
+- AllSpawnPoints: Transform[]
+- FreeSpawnPoints: List<Transform>

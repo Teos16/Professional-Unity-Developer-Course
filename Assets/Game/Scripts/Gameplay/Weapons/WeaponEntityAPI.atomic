@@ -1,0 +1,28 @@
+namespace: Game.Gameplay
+className: WeaponEntityAPI
+directory: Assets/Game/Scripts/Gameplay/Weapons/
+aggressiveInlining: true
+unsafe: true
+entityType: IWeaponEntity
+
+imports:
+- Game
+- Atomic.Elements
+- System.Collections.Generic
+- Game.Gameplay
+
+tags:
+  # Add your tags here
+  # - Player
+  # - Enemy
+
+values:
+- FireCommand: ICommand
+- FireCooldown: ICooldown
+- Owner: IVariable<IGameEntity>
+
+- Ammo : IVariable<int>
+- Health: IReactiveVariable<int>
+- Damage: IValue<int>
+- DynamicParameterNames: IReadOnlyList<string>
+- PickUpPrefab: GameEntity
