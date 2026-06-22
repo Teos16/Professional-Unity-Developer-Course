@@ -5,24 +5,26 @@ using UnityEngine;
 namespace Game.Gameplay
 {
     [Serializable]
-    public sealed class GameEntityMoveSoundBehaviour : IGameEntityInit, IGameEntityDispose
+    public sealed class EntityMoveSoundBehaviour : IGameEntityInit, IGameEntityDispose
     {
+        private const string MOVE_STEP_EVENT = "move_step_event";
+        
         private AudioSource _audioSource;
         private AudioClip[] _moveClips;
         
         private AudioClip _lastClip;
         
-        public GameEntityMoveSoundBehaviour(AudioSource audioSource, AudioClip[] moveClips)
+        public EntityMoveSoundBehaviour(AudioSource audioSource, AudioClip[] moveClips)
         {
             _audioSource = audioSource;
             _moveClips = moveClips;
         }
 
         public void Init(IGameEntity entity) => 
-            entity.GetValue(GameEntityAPI.AnimatorEventReceiver).Value.OnMoveStepEvent += PlayMoveAudioSound;
+            entity.GetValue(GameEntityAPI.AnimationEvents).Value.Subscribe(MOVE_STEP_EVENT, PlayMoveAudioSound);
 
-        public void Dispose(IGameEntity entity) => 
-            entity.GetValue(GameEntityAPI.AnimatorEventReceiver).Value.OnMoveStepEvent -= PlayMoveAudioSound;
+        public void Dispose(IGameEntity entity) =>
+            entity.GetValue(GameEntityAPI.AnimationEvents).Value.Unsubscribe(MOVE_STEP_EVENT, PlayMoveAudioSound);
 
         private void PlayMoveAudioSound()
         {

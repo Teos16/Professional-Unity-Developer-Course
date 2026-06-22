@@ -1,4 +1,3 @@
-using Atomic.Elements;
 using Atomic.Entities;
 using UnityEngine;
 
@@ -14,10 +13,10 @@ namespace Game.Gameplay
             if (direction == Vector3.zero)
                 return;
 
-            IVariable<Quaternion> rotation = entity.GetValue(GameEntityAPI.Rotation);
+            Transform transform = entity.GetValue(GameEntityAPI.Transform).Value;
             float rotationSpeed = entity.GetValue(GameEntityAPI.RotationSpeed).Value;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            rotation.Value = Quaternion.Slerp(rotation.Value, targetRotation, deltaTime * rotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, deltaTime * rotationSpeed);
         }
     }
 }

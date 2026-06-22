@@ -7,8 +7,10 @@ using UnityEngine;
 namespace Game.Gameplay
 {
     [Serializable]
-    public sealed class GameEntityAudioInstaller : IGameEntityInstaller
+    public sealed class EntityAudioInstaller : IGameEntityInstaller
     {
+        private const string BODY_FALL_EVENT = "body_fall_event";
+        
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private AudioClip[] _onDamageTakenClips;
         [SerializeField] private AudioClip[] _deathClips;
@@ -27,17 +29,16 @@ namespace Game.Gameplay
                 .Subscribe(PlayDeathSounds)
                 .AddTo(_disposables);
 
-            entity.GetValue(GameEntityAPI.AnimatorEventReceiver).Value.OnBodyFallEvent += PlayBodyFallSound;
-            
+            entity.GetValue(GameEntityAPI.AnimationEvents).Value.Subscribe(BODY_FALL_EVENT, PlayBodyFallSound);
             if(_moveClips)
-                entity.AddBehaviour(new GameEntityMoveSoundBehaviour(_audioSource, _moveClips.Value));
+                entity.AddBehaviour(new EntityMoveSoundBehaviour(_audioSource, _moveClips.Value));
         }
 
         public void Uninstall(IGameEntity entity)
         {
             _disposables.Dispose();
             
-            entity.GetValue(GameEntityAPI.AnimatorEventReceiver).Value.OnBodyFallEvent -= PlayBodyFallSound;
+            entity.GetValue(GameEntityAPI.AnimationEvents).Value.Unsubscribe(BODY_FALL_EVENT, PlayBodyFallSound);
         }
 
         private void PlayDeathSounds()

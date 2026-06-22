@@ -17,11 +17,12 @@ namespace Game.Gameplay
 
         public void FixedTick(IGameEntity entity, float deltaTime)
         {
-            if (_moveRequest.Consume(out Vector3 direction))
-            {
-                if (direction != Vector3.zero)
-                    _moveCommand.Invoke(new MoveArgs(direction, deltaTime));
-            }
+            if (!_moveRequest.Consume(out Vector3 direction)) 
+                return;
+            if (direction == Vector3.zero) 
+                return;
+            
+            _moveCommand.Invoke(new MoveArgs(direction, deltaTime));
         }
     }
 }

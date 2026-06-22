@@ -1,45 +1,43 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Game.UI
 {
-    [RequireComponent(typeof(JoystickView))]
-    public sealed class Joystick : MonoBehaviour
+    public sealed class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
-        [field:SerializeField]
+        [field: SerializeField]
         public Vector2 Direction { get; private set; }
-        
-        private JoystickView _view;
+
+        [SerializeField] private RectTransform _background;
+        [SerializeField] private RectTransform _handle;
+
         private float _radius;
 
-        private void Awake()
-        {
-            _view = GetComponent<JoystickView>();
-            _radius = _view.Radius;
-        }
+        private void Awake() => _radius = _background.rect.width * 0.5f;
 
-        private void OnEnable()
-        {
-            _view.OnDragged += OnDragged;
-            _view.OnReleased += OnReleased;
-        }
+        public void OnPointerDown(PointerEventData eventData) => HandleDrag(eventData);
 
-        private void OnDisable()
-        {
-            _view.OnDragged -= OnDragged;
-            _view.OnReleased -= OnReleased;
-        }
+        public void OnDrag(PointerEventData eventData) => HandleDrag(eventData);
 
-        private void OnDragged(Vector2 localPoint)
-        {
-            Vector2 clamped = Vector2.ClampMagnitude(localPoint, _radius);
-            Direction = (clamped / _radius).normalized;
-            _view.SetHandlePosition(clamped);
-        }
-
-        private void OnReleased()
+        public void OnPointerUp(PointerEventData eventData)
         {
             Direction = Vector2.zero;
-            _view.SetHandlePosition(Vector2.zero);
+            _handle.localPosition = Vector2.zero;
+        }
+
+        private void HandleDrag(PointerEventData eventData)
+        {
+            Canvas canvas = GetComponentInParent<Canvas>();
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                _background,
+                eventData.position,
+                canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
+                out Vector2 localPoint
+            );
+
+            Vector2 clamped = Vector2.ClampMagnitude(localPoint, _radius);
+            Direction = (clamped / _radius).normalized;
+            _handle.localPosition = clamped;
         }
     }
 }

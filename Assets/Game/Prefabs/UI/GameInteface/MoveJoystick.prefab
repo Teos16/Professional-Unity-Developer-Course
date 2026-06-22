@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2685751539036889997}
   - component: {fileID: 2685751539036889992}
   - component: {fileID: 2685751539036889999}
-  - component: {fileID: 6472425197579839414}
   - component: {fileID: 5502103708787358079}
   m_Layer: 5
   m_Name: MoveJoystick
@@ -78,20 +77,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6472425197579839414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2685751539036889996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f64e86a77354076a1522663a09dd0b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.UI.JoystickView
-  _background: {fileID: 2685751539308576758}
-  _handle: {fileID: 2685751539362176503}
 --- !u!114 &5502103708787358079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,7 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b4e32eb31041e7b0b07e122a7fad51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.UI.Joystick
-  direction: {x: 0, y: 0}
+  <Direction>k__BackingField: {x: 0, y: 0}
+  _background: {fileID: 0}
+  _handle: {fileID: 0}
 --- !u!1 &2685751539308576757
 GameObject:
   m_ObjectHideFlags: 0

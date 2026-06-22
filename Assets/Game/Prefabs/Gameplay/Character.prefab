@@ -1445,9 +1445,9 @@ MonoBehaviour:
   onlySelectedGizmos: 0
   onlyEditModeGizmos: 0
   autoCompile: 0
-  initialTagCapacity: 2
-  initialValueCapacity: 24
-  initialBehaviourCapacity: 11
+  initialTagCapacity: 1
+  initialValueCapacity: 25
+  initialBehaviourCapacity: 10
 --- !u!114 &5436929926323064551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1476,13 +1476,13 @@ MonoBehaviour:
   _weapon: {fileID: 1379866155329326089}
   _firstAttackDelay:
     _duration: 0.5
-    _time: 0.5
+    _time: 0
   _interactorInstaller:
     _center: {fileID: 6992041410405490774}
     _radius: 1
     _layerMask:
       serializedVersion: 2
-      m_Bits: 512
+      m_Bits: 2048
     _period:
       _duration: 0.2
       _time: 0
@@ -2312,7 +2312,8 @@ GameObject:
   m_Component:
   - component: {fileID: 765187070542819803}
   - component: {fileID: 676053041413999030}
-  - component: {fileID: 520428107605399718}
+  - component: {fileID: 2177623068009752924}
+  - component: {fileID: 5574837864971515298}
   m_Layer: 0
   m_Name: <Skeleton>
   m_TagString: Untagged
@@ -2358,7 +2359,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &520428107605399718
+--- !u!114 &2177623068009752924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2367,9 +2368,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 7884378371530702000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8054ce2cc5894ea39c44f825dd417544, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c20470add414c84af5b931040cbe317, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.Gameplay.AnimatorEventReceiver
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Gameplay.AnimatorMove
+--- !u!114 &5574837864971515298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7884378371530702000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbd08fcd85174a90b79e3f101ac134d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Atomic.Elements::Atomic.Elements.AnimationEvents
 --- !u!1 &8089193100203344506
 GameObject:
   m_ObjectHideFlags: 0
@@ -2514,8 +2527,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Gameplay.CharacterViewInstaller
   _animationInstaller:
     _animator: {fileID: 676053041413999030}
-    _animatorEventReceiver: {fileID: 520428107605399718}
-  _vfxInstaller:
+    _animationEvents: {fileID: 5574837864971515298}
+  entityVFXInstaller:
     _onDamageTakenVfx: {fileID: 9071718681963068158}
     _onDeathVfx: {fileID: 2393186179124088127}
   _audioInstaller:
@@ -2925,7 +2938,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Gameplay.WeaponEntity
   useUnityLifecycle: 1
   disposeValues: 1
-  installOnAwake: 0
+  installOnAwake: 1
   uninstallOnDestroy: 1
   scriptableInstallers: []
   sceneInstallers:

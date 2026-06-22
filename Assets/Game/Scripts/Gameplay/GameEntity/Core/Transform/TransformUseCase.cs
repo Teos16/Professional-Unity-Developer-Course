@@ -8,7 +8,7 @@ namespace Game.Gameplay
     {
         public static bool LessOrEqualsDistance(this IGameEntity entity, IGameEntity otherEntity, float distance)
         {
-            Vector3 point = otherEntity.GetValue(GameEntityAPI.Position).Value;
+            Vector3 point = otherEntity.GetValue(GameEntityAPI.Transform).Value.position;
             return GetDistance(entity, point) <= distance;
         }
 
@@ -17,23 +17,23 @@ namespace Game.Gameplay
 
         public static float GetDistance(this IGameEntity entity, Vector3 position)
         {
-            Vector3 currentPosition = entity.GetValue(GameEntityAPI.Position).Value;
+            Vector3 currentPosition = entity.GetValue(GameEntityAPI.Transform).Value.position;
             Vector3 distance = position - currentPosition;
             return distance.magnitude;
         }
 
         public static void SetRandomSpread(this IGameEntity entity, float maxSpreadAngle = 0.25f)
         {
-            IVariable<Quaternion> rotation = entity.GetValue(GameEntityAPI.Rotation);
+            Quaternion rotation = entity.GetValue(GameEntityAPI.Transform).Value.rotation;
 
             float spreadX = Random.Range(-maxSpreadAngle, maxSpreadAngle);
             float spreadY = Random.Range(-maxSpreadAngle, maxSpreadAngle);
             
             Quaternion spreadRotation = Quaternion.Euler(spreadX, spreadY, 0);
             
-            Quaternion finalRotation = rotation.Value * spreadRotation;
+            Quaternion finalRotation = rotation * spreadRotation;
             
-            rotation.Value = finalRotation;
+            entity.GetValue(GameEntityAPI.Transform).Value.rotation = finalRotation;
         }
     }
 }

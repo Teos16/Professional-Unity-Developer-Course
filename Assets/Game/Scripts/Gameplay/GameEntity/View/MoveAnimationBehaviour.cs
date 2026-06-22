@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Gameplay
 {
-    public sealed class GameEntityMoveAnimationBehaviour : IGameEntityInit, IGameEntityFixedTick
+    public sealed class MoveAnimationBehaviour : IGameEntityInit, IGameEntityFixedTick
     {
         private readonly int _isMovingHash = Animator.StringToHash("IsMoving");
         

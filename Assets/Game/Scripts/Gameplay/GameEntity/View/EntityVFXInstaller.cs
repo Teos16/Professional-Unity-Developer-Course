@@ -6,8 +6,10 @@ using UnityEngine;
 namespace Game.Gameplay
 {
     [Serializable]
-    public sealed class GameEntityVFXInstaller : IGameEntityInstaller
+    public sealed class EntityVFXInstaller : IGameEntityInstaller
     {
+        private const string BODY_FALL_EVENT = "body_fall_event";
+        
         [SerializeField] private ParticleSystem _onDamageTakenVfx;
         [SerializeField] private ParticleSystem _onDeathVfx;
 
@@ -19,14 +21,14 @@ namespace Game.Gameplay
                 .Subscribe(_ => _onDamageTakenVfx.Play())
                 .AddTo(_disposables);
             
-            entity.GetValue(GameEntityAPI.AnimatorEventReceiver).Value.OnBodyFallEvent += PlayBodyFallVfx;
+            entity.GetValue(GameEntityAPI.AnimationEvents).Value.Subscribe(BODY_FALL_EVENT, PlayBodyFallVfx);
         }
 
         public void Uninstall(IGameEntity entity)
         {
             _disposables.Dispose();
             
-            entity.GetValue(GameEntityAPI.AnimatorEventReceiver).Value.OnBodyFallEvent -= PlayBodyFallVfx;
+            entity.GetValue(GameEntityAPI.AnimationEvents).Value.Unsubscribe(BODY_FALL_EVENT, PlayBodyFallVfx);
         }
 
         private void PlayBodyFallVfx() => _onDeathVfx.Play();

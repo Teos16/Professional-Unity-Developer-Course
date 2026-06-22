@@ -10,11 +10,7 @@ namespace Game.Gameplay
     {
         [SerializeField] private Transform _transform;
 
-        public void Install(IGameEntity entity)
-        {
+        public void Install(IGameEntity entity) => 
             entity.AddValue(GameEntityAPI.Transform, new Variable<Transform>(_transform));
-            entity.AddValue(GameEntityAPI.Position, new TransformPositionVariable(_transform));
-            entity.AddValue(GameEntityAPI.Rotation, new TransformRotationVariable(_transform));
-        }
     }
 }

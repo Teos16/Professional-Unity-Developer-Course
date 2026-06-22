@@ -41,7 +41,8 @@ namespace Game.Gameplay
             _moveInstaller.Install(entity);
             entity.GetValue(GameEntityAPI.MoveCommand)
                 .AddCondition(_ => entity.IsAlive())
-                .AddAction(_ => entity.MoveWithRootMotion(_moveSpeed));
+                .AddAction(_ => entity.MoveWithRootMotion(_moveSpeed))
+                .AddAction(args => entity.RotateStep(args.direction, args.deltaTime));
             
             _transformInstaller.Install(entity);
             
@@ -49,7 +50,6 @@ namespace Game.Gameplay
             entity.GetValue(GameEntityAPI.RotateCommand)
                 .AddCondition(_ => entity.IsAlive())
                 .AddAction(entity.RotateStep);
-            entity.AddBehaviour(new GameEntityRotationBehaviour());
 
             entity.AddValue(GameEntityAPI.RotationSpeed, _rotateSpeed);
         }
@@ -71,8 +71,8 @@ namespace Game.Gameplay
                 .AddCondition(entity.CanAttackWithWeapon)
                 .AddAction(entity.AttackWithWeapon);
 
-            entity.AddValue(GameEntityAPI.AimDirection, new ReactiveVariable<Vector3>());
-            entity.AddValue(GameEntityAPI.InitialAttackLag, _firstAttackDelay);
+            entity.AddValue(GameEntityAPI.IsAiming, new Variable<bool>());
+            entity.AddValue(GameEntityAPI.FirstAttackDelay, _firstAttackDelay);
             entity.AddBehaviour(new FirstAttackDelayBehaviour());
             
             entity.AddValue(GameEntityAPI.Weapon, new Variable<IWeaponEntity>(_weapon));

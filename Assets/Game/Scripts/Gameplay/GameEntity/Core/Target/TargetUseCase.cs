@@ -32,7 +32,7 @@ namespace Game.Gameplay
                 if (!collider.TryGetComponent(out IGameEntity other) || !predicate.Invoke(other))
                     continue;
 
-                Vector3 position = other.GetValue(GameEntityAPI.Position).Value;
+                Vector3 position = other.GetValue(GameEntityAPI.Transform).Value.position;
                 float distance = Vector3.SqrMagnitude(position - center);
                 if (distance >= minDistance)
                     continue;

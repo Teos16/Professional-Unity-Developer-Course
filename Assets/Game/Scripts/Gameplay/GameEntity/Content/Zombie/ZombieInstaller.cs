@@ -36,7 +36,8 @@ namespace Game.Scripts.Gameplay.GameEntity.Content.Zombie
             _moveInstaller.Install(entity);
             entity.GetValue(GameEntityAPI.MoveCommand)
                 .AddCondition(_ => entity.IsAlive())
-                .AddAction(_ => entity.MoveWithRootMotion(_moveSpeed));
+                .AddAction(_ => entity.MoveWithRootMotion(_moveSpeed))
+                .AddAction(args => entity.RotateStep(args.direction, args.deltaTime));
             
             _transformInstaller.Install(entity);
             
@@ -44,9 +45,7 @@ namespace Game.Scripts.Gameplay.GameEntity.Content.Zombie
             entity.GetValue(GameEntityAPI.RotateCommand)
                 .AddCondition(_ => entity.IsAlive())
                 .AddAction(entity.RotateStep);
-            entity.AddBehaviour(new GameEntityRotationBehaviour());
             
-
             entity.AddValue(GameEntityAPI.RotationSpeed, _rotateSpeed);
         }
 
@@ -69,8 +68,6 @@ namespace Game.Scripts.Gameplay.GameEntity.Content.Zombie
                 .AddCondition(entity.HavePlayerTarget)
                 .AddCondition(entity.CanAttackWithWeapon);
 
-            entity.AddValue(GameEntityAPI.AimDirection, new ReactiveVariable<Vector3>());
-            
             entity.AddBehaviour(new ZombieAttackBehaviour());
             
             entity.AddValue(GameEntityAPI.Weapon, new Variable<IWeaponEntity>(_weapon));
@@ -80,6 +77,7 @@ namespace Game.Scripts.Gameplay.GameEntity.Content.Zombie
         private void InstallAI(IGameEntity entity)
         {
             entity.AddValue(GameEntityAPI.Target, new Variable<IGameEntity>());
+            entity.AddValue(GameEntityAPI.TargetDetectionType, new InlinePredicate<IGameEntity>(e => e.IsPlayer()));
             entity.AddBehaviour(new AttackTargetBehaviour());
             entity.AddBehaviour(new MoveToTargetBehaviour());
         }

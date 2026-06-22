@@ -23,8 +23,8 @@ namespace Game.Gameplay
             entity.AddValue(GameEntityAPI.CollisionEvents, _collisionEvents);
             entity.AddValue(GameEntityAPI.Damage, _damage);
             
-            entity.AddValue(GameEntityAPI.MoveDirection, new ReactiveVariable<Vector3>(Vector3.forward));
-            entity.WhenFixedTick(dt => entity.MoveStepWithTransform(_moveSpeed, dt));
+            entity.WhenFixedTick(dt => entity.MoveStepWithTransform(
+                entity.GetValue(GameEntityAPI.Transform).Value.forward, _moveSpeed, dt));
 
             entity.AddValue(GameEntityAPI.DestroyAction, new InlineAction(() => gameContext.DespawnBullet(entity)));
             entity.AddValue(GameEntityAPI.RespawnCommand, new Command());

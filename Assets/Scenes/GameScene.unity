@@ -280,6 +280,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 279650649}
     m_Modifications:
+    - target: {fileID: 1260850144406126282, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
+      propertyPath: _zombies.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260850144406126282, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
+      propertyPath: '_zombies.Array.data[0]'
+      value: 
+      objectReference: {fileID: 912174563}
+    - target: {fileID: 1260850144406126282, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
+      propertyPath: '_zombies.Array.data[1]'
+      value: 
+      objectReference: {fileID: 856499413}
     - target: {fileID: 1637405204374972174, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
       propertyPath: m_Name
       value: Trigger2
@@ -5334,6 +5346,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 279650649}
     m_Modifications:
+    - target: {fileID: 1260850144406126282, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
+      propertyPath: _zombies.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260850144406126282, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
+      propertyPath: '_zombies.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1773765226}
+    - target: {fileID: 1260850144406126282, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
+      propertyPath: '_zombies.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2141367665}
+    - target: {fileID: 1260850144406126282, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
+      propertyPath: '_zombies.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1967941567}
+    - target: {fileID: 1260850144406126282, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
+      propertyPath: '_zombies.Array.data[3]'
+      value: 
+      objectReference: {fileID: 639767549}
+    - target: {fileID: 1260850144406126282, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
+      propertyPath: '_zombies.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1175908214}
     - target: {fileID: 1637405204374972174, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
       propertyPath: m_Name
       value: Trigger4
@@ -12664,6 +12700,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 279650649}
     m_Modifications:
+    - target: {fileID: 1260850144406126282, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
+      propertyPath: _zombies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260850144406126282, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
+      propertyPath: '_zombies.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2126316783}
     - target: {fileID: 1637405204374972174, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
       propertyPath: m_Name
       value: Trigger3
@@ -27101,7 +27145,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5502103708787358079, guid: 8cbeba1c3a3e447e284e93be1046efcb, type: 3}
+      propertyPath: _handle
+      value: 
+      objectReference: {fileID: 757640612756630603}
+    - target: {fileID: 5502103708787358079, guid: 8cbeba1c3a3e447e284e93be1046efcb, type: 3}
+      propertyPath: _background
+      value: 
+      objectReference: {fileID: 757640612756630602}
+    m_RemovedComponents:
+    - {fileID: 6472425197579839414, guid: 8cbeba1c3a3e447e284e93be1046efcb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -27122,6 +27175,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b4e32eb31041e7b0b07e122a7fad51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.UI.Joystick
+--- !u!224 &757640612756630602 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2685751539308576758, guid: 8cbeba1c3a3e447e284e93be1046efcb, type: 3}
+  m_PrefabInstance: {fileID: 757640612756630599}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &757640612756630603 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2685751539362176503, guid: 8cbeba1c3a3e447e284e93be1046efcb, type: 3}
+  m_PrefabInstance: {fileID: 757640612756630599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &843494635982871222
 GameObject:
   m_ObjectHideFlags: 0
@@ -27549,6 +27612,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3570377296171401102}
     m_Modifications:
+    - target: {fileID: 308862781055517064, guid: 51e743c5740654af9aa773eb6f7af5d4, type: 3}
+      propertyPath: _handle
+      value: 
+      objectReference: {fileID: 3724358838330738571}
+    - target: {fileID: 308862781055517064, guid: 51e743c5740654af9aa773eb6f7af5d4, type: 3}
+      propertyPath: _background
+      value: 
+      objectReference: {fileID: 3724358838330738572}
     - target: {fileID: 766336123411657325, guid: 51e743c5740654af9aa773eb6f7af5d4, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -27633,11 +27704,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: AttackJoystick
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3861128752125487929, guid: 51e743c5740654af9aa773eb6f7af5d4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51e743c5740654af9aa773eb6f7af5d4, type: 3}
+--- !u!224 &3724358838330738571 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1589536816864137411, guid: 51e743c5740654af9aa773eb6f7af5d4, type: 3}
+  m_PrefabInstance: {fileID: 3724358838330738570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &3724358838330738572 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8064200227391955904, guid: 51e743c5740654af9aa773eb6f7af5d4, type: 3}
+  m_PrefabInstance: {fileID: 3724358838330738570}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4166353693383147386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27753,6 +27835,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 279650649}
     m_Modifications:
+    - target: {fileID: 1260850144406126282, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
+      propertyPath: _zombies.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260850144406126282, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
+      propertyPath: '_zombies.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2074083451}
+    - target: {fileID: 1260850144406126282, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
+      propertyPath: '_zombies.Array.data[1]'
+      value: 
+      objectReference: {fileID: 691415260}
     - target: {fileID: 1637405204374972174, guid: 6268b41353e121c4ab586ab8e6d828ac, type: 3}
       propertyPath: m_Name
       value: Trigger1
@@ -27911,7 +28005,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.UI.GameUI
   useUnityLifecycle: 1
   disposeValues: 1
-  installOnAwake: 0
+  installOnAwake: 1
   uninstallOnDestroy: 1
   scriptableInstallers: []
   sceneInstallers:
@@ -28345,37 +28439,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1379866155329326089, guid: 25ded69825984498db7dacfedbed37a1, type: 3}
-      propertyPath: installOnAwake
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3578180279390331970, guid: 25ded69825984498db7dacfedbed37a1, type: 3}
       propertyPath: m_Name
       value: '[Character]'
       objectReference: {fileID: 0}
     - target: {fileID: 5436929926323064551, guid: 25ded69825984498db7dacfedbed37a1, type: 3}
-      propertyPath: _moveController.joystick
-      value: 
-      objectReference: {fileID: 757640612756630601}
-    - target: {fileID: 5436929926323064551, guid: 25ded69825984498db7dacfedbed37a1, type: 3}
-      propertyPath: _attackController.joystick
-      value: 
-      objectReference: {fileID: 7919524849257179013}
-    - target: {fileID: 5436929926323064551, guid: 25ded69825984498db7dacfedbed37a1, type: 3}
-      propertyPath: _interactorInstaller._layerMask.m_Bits
-      value: 2048
+      propertyPath: _firstAttackDelay._time
+      value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 6666297908282326118, guid: 25ded69825984498db7dacfedbed37a1, type: 3}
-      propertyPath: initialTagCapacity
-      value: 1
+    - target: {fileID: 5436929926323064551, guid: 25ded69825984498db7dacfedbed37a1, type: 3}
+      propertyPath: _firstAttackDelay._duration
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6666297908282326118, guid: 25ded69825984498db7dacfedbed37a1, type: 3}
       propertyPath: initialValueCapacity
-      value: 25
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 6666297908282326118, guid: 25ded69825984498db7dacfedbed37a1, type: 3}
       propertyPath: initialBehaviourCapacity
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6992041410405490774, guid: 25ded69825984498db7dacfedbed37a1, type: 3}
       propertyPath: m_LocalPosition.x

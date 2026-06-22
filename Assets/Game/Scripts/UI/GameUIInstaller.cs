@@ -30,6 +30,8 @@ namespace Game.UI
             ui.AddBehaviour(new AmmoStatPresenter(gameContext));
             ui.AddBehaviour(new ScorePresenter(gameContext));
             ui.AddBehaviour(new HealthScreenPresenter(gameContext));
+            ui.AddBehaviour(new CharacterMoveController(gameContext));
+            ui.AddBehaviour(new CharacterAttackController(gameContext));
         }
     }
 }

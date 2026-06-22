@@ -45,10 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153512860e18472e99aa8317024318d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Gameplay.PickUpViewInstaller
-  _visualDisableOnInteractInstaller:
-    _visual: {fileID: 8954776064913684752}
-  _particleSystem: {fileID: 4254272687195834861}
-  _audioSource: {fileID: 411501554367385950}
+  _visual:
+    active: 1
+    value: {fileID: 8954776064913684752}
+  _particleSystem:
+    active: 1
+    value: {fileID: 4254272687195834861}
+  _audioSource:
+    active: 1
+    value: {fileID: 411501554367385950}
 --- !u!1 &2868507734451175874
 GameObject:
   m_ObjectHideFlags: 0

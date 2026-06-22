@@ -10,8 +10,8 @@ namespace Game.Gameplay
         {
             IEntityPool<IGameEntity> bulletPool = gameContext.GetValue(GameContextAPI.BulletPool);
             IGameEntity bullet = bulletPool.Rent();
-            bullet.GetValue(GameEntityAPI.Position).Value = position;
-            bullet.GetValue(GameEntityAPI.Rotation).Value = rotation;
+            bullet.GetValue(GameEntityAPI.Transform).Value.position = position;
+            bullet.GetValue(GameEntityAPI.Transform).Value.rotation = rotation;
             bullet.GetValue(GameEntityAPI.Team).Value = team;
             bullet.GetValue(GameEntityAPI.RespawnCommand).Invoke();
             return bullet;

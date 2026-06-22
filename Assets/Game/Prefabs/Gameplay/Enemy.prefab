@@ -339,8 +339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Gameplay.ZombieViewInstaller
   _animationInstaller:
     _animator: {fileID: 2415962780172116089}
-    _animatorEventReceiver: {fileID: 8859279344997542803}
-  _vfxInstaller:
+    _animationEvents: {fileID: 7919393833403032357}
+  entityVFXInstaller:
     _onDamageTakenVfx: {fileID: 7867977103327073178}
     _onDeathVfx: {fileID: 3634830046846425720}
   _audioInstaller:
@@ -1819,6 +1819,7 @@ MonoBehaviour:
     _maxHealth:
       value: 3
   _weapon: {fileID: 5364356905310814590}
+  _team: 1
 --- !u!114 &2970411969516651750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2055,7 +2056,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1383350002564321792}
   - component: {fileID: 2415962780172116089}
-  - component: {fileID: 8859279344997542803}
+  - component: {fileID: 1561332326967145788}
+  - component: {fileID: 7919393833403032357}
   m_Layer: 0
   m_Name: <Skeleton>
   m_TagString: Enemy
@@ -2101,7 +2103,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8859279344997542803
+--- !u!114 &1561332326967145788
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2110,9 +2112,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 7158363685665035492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8054ce2cc5894ea39c44f825dd417544, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c20470add414c84af5b931040cbe317, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.Gameplay.AnimatorEventReceiver
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Gameplay.AnimatorMove
+--- !u!114 &7919393833403032357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7158363685665035492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbd08fcd85174a90b79e3f101ac134d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Atomic.Elements::Atomic.Elements.AnimationEvents
 --- !u!1 &7369059967829061964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2769,10 +2783,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7405375498600190727}
     m_Modifications:
-    - target: {fileID: 18664128666544965, guid: 1d8166845e4d241e8afd28e8a9249ace, type: 3}
-      propertyPath: meleePoint
-      value: 
-      objectReference: {fileID: 1192478768667321649}
     - target: {fileID: 1416792984943742102, guid: 1d8166845e4d241e8afd28e8a9249ace, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2817,18 +2827,6 @@ PrefabInstance:
       propertyPath: _owner
       value: 
       objectReference: {fileID: 757782391799169042}
-    - target: {fileID: 5030072566614846038, guid: 1d8166845e4d241e8afd28e8a9249ace, type: 3}
-      propertyPath: _attackDistance.value
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 5379566684066028272, guid: 1d8166845e4d241e8afd28e8a9249ace, type: 3}
-      propertyPath: _firePoint
-      value: 
-      objectReference: {fileID: 1192478768667321649}
-    - target: {fileID: 5379566684066028272, guid: 1d8166845e4d241e8afd28e8a9249ace, type: 3}
-      propertyPath: _cooldown._duration
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 7223745350942996134, guid: 1d8166845e4d241e8afd28e8a9249ace, type: 3}
       propertyPath: m_Name
       value: Hand

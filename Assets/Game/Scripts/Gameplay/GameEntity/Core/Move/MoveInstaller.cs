@@ -12,8 +12,6 @@ namespace Game.Gameplay
         
         public void Install(IGameEntity entity)
         {
-            entity.AddValue(GameEntityAPI.MoveDirection, new ReactiveVariable<Vector3>());
-            
             entity.AddValue(GameEntityAPI.MoveRequest, new Request<Vector3>());
             Command<MoveArgs> moveCommand = new Command<MoveArgs>();
             moveCommand.AddAction(_ => _moveTime.ResetTime());
