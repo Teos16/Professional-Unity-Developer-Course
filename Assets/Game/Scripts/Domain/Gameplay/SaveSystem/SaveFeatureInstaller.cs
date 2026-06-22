@@ -9,7 +9,6 @@ namespace SampleGame.Gameplay
     )]
     public sealed class SaveFeatureInstaller : ScriptableObjectInstaller
     {
-
         public override void InstallBindings()
         {
             InstallSaveComponents();
@@ -25,12 +24,13 @@ namespace SampleGame.Gameplay
 
         private void InstallSerializers()
         {
-            Container.Bind<IComponentSerializer>()
-                .To(x => x.AllNonAbstractClasses()
-                    .DerivingFrom<IComponentSerializer>()
-                    .FromAssemblyContaining<IComponentSerializer>())
-                .FromNew()
-                .AsCached();
+            Container.Bind<IComponentSerializer>().To<CountdownSerializer>().AsCached();
+            Container.Bind<IComponentSerializer>().To<DestinationPointSerializer>().AsCached();
+            Container.Bind<IComponentSerializer>().To<HealthSerializer>().AsCached();
+            Container.Bind<IComponentSerializer>().To<ProductionOrderSerializer>().AsCached();
+            Container.Bind<IComponentSerializer>().To<ResourceBagSerializer>().AsCached();
+            Container.Bind<IComponentSerializer>().To<TargetObjectSerializer>().AsCached();
+            Container.Bind<IComponentSerializer>().To<TeamSerializer>().AsCached();
         }
     }
 }

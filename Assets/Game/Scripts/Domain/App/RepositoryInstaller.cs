@@ -37,10 +37,10 @@ namespace Game.Scripts.Domain
             Container.Bind<RemoteRepository>()
                 .AsCached()
                 .WithArguments(_uri);
-        
-            Container.Bind<FileRepository>()
-                .AsCached()
-                .WithArguments(_fileName);
+
+            Container.Bind<BackgroundThreadRepository>()
+                .FromInstance(new BackgroundThreadRepository(new FileRepository(_fileName)))
+                .AsSingle();
             
             Container
                 .Bind<IRepository>()
@@ -49,17 +49,13 @@ namespace Game.Scripts.Domain
                 .AsSingle();
             
             Container
-                .Decorate<IRepository>()
-                .With<BackgroundThreadRepository>();
-            
-            Container
                 .Bind<IVersionProvider>()
                 .To<LastVersionStorage>()
                 .AsSingle();
         }
         
         private SyncRepository CreateSyncRepository(InjectContext ctx) => new(
-            ctx.Container.Resolve<FileRepository>(),
+            ctx.Container.Resolve<BackgroundThreadRepository>(),
             ctx.Container.Resolve<RemoteRepository>()
         );
     }

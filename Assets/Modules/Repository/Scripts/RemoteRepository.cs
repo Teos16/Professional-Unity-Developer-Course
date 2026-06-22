@@ -29,21 +29,15 @@ namespace Modules.Repositories
         {
             byte[] requestBytes = BuildSaveRequestBody(gameData);
             
-            await UniTask.SwitchToMainThread(ct);
-            
             using UnityWebRequest request = BuildPutRequest(version, requestBytes);
 
             bool sent = await SendRequest(request, "Save", ct);
 
-            await UniTask.SwitchToThreadPool();
-            
             return sent;
         }
 
         public async UniTask<(bool, JObject)> Load(int version, CancellationToken ct = default)
         {
-            await UniTask.SwitchToMainThread(ct);
-            
             using UnityWebRequest request = BuildGetRequest(version);
 
             bool sent = await SendRequest(request, "Load", ct);
@@ -52,8 +46,6 @@ namespace Modules.Repositories
 
             string responseText = request.downloadHandler.text;
             
-            await UniTask.SwitchToThreadPool();
-
             try
             {
                 return ParseLoadResponse(responseText);

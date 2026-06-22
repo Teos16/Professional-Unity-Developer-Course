@@ -46,7 +46,6 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.2.15f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Game\Scripts\Domain\App\RepositoryInstaller.cs" />
     <Compile Include="Assets\Game\Scripts\Domain\Gameplay\Entities\SaveLoad\Serializers\DestinationPointSerializer.cs" />
     <Compile Include="Assets\Game\Scripts\Domain\Gameplay\Entities\SaveLoad\EntityWorldSerializer.cs" />
     <Compile Include="Assets\Game\Scripts\Domain\Gameplay\SaveSystem\SaveFeatureInstaller.cs" />
@@ -57,6 +56,7 @@
     <Compile Include="Assets\Game\Scripts\Domain\Gameplay\Entities\SaveLoad\Serializers\TeamSerializer.cs" />
     <Compile Include="Assets\Game\Scripts\UI\ControlsView.cs" />
     <Compile Include="Assets\Game\Scripts\Domain\Gameplay\Entities\SaveLoad\Serializers\IComponentSerializer.cs" />
+    <Compile Include="Assets\Game\Scripts\Domain\App\RepositoryInstaller.cs" />
     <Compile Include="Assets\Game\Scripts\UI\IControlsPresenter.cs" />
     <Compile Include="Assets\Game\Scripts\Domain\Gameplay\Entities\Components\TargetObject.cs" />
     <Compile Include="Assets\Game\Scripts\Domain\Gameplay\Entities\Components\Team.cs" />
