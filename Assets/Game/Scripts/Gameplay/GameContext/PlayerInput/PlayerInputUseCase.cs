@@ -1,20 +1,15 @@
 ﻿using Atomic.Entities;
-using Game.UI;
 using UnityEngine;
 
 namespace Game.Gameplay
 {
     public static class PlayerInputUseCase
     {
-        public static void MoveWithJoystick(this IGameEntity player, Joystick joystick)
-        {
-            Vector3 direction = new Vector3(joystick.Direction.x, 0, joystick. Direction.y);
+        public static void Move(this IGameEntity player, Vector3 direction) => 
             player.GetValue(GameEntityAPI.MoveRequest).Invoke(direction);
-        }
-        
-        public static void AttackWithJoystick(this IGameEntity player, Joystick joystick)
+
+        public static void Attack(this IGameEntity player, Vector3 direction)
         {
-            Vector3 direction = new Vector3(joystick.Direction.x, 0, joystick. Direction.y);
             player.GetValue(GameEntityAPI.IsAiming).Invoke(direction != Vector3.zero);
             
             if (direction == Vector3.zero)

@@ -22,10 +22,10 @@ namespace Game.Gameplay
             weapon.AddValue(WeaponEntityAPI.Damage, _damage);
             weapon.AddValue(WeaponEntityAPI.AttackDistance, _attackDistance);
             weapon.GetValue(WeaponEntityAPI.AttackCommand)
-                .AddCondition(() => _owner.CanAttackCloseTarget(_attackDistance.Value, _layerMask))
                 .AddAction(() =>
                 {
-                    _owner.AttackTarget(gameContext, _damage.Value, _teamType);
+                    IPredicate<IGameEntity> targetType = _owner.GetValue(GameEntityAPI.TargetDetectionType);
+                    _owner.AttackTarget(gameContext, _damage.Value, _teamType, _attackDistance.Value, _layerMask, targetType);
                 });
         }
     }

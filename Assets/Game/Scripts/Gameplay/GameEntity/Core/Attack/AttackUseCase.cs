@@ -1,30 +1,42 @@
-﻿using Atomic.Entities;
+﻿using System.Buffers;
+using Atomic.Elements;
+using Atomic.Entities;
 using UnityEngine;
 
 namespace Game.Gameplay
 {
     public static class AttackUseCase
     {
-        public static void AttackTarget(this IGameEntity entity, 
-            IGameContext gameContext, 
-            int damage, 
-            TeamType teamType)
+        public static bool AttackTarget(this IGameEntity entity,
+            IGameContext gameContext,
+            int damage,
+            TeamType teamType,
+            float attackDistance,
+            LayerMask layerMask,
+            IPredicate<IGameEntity> targetPredicate)
         {
-            IGameEntity target = entity.GetValue(GameEntityAPI.Target).Value;
-            gameContext.TakeDamage(target, damage, teamType);
-        }
+            Transform center = entity.GetValue(GameEntityAPI.Transform).Value;
 
-        public static bool CanAttackCloseTarget(this IGameEntity entity, 
-            float attackDistance, 
-            LayerMask layerMask)
-        {
-            IGameEntity target = entity.GetValue(GameEntityAPI.Target).Value;
-            TargetUseCase.FindClosest(entity.GetValue(GameEntityAPI.Transform).Value.position, 
-                attackDistance, 
-                layerMask, 
-                out IGameEntity closestEntity, 
-                entity.GetValue(GameEntityAPI.TargetDetectionType));
-            return closestEntity == target;
+            ArrayPool<Collider> arrayPool = ArrayPool<Collider>.Shared;
+            Collider[] colliders = arrayPool.Rent(32);
+
+            int count = Physics.OverlapSphereNonAlloc(center.position, attackDistance, colliders, layerMask,
+                QueryTriggerInteraction.Collide);
+
+            if (!TargetUseCase.TryFindClosestInColliders(center.position, colliders, count,
+                    targetPredicate, out IGameEntity target))
+            {
+                arrayPool.Return(colliders);
+                return false;
+            }
+
+            arrayPool.Return(colliders);
+
+            if (target == null | !entity.LessOrEqualsDistance(target, attackDistance))
+                return false;
+
+            gameContext.TakeDamage(target, damage, teamType);
+            return true;
         }
     }
 }

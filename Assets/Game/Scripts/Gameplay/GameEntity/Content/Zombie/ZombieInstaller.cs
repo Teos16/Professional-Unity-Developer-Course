@@ -1,10 +1,9 @@
 ﻿using Atomic.Elements;
 using Atomic.Entities;
-using Game.Gameplay;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Game.Scripts.Gameplay.GameEntity.Content.Zombie
+namespace Game.Gameplay
 {
     public sealed class ZombieInstaller : GameEntityInstaller
     {

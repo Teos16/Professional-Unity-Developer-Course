@@ -1,4 +1,3 @@
-using System;
 using System.Buffers;
 using Atomic.Elements;
 using Atomic.Entities;
@@ -8,44 +7,45 @@ namespace Game.Gameplay
 {
     public static class TargetUseCase
     {
-        public static bool FindClosest(
+        public static bool TryFindClosest(
             Vector3 center,
             float radius,
             LayerMask layerMask,
             out IGameEntity result,
-            IPredicate<IGameEntity> predicate
-        )
+            IPredicate<IGameEntity> predicate)
         {
-            ArrayPool<Collider> arrayPool = ArrayPool<Collider>.Shared;
-            Collider[] colliders = arrayPool.Rent(32);
+            Collider[] colliders = RentColliders(out int count, center, radius, layerMask);
+            bool found = TryFindClosestInColliders(center, colliders, count, predicate, out result);
+            ReturnColliders(colliders);
+            return found;
+        }
 
-            int count = Physics.OverlapSphereNonAlloc(center, radius, colliders, layerMask, 
-                QueryTriggerInteraction.Collide);
-
+        public static bool TryFindClosestInColliders(
+            Vector3 center,
+            Collider[] colliders,
+            int count,
+            IPredicate<IGameEntity> predicate,
+            out IGameEntity result)
+        {
             float minDistance = float.MaxValue;
             result = null;
-
             for (int i = 0; i < count; i++)
             {
                 Collider collider = colliders[i];
-                
-                if (!collider.TryGetComponent(out IGameEntity other) || !predicate.Invoke(other))
-                    continue;
-
-                Vector3 position = other.GetValue(GameEntityAPI.Transform).Value.position;
-                float distance = Vector3.SqrMagnitude(position - center);
-                if (distance >= minDistance)
-                    continue;
-                
-                result = other;
-                minDistance = distance;
-                
+                if (collider.TryGetComponent(out IGameEntity other) && predicate.Invoke(other))
+                {
+                    Vector3 pos = other.GetValue(GameEntityAPI.Transform).Value.position;
+                    float dist = Vector3.SqrMagnitude(pos - center);
+                    if (dist < minDistance)
+                    {
+                        minDistance = dist;
+                        result = other;
+                    }
+                }
             }
-            
-            arrayPool.Return(colliders);
             return result != null;
         }
-        
+
         public static bool HavePlayerTarget(this IGameEntity entity)
         {
             return entity.TryGetValue(GameEntityAPI.Target, out IVariable<IGameEntity> target) 
@@ -61,5 +61,14 @@ namespace Game.Gameplay
             entity.TryGetValue(GameEntityAPI.Target, out IVariable<IGameEntity> target) 
             && target.Value != null 
             && entity.LessOrEqualsDistance(target.Value, distance);
+        
+        private static Collider[] RentColliders(out int count, Vector3 center, float radius, LayerMask layerMask)
+        {
+            Collider[] colliders = ArrayPool<Collider>.Shared.Rent(32);
+            count = Physics.OverlapSphereNonAlloc(center, radius, colliders, layerMask, QueryTriggerInteraction.Collide);
+            return colliders;
+        }
+
+        private static void ReturnColliders(Collider[] colliders) => ArrayPool<Collider>.Shared.Return(colliders);
     }
 }

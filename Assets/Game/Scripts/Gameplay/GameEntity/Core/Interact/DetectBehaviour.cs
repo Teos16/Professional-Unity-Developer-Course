@@ -34,7 +34,7 @@ namespace Game.Gameplay
             if (!_period.IsCompleted())
                 return;
 
-            TargetUseCase.FindClosest(
+            TargetUseCase.TryFindClosest(
                 _center.position,
                 _radius,
                 _layerMask,

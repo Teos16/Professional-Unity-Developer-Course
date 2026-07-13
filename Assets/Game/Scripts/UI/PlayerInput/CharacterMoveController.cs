@@ -1,6 +1,7 @@
 using Atomic.Elements;
 using Atomic.Entities;
 using Game.UI;
+using UnityEngine;
 
 namespace Game.Gameplay
 {
@@ -18,7 +19,7 @@ namespace Game.Gameplay
             if(_joystick.Value == null)
                 return;
             
-            _player.MoveWithJoystick(_joystick.Value);
+            _player.Move(new Vector3(_joystick.Value.Direction.x, 0, _joystick.Value.Direction.y));
         }
     }
 }
