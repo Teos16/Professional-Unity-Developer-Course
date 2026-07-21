@@ -8,16 +8,18 @@ namespace SampleGame
     public class CommandManager : MonoBehaviour 
     {
         public event Action<ICommand> OnCommandTrigger;
-
+        
         private readonly Queue<ICommand> _queue = new();
         private ICommand _currentCommand;
         private bool _isExecuting;
 
         private Blackboard _blackboard;
+        private GameObject _character;
 
         private void Start()
         {
             _blackboard = GetComponentInChildren<Blackboard>();
+            _character = gameObject;
         }
 
         private void Update() 
@@ -44,8 +46,6 @@ namespace SampleGame
 
                     _isExecuting = true;
                     
-                    UpdateIdleState();
-                    
                     bool isFinished = _currentCommand.Execute(); 
                     if (isFinished) 
                     {
@@ -60,17 +60,24 @@ namespace SampleGame
                     _queue.Dequeue(); 
                 }
             }
+            
+            UpdateIdleState();
         }
 
         private void UpdateIdleState()
         {
-            if (_blackboard == null)
+            if (_blackboard == null || _character == null)
                 return;
 
             bool shouldBeIdle = !_isExecuting && _queue.Count == 0;
-            
-            if (!_blackboard.TryGetValue(BlackboardAPI.IsIdle, out bool currentIsIdle) || currentIsIdle != shouldBeIdle) 
-                _blackboard.SetPrimitiveValue(BlackboardAPI.IsIdle, shouldBeIdle);
+
+            if (shouldBeIdle)
+            {
+                if(!_blackboard.TryGetValue(BlackboardAPI.IdlePosition, out Vector3 _))
+                    _blackboard.SetPrimitiveValue(BlackboardAPI.IdlePosition, _character.transform.position);
+            }
+            else
+                _blackboard.DelValue(BlackboardAPI.IdlePosition);
         }
 
         public void Enqueue(ICommand command) 

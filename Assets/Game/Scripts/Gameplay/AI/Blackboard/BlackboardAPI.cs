@@ -8,7 +8,7 @@ namespace SampleGame
     public static class BlackboardAPI
     {
         // Idle
-        public static readonly BlackboardValueKey<bool> IsIdle = new(nameof(IsIdle));
+        public static readonly BlackboardValueKey<Vector3> IdlePosition = new(nameof(IdlePosition));
         
         // GameObjects
         public static readonly BlackboardValueKey<GameObject> Character = new(nameof(Character));
