@@ -11,6 +11,9 @@ namespace Game
         [SerializeField]
         private GameObject _characterPrefab;
 
+        [SerializeField] 
+        private SpawnPointService _spawnPointService;
+
         private void OnEnable()
         {
             _networkEvents.PlayerJoined.AddListener(this.OnPlayerJoined);
@@ -25,10 +28,13 @@ namespace Game
         {
             if (runner.IsServer)
             {
-                NetworkObject character = runner.Spawn(
-                    _characterPrefab, Vector3.zero, Quaternion.identity,
-                    playerRef);
-                runner.SetPlayerObject(playerRef, character);
+                Transform spawnPoint = _spawnPointService.
+                    GetSpawnPoint(playerRef.AsIndex % _spawnPointService.Count);
+                NetworkObject player = runner.Spawn(
+                    _characterPrefab, Vector3.zero, Quaternion.identity, playerRef);
+                player.GetComponentInChildren<NetworkTransform>()
+                    .Teleport(spawnPoint.position, spawnPoint.rotation);
+                runner.SetPlayerObject(playerRef, player);
             }
         }
     }

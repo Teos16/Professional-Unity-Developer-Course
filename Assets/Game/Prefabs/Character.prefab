@@ -78,7 +78,8 @@ GameObject:
   - component: {fileID: 6879256012616284617}
   - component: {fileID: 3130235134801957412}
   - component: {fileID: 5175328433247198385}
-  m_Layer: 0
+  - component: {fileID: 8686441220146617939}
+  m_Layer: 6
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,6 +126,7 @@ MonoBehaviour:
   - {fileID: 4102418137334617694}
   - {fileID: 3130235134801957412}
   - {fileID: 5175328433247198385}
+  - {fileID: 8686441220146617939}
   ForceRemoteRenderTimeframe: 0
 --- !u!136 &665074989976056792
 CapsuleCollider:
@@ -232,6 +234,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game::Game.HealthComponent
   _Current: 10
   <Max>k__BackingField: 10
+--- !u!114 &8686441220146617939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5122920686815828235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff1ae6ae2b04719980e915023d629a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.CameraFollower
+  _character: {fileID: 4102418137334617694}
 --- !u!1 &7146220762343846745
 GameObject:
   m_ObjectHideFlags: 0
