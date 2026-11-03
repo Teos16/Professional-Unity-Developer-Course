@@ -21,7 +21,9 @@ namespace Game
             if(!HasStateAuthority)
                 return;
             
-            if(Runner.ActivePlayers.Count() != 2)
+            if (_gameState.Status == GameStatus.Waiting && Runner.ActivePlayers.Count() == 2) 
+                _gameState.Status = GameStatus.Playing;
+            if (_gameState.Status != GameStatus.Playing)
                 return;
             
             if (_timestamp.IsRunning(this.Runner))

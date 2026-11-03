@@ -25,5 +25,12 @@ namespace Game
 
             this.Current = Math.Max(0, this.Current - damage);
         }
+        
+        [Button]
+        public void Die()
+        {
+            this.Current = 0;
+            Runner.Despawn(Object);
+        }
     }
 }

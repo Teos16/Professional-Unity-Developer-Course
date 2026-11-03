@@ -32615,6 +32615,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6133417917219992832, guid: c4c58b8d98fa4874c8902ced03964d3c, type: 3}
+      propertyPath: SortKey
+      value: 1074709758
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416745625862693654, guid: c4c58b8d98fa4874c8902ced03964d3c, type: 3}
+      propertyPath: _gameState
+      value: 
+      objectReference: {fileID: 1935509455}
     - target: {fileID: 7687135409742009684, guid: c4c58b8d98fa4874c8902ced03964d3c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -49041,7 +49049,7 @@ GameObject:
   - component: {fileID: 1935509450}
   - component: {fileID: 1935509454}
   - component: {fileID: 1935509451}
-  - component: {fileID: 1935509453}
+  - component: {fileID: 1935509455}
   m_Layer: 0
   m_Name: WaveSpawner
   m_TagString: Untagged
@@ -49081,20 +49089,7 @@ MonoBehaviour:
   _enemyConfig: {fileID: 11400000, guid: 59764f096cccf124b8b56eeeb5dc6bf7, type: 2}
   _spawnPointService: {fileID: 382391469}
   _portal: {fileID: 1317087209}
-  _gameState: {fileID: 1935509453}
---- !u!114 &1935509453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1935509449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 888e32ff740245e288f474f0cebec661, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.GameState
-  _Status: 1
+  _gameState: {fileID: 1935509455}
 --- !u!114 &1935509454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49114,8 +49109,21 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 1935509451}
-  - {fileID: 1935509453}
+  - {fileID: 1935509455}
   ForceRemoteRenderTimeframe: 0
+--- !u!114 &1935509455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935509449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 888e32ff740245e288f474f0cebec661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.GameState
+  _Status: 0
 --- !u!1 &1938807761
 GameObject:
   m_ObjectHideFlags: 0
