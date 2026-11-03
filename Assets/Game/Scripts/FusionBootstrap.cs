@@ -6,7 +6,6 @@ namespace Game
 {
     public sealed class FusionBootstrap : MonoBehaviour
     {
-        // Network Session
         private async void Start()
         {
             NetworkRunner runner = this.gameObject.AddComponent<NetworkRunner>();

@@ -5,8 +5,7 @@ namespace Game
 {
     public sealed class PlayerLeftController : MonoBehaviour
     {
-        [SerializeField]
-        private NetworkEvents _events;
+        [SerializeField] private NetworkEvents _events;
 
         private void OnEnable()
         {
@@ -20,9 +19,7 @@ namespace Game
 
         private void OnPlayerLeft(NetworkRunner runner, PlayerRef playerRef)
         {
-            if (runner.IsServer &&
-                runner.TryGetPlayerObject(
-                    playerRef, out NetworkObject character))
+            if (runner.IsServer && runner.TryGetPlayerObject(playerRef, out NetworkObject character))
                 runner.Despawn(character);
         }
     }

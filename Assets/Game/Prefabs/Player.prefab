@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1231370781976454233}
-  - component: {fileID: 3906299286447050794}
   - component: {fileID: 4651454134627686794}
+  - component: {fileID: 3906299286447050794}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -34,19 +34,6 @@ Transform:
   - {fileID: 3517989812944198419}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3906299286447050794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1404067246571692652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96ee23f17ebf47e1a1636944edd4c765, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.Player
-  _character: {fileID: 7042967124135393491}
 --- !u!114 &4651454134627686794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +55,19 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 3906299286447050794}
   ForceRemoteRenderTimeframe: 0
+--- !u!114 &3906299286447050794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404067246571692652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96ee23f17ebf47e1a1636944edd4c765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Player
+  _character: {fileID: 7042967124135393491}
 --- !u!1001 &3650942419358379065
 PrefabInstance:
   m_ObjectHideFlags: 0

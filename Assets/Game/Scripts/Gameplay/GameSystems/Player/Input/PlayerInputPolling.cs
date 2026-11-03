@@ -5,8 +5,7 @@ namespace Game
 {
     public sealed class PlayerInputPolling : MonoBehaviour
     {
-        [SerializeField]
-        private NetworkEvents _networkEvents;
+        [SerializeField] private NetworkEvents _networkEvents;
         
         private PlayerInputData _playerInput;
 
@@ -21,10 +20,7 @@ namespace Game
             float dx = Input.GetAxis("Horizontal");
             float dz = Input.GetAxis("Vertical");
             
-            var buttons = new NetworkButtons();
-            buttons.Set(
-                PlayerInputButtons.Sprint,
-                Input.GetKey(KeyCode.LeftShift));
+            NetworkButtons buttons = new NetworkButtons();
 
             _playerInput = new PlayerInputData
             {

@@ -5,6 +5,7 @@ namespace Game
     [Flags]
     public enum PlayerInputButtons
     {
-        Sprint = 1,
+        Mine = 0,
+        Turret = 1
     }
 }

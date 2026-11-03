@@ -9,7 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4010362202926120242}
+  - component: {fileID: 8779632359734822022}
+  - component: {fileID: -2445862597429754730}
+  - component: {fileID: 3048519538045990359}
+  - component: {fileID: 4731694360847145852}
+  - component: {fileID: 459751611818726679}
   - component: {fileID: 216082409229877555}
+  - component: {fileID: 5753042340434870068}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
@@ -34,6 +40,112 @@ Transform:
   - {fileID: 1051175001654507704}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8779632359734822022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011030080782938114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkObject
+  SortKey: 3460632551
+  SendPriority: 1
+  EnableInterpolation: 1
+  Flags: 262402
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 3048519538045990359}
+  - {fileID: -2445862597429754730}
+  - {fileID: 4731694360847145852}
+  - {fileID: 459751611818726679}
+  - {fileID: 5753042340434870068}
+  ForceRemoteRenderTimeframe: 0
+--- !u!114 &-2445862597429754730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011030080782938114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db0801d9cc4e47eda18a1845fd49e594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Enemy
+  _healthComponent: {fileID: 4731694360847145852}
+  _moveComponent: {fileID: 459751611818726679}
+--- !u!114 &3048519538045990359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011030080782938114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkTransform
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  ConfigFlags: 0
+  PhysicsSettings:
+    ForecastEnabled: 1
+    DebugPhysics: 0
+    GravityForecast: 2
+    MaxExtrapolationTime: 0.15
+    MinLinearDetectedError: 0.02
+    MinAngularDetectedError: 3
+    MaxLinearError: 0
+    MaxAngularError: 0
+    LowCorrectionProgressThreshold: 0.015
+    HighErrorSimilarityThreshold: 1
+    MaxErrorTotalTime: 0.5
+    MaxRemoteSleepIgnoreTime: 0.5
+    ErrorCorrectionType: 0
+    LinearVelCorrectionMul: 1
+    AngularVelCorrectionMul: 1
+    PositionCorrectionLerp: 0.15
+    RotationCorrectionLerp: 0.15
+    Spring: 75
+    Damper: 2
+    MinImpactfulCollisionAlignment: 0.3
+    ImpactStartCorrectionTime: 0.1
+    ImpactCorrectionTimeComplete: 0.3
+--- !u!114 &4731694360847145852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011030080782938114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d921f8fa44a94a1cae0fba485ad0e1c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.HealthComponent
+  _Current: 1
+  <Max>k__BackingField: 1
+--- !u!114 &459751611818726679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011030080782938114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fc024c0b1047ed959140837a994286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.MoveComponent
+  _moveSpeed: 2
+  _angularSpeed: 720
 --- !u!65 &216082409229877555
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -55,6 +167,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &5753042340434870068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011030080782938114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db82b6a7e1774fd5901a1b78d6060ef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.EnemyController
+  Target: {fileID: 0}
+  _moveComponent: {fileID: 459751611818726679}
 --- !u!1 &6681128362121645732
 GameObject:
   m_ObjectHideFlags: 0

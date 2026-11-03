@@ -10,14 +10,8 @@ namespace Game
             public bool IsMet();
         }
         
-        [SerializeField]
-        private float _moveSpeed = 5;
-
-        [SerializeField]
-        private float _speedMultiplier = 2;
-
-        [SerializeField]
-        private float _angularSpeed = 720;
+        [SerializeField] private float _moveSpeed = 5;
+        [SerializeField] private float _angularSpeed = 720;
         
         private ICondition _condition;
         
@@ -26,14 +20,14 @@ namespace Game
             _condition = condition;
         }
 
-        public void Move(Vector3 direction, bool isSprint)
+        public void Move(Vector3 direction)
         {
             if (direction == Vector3.zero || (_condition != null && !_condition.IsMet()))
                 return;
 
             float deltaTime = this.Runner.DeltaTime;
             this.UpdateRotation(direction, deltaTime);
-            this.UpdatePosition(direction, isSprint, deltaTime);
+            this.UpdatePosition(direction, deltaTime);
         }
 
         private void UpdateRotation(Vector3 direction, float deltaTime)
@@ -44,12 +38,9 @@ namespace Game
                 current, target, _angularSpeed * deltaTime);
         }
 
-        private void UpdatePosition(Vector3 direction, bool isSprint, float deltaTime)
+        private void UpdatePosition(Vector3 direction, float deltaTime)
         {
             float moveSpeed = _moveSpeed;
-            if (isSprint)
-                moveSpeed *= _speedMultiplier;
-
             this.transform.position += direction * deltaTime * moveSpeed;
         }
     }

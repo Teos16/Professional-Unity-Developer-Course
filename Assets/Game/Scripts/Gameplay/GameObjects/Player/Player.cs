@@ -19,14 +19,10 @@ namespace Game
             }
         }
         
-        private void ProcessMove(
-            NetworkButtons inputButtons, PlayerInputData inputData)
+        private void ProcessMove(NetworkButtons inputButtons, PlayerInputData inputData)
         {
-            bool isSprint = inputButtons.IsSet(PlayerInputButtons.Sprint);
-            Vector3 moveDirection = new Vector3(
-                inputData.moveDirection.x, 0, inputData.moveDirection.y);
-            _character.GetBehaviour<MoveComponent>()
-                .Move(moveDirection, isSprint);
+            Vector3 moveDirection = new Vector3(inputData.moveDirection.x, 0, inputData.moveDirection.y);
+            _character.GetBehaviour<MoveComponent>().Move(moveDirection);
         }
     }
 }
