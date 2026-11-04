@@ -10,6 +10,9 @@ namespace Game
         [SerializeField] private float _radius;
         [SerializeField] private LayerMask _layerMask;
         [SerializeField] private HealthComponent _portalHealth;
+        [SerializeField] private int _maxHealth = 10;
+
+        public override void Spawned() => _portalHealth.Initialize(_maxHealth);
 
         public override void FixedUpdateNetwork()
         {
@@ -26,8 +29,8 @@ namespace Game
                 Collider _collider = s_colliders[i];
                 NetworkObject other = _collider.GetComponentInParent<NetworkObject>();
                 if (other != null &&
-                    other.TryGetBehaviour(out Enemy enemy) &&
                     other.IsValid &&
+                    other.TryGetBehaviour(out Enemy enemy) &&
                     other.TryGetBehaviour(out HealthComponent enemyHealth) &&
                     enemyHealth.IsAlive)
                 {

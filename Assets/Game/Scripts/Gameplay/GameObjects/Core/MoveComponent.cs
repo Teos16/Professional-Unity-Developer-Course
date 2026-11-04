@@ -9,12 +9,14 @@ namespace Game
         {
             public bool IsMet();
         }
-        
-        [SerializeField] private float _moveSpeed = 5;
+
         [SerializeField] private float _angularSpeed = 720;
-        
+
+        private float _moveSpeed;
         private ICondition _condition;
         
+        public void Initialize(float moveSpeed) => _moveSpeed = moveSpeed;
+
         public void SetCondition(ICondition condition)
         {
             _condition = condition;

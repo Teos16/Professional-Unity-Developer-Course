@@ -6,6 +6,7 @@ namespace Game
     public sealed class EnemyController : NetworkBehaviour
     {
         [SerializeField] private MoveComponent _moveComponent;
+        [SerializeField] private MeleeAttackComponent _meleeAttackComponent;
 
         private Transform _target;
         
@@ -19,6 +20,7 @@ namespace Game
             Vector3 direction = _target.position - this.transform.position;
             direction.y = 0;
             _moveComponent.Move(direction.normalized);
+            _meleeAttackComponent.Attack();
         }
     }
 }

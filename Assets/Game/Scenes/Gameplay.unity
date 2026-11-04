@@ -42055,9 +42055,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1647604773}
+  - component: {fileID: 1647604778}
   - component: {fileID: 1647604776}
   - component: {fileID: 1647604775}
   - component: {fileID: 1647604774}
+  - component: {fileID: 1647604777}
   m_Layer: 0
   m_Name: Players
   m_TagString: Untagged
@@ -42121,6 +42123,38 @@ MonoBehaviour:
   _networkEvents: {fileID: 1872066582}
   _playerPrefab: {fileID: 1404067246571692652, guid: 343607b7b8f81424d97be5e61fc664d6, type: 3}
   _spawnPointService: {fileID: 1569224910}
+--- !u!114 &1647604777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647604772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13d716fb4cbe447cb32b61904bb15aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.TeamStatus
+--- !u!114 &1647604778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647604772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkObject
+  SortKey: 2071466465
+  SendPriority: 1
+  EnableInterpolation: 1
+  Flags: 262146
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 1647604777}
+  ForceRemoteRenderTimeframe: 0
 --- !u!1 &1651350156
 GameObject:
   m_ObjectHideFlags: 0
@@ -49154,7 +49188,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game::Game.GameLoseController
   _portal: {fileID: 1317087207}
   _gameCycle: {fileID: 1935509455}
-  _waveSpawner: {fileID: 1935509451}
+  _waveManager: {fileID: 1935509451}
+  _teamStatus: {fileID: 1647604777}
 --- !u!114 &1935509457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49168,8 +49203,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.GameWinController
   _portal: {fileID: 1317087207}
-  _waveSpawner: {fileID: 1935509451}
+  waveManager: {fileID: 1935509451}
   _gameCycle: {fileID: 1935509455}
+  _teamStatus: {fileID: 1647604777}
 --- !u!114 &1935509458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49184,7 +49220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game::Game.GameStartController
   _startPlayerCount: 2
   _gameCycle: {fileID: 1935509455}
-  _waveSpawner: {fileID: 1935509451}
+  waveManager: {fileID: 1935509451}
 --- !u!1 &1938807761
 GameObject:
   m_ObjectHideFlags: 0

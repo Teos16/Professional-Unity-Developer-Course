@@ -8,14 +8,14 @@ namespace Game
     {
         [SerializeField] private int _startPlayerCount = 2;
         [SerializeField] private GameCycle _gameCycle;
-        [SerializeField] private WaveSpawner _waveSpawner;
+        [SerializeField] private WaveManager waveManager;
 
         public override void FixedUpdateNetwork()
         {
             if (_gameCycle.State == GameStatus.Waiting && Runner.ActivePlayers.Count() == _startPlayerCount)
             {
                 _gameCycle.StartGame();
-                _waveSpawner.StartWave();
+                waveManager.StartWave();
             }
         }
     }

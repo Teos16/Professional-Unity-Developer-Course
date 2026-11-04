@@ -7,13 +7,15 @@ namespace Game
     {
         [SerializeField] private Portal _portal;
         [SerializeField] private GameCycle _gameCycle;
-        [SerializeField] private WaveSpawner _waveSpawner;
-
+        [SerializeField] private WaveManager _waveManager;
+        [SerializeField] private TeamStatus _teamStatus;
+        
         public override void FixedUpdateNetwork()
         {
-            if (_gameCycle.State == GameStatus.Playing && _portal.GetBehaviour<HealthComponent>().IsDead) 
+            if (_gameCycle.State == GameStatus.Playing &&
+                (_portal.GetBehaviour<HealthComponent>().IsDead || _teamStatus.IsAnyCharacterDead())) 
             {
-                _waveSpawner.StopWave();
+                _waveManager.StopWave();
                 _gameCycle.Lose();
             }
         }

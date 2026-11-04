@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public sealed class WaveSpawner : NetworkBehaviour
+    public sealed class WaveManager : NetworkBehaviour
     {
         [SerializeField] private float _spawnInterval;
         [SerializeField] private int _enemyCountToSpawn;

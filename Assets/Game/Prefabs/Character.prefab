@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 8686441220146617939}
   m_Layer: 6
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game::Game.Character
   _healthComponent: {fileID: 5175328433247198385}
   _moveComponent: {fileID: 3130235134801957412}
+  _config: {fileID: 11400000, guid: 5b5f0cd30cd972c4db258a142d8bf7dc, type: 2}
 --- !u!114 &6879256012616284617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,8 +218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2fc024c0b1047ed959140837a994286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.MoveComponent
-  _moveSpeed: 5
-  _speedMultiplier: 2
   _angularSpeed: 720
 --- !u!114 &5175328433247198385
 MonoBehaviour:

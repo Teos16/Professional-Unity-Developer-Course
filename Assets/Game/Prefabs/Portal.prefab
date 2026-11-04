@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 6133417917219992832}
   - component: {fileID: 8997157032377934031}
   - component: {fileID: 1883574040571837546}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Portal
   m_TagString: Portal
   m_Icon: {fileID: 0}
@@ -265,8 +265,8 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 128
-  _gameState: {fileID: 0}
   _portalHealth: {fileID: 8997157032377934031}
+  _maxHealth: 10
 --- !u!114 &6133417917219992832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,7 +301,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.HealthComponent
   _Current: 10
-  <Max>k__BackingField: 10
 --- !u!136 &1883574040571837546
 CapsuleCollider:
   m_ObjectHideFlags: 0
