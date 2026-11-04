@@ -9,7 +9,6 @@ namespace Game
         
         [SerializeField] private float _radius;
         [SerializeField] private LayerMask _layerMask;
-        [SerializeField] private GameState _gameState;
         [SerializeField] private HealthComponent _portalHealth;
 
         public override void FixedUpdateNetwork()
@@ -28,15 +27,13 @@ namespace Game
                 NetworkObject other = _collider.GetComponentInParent<NetworkObject>();
                 if (other != null &&
                     other.TryGetBehaviour(out Enemy enemy) &&
-                    enemy.IsValid &&
+                    other.IsValid &&
                     other.TryGetBehaviour(out HealthComponent enemyHealth) &&
                     enemyHealth.IsAlive)
                 {
-                    enemyHealth.Die();
+                    Runner.Despawn(other);
                     if(_portalHealth.IsAlive) 
                         _portalHealth.TakeDamage(1);
-                    if (_portalHealth.IsDead)
-                        _gameState.Status = GameStatus.Lost;
                 }
             }
         }

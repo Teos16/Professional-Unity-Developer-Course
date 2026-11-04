@@ -32668,6 +32668,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4c58b8d98fa4874c8902ced03964d3c, type: 3}
+--- !u!114 &1317087207 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6416745625862693654, guid: c4c58b8d98fa4874c8902ced03964d3c, type: 3}
+  m_PrefabInstance: {fileID: 1317087206}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 736f4ce8145b4052bf6a419ed08c652b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Portal
 --- !u!4 &1317087209 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7687135409742009684, guid: c4c58b8d98fa4874c8902ced03964d3c, type: 3}
@@ -49050,8 +49061,11 @@ GameObject:
   - component: {fileID: 1935509454}
   - component: {fileID: 1935509451}
   - component: {fileID: 1935509455}
+  - component: {fileID: 1935509458}
+  - component: {fileID: 1935509457}
+  - component: {fileID: 1935509456}
   m_Layer: 0
-  m_Name: WaveSpawner
+  m_Name: GameCycle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49089,7 +49103,6 @@ MonoBehaviour:
   _enemyConfig: {fileID: 11400000, guid: 59764f096cccf124b8b56eeeb5dc6bf7, type: 2}
   _spawnPointService: {fileID: 382391469}
   _portal: {fileID: 1317087209}
-  _gameState: {fileID: 1935509455}
 --- !u!114 &1935509454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49110,6 +49123,9 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1935509451}
   - {fileID: 1935509455}
+  - {fileID: 1935509458}
+  - {fileID: 1935509457}
+  - {fileID: 1935509456}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &1935509455
 MonoBehaviour:
@@ -49123,7 +49139,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888e32ff740245e288f474f0cebec661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.GameState
-  _Status: 0
+  _State: 0
+--- !u!114 &1935509456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935509449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f04d316c0c449cb1bbbfdba109a0b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.GameLoseController
+  _portal: {fileID: 1317087207}
+  _gameCycle: {fileID: 1935509455}
+  _waveSpawner: {fileID: 1935509451}
+--- !u!114 &1935509457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935509449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd10a525fa3d4abe915d70b0e5d0e1ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.GameWinController
+  _portal: {fileID: 1317087207}
+  _waveSpawner: {fileID: 1935509451}
+  _gameCycle: {fileID: 1935509455}
+--- !u!114 &1935509458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935509449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89629eaf96454eb088be7ca8d880bd5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.GameStartController
+  _startPlayerCount: 2
+  _gameCycle: {fileID: 1935509455}
+  _waveSpawner: {fileID: 1935509451}
 --- !u!1 &1938807761
 GameObject:
   m_ObjectHideFlags: 0
