@@ -37,7 +37,7 @@ namespace Game
             if (_timestamp.IsRunning(this.Runner))
                 return;
 
-            if (_condition != null && !_condition.IsMet())
+            if (_condition == null || !_condition.IsMet())
                 return;
 
             int count = this.Runner.GetPhysicsScene().OverlapSphere(

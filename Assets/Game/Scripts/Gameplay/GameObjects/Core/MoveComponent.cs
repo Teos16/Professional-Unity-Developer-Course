@@ -24,7 +24,7 @@ namespace Game
 
         public void Move(Vector3 direction)
         {
-            if (direction == Vector3.zero || (_condition != null && !_condition.IsMet()))
+            if (direction == Vector3.zero || _condition == null || !_condition.IsMet())
                 return;
 
             float deltaTime = this.Runner.DeltaTime;

@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: Character
   m_EditorClassIdentifier: Game::Game.CharacterConfig
   _maxHealth: 3
-  _damage: 1
-  _attackCooldown: 1
+  _attackCooldown: 2
   _movementSpeed: 5
