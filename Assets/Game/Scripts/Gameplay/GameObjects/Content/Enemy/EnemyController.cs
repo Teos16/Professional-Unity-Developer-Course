@@ -5,10 +5,16 @@ namespace Game
 {
     public sealed class EnemyController : NetworkBehaviour
     {
-        [SerializeField] private MoveComponent _moveComponent;
-        [SerializeField] private MeleeAttackComponent _meleeAttackComponent;
+        private MoveComponent _moveComponent;
+        private MeleeAttackComponent _meleeAttackComponent;
 
         private Transform _target;
+        
+        public override void Spawned()
+        {
+            _moveComponent = GetBehaviour<MoveComponent>();
+            _meleeAttackComponent = GetBehaviour<MeleeAttackComponent>();
+        }
         
         public void SetTarget(Transform target) => _target = target;
 

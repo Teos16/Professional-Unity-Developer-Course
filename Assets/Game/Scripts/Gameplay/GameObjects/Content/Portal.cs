@@ -6,13 +6,18 @@ namespace Game
     public sealed class Portal : NetworkBehaviour
     {
         private static readonly Collider[] s_colliders = new Collider[5];
-        
+
+        [SerializeField] private int _maxHealth = 10;
         [SerializeField] private float _radius;
         [SerializeField] private LayerMask _layerMask;
-        [SerializeField] private HealthComponent _portalHealth;
-        [SerializeField] private int _maxHealth = 10;
 
-        public override void Spawned() => _portalHealth.Initialize(_maxHealth);
+        private HealthComponent _portalHealth;
+
+        public override void Spawned()
+        {
+            _portalHealth = GetBehaviour<HealthComponent>();
+            _portalHealth.Initialize(_maxHealth);
+        }
 
         public override void FixedUpdateNetwork()
         {

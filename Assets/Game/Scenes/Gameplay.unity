@@ -42046,115 +42046,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647133552}
   m_Mesh: {fileID: -8256275105597686307, guid: 6f7ce1eadb8f52643805f03050542b36, type: 3}
---- !u!1 &1647604772
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1647604773}
-  - component: {fileID: 1647604778}
-  - component: {fileID: 1647604776}
-  - component: {fileID: 1647604775}
-  - component: {fileID: 1647604774}
-  - component: {fileID: 1647604777}
-  m_Layer: 0
-  m_Name: Players
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1647604773
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647604772}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1684309002}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1647604774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647604772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 396d6dbc7140467a894ba1cd7ddb52bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.PlayerInputPolling
-  _networkEvents: {fileID: 1872066582}
---- !u!114 &1647604775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647604772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80310c081d8a4500b455c5ed3c91c565, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.PlayerLeftController
-  _events: {fileID: 1872066582}
---- !u!114 &1647604776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647604772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41056cf6063a4295bfb7e93d349581ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.PlayerJoinController
-  _networkEvents: {fileID: 1872066582}
-  _playerPrefab: {fileID: 1404067246571692652, guid: 343607b7b8f81424d97be5e61fc664d6, type: 3}
-  _spawnPointService: {fileID: 1569224910}
---- !u!114 &1647604777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647604772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13d716fb4cbe447cb32b61904bb15aef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.TeamStatus
---- !u!114 &1647604778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647604772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkObject
-  SortKey: 2071466465
-  SendPriority: 1
-  EnableInterpolation: 1
-  Flags: 262146
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 1647604777}
-  ForceRemoteRenderTimeframe: 0
 --- !u!1 &1651350156
 GameObject:
   m_ObjectHideFlags: 0
@@ -42730,7 +42621,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1684309002}
   m_Layer: 0
-  m_Name: '[System]'
+  m_Name: '[Systems]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42751,7 +42642,6 @@ Transform:
   m_Children:
   - {fileID: 1872066580}
   - {fileID: 1935509450}
-  - {fileID: 1647604773}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1684543157
@@ -47341,6 +47231,9 @@ GameObject:
   - component: {fileID: 1872066580}
   - component: {fileID: 1872066581}
   - component: {fileID: 1872066582}
+  - component: {fileID: 1872066585}
+  - component: {fileID: 1872066584}
+  - component: {fileID: 1872066583}
   m_Layer: 0
   m_Name: Bootstrap & Events
   m_TagString: Untagged
@@ -47441,6 +47334,47 @@ MonoBehaviour:
   OnObjectExitAOI:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1872066583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872066579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 396d6dbc7140467a894ba1cd7ddb52bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.PlayerInputPolling
+  _networkEvents: {fileID: 1872066582}
+--- !u!114 &1872066584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872066579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80310c081d8a4500b455c5ed3c91c565, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.PlayerLeftController
+  _events: {fileID: 1872066582}
+--- !u!114 &1872066585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872066579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41056cf6063a4295bfb7e93d349581ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.PlayerJoinController
+  _networkEvents: {fileID: 1872066582}
+  _playerPrefab: {fileID: 1404067246571692652, guid: 343607b7b8f81424d97be5e61fc664d6, type: 3}
+  _spawnPointService: {fileID: 1569224910}
 --- !u!1 &1877885070
 GameObject:
   m_ObjectHideFlags: 0
@@ -49093,13 +49027,18 @@ GameObject:
   m_Component:
   - component: {fileID: 1935509450}
   - component: {fileID: 1935509454}
-  - component: {fileID: 1935509451}
   - component: {fileID: 1935509455}
   - component: {fileID: 1935509458}
   - component: {fileID: 1935509457}
   - component: {fileID: 1935509456}
+  - component: {fileID: 1935509459}
+  - component: {fileID: 1935509451}
+  - component: {fileID: 1935509463}
+  - component: {fileID: 1935509462}
+  - component: {fileID: 1935509461}
+  - component: {fileID: 1935509460}
   m_Layer: 0
-  m_Name: GameCycle
+  m_Name: Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49132,11 +49071,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40021cee79504e78bc8399a2211eaa56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.WaveSpawner
-  _spawnInterval: 5
-  _enemyCountToSpawn: 10
-  _enemyConfig: {fileID: 11400000, guid: 59764f096cccf124b8b56eeeb5dc6bf7, type: 2}
-  _spawnPointService: {fileID: 382391469}
-  _portal: {fileID: 1317087209}
+  _spawnInterval: 3
+  _enemyCountToSpawn: 20
 --- !u!114 &1935509454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49155,11 +49091,16 @@ MonoBehaviour:
   Flags: 262146
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 1935509451}
   - {fileID: 1935509455}
   - {fileID: 1935509458}
   - {fileID: 1935509457}
   - {fileID: 1935509456}
+  - {fileID: 1935509459}
+  - {fileID: 1935509451}
+  - {fileID: 1935509463}
+  - {fileID: 1935509462}
+  - {fileID: 1935509461}
+  - {fileID: 1935509460}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &1935509455
 MonoBehaviour:
@@ -49187,9 +49128,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.GameLoseController
   _portal: {fileID: 1317087207}
-  _gameCycle: {fileID: 1935509455}
-  _waveManager: {fileID: 1935509451}
-  _teamStatus: {fileID: 1647604777}
 --- !u!114 &1935509457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49203,9 +49141,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.GameWinController
   _portal: {fileID: 1317087207}
-  waveManager: {fileID: 1935509451}
-  _gameCycle: {fileID: 1935509455}
-  _teamStatus: {fileID: 1647604777}
 --- !u!114 &1935509458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49219,8 +49154,70 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.GameStartController
   _startPlayerCount: 2
-  _gameCycle: {fileID: 1935509455}
-  waveManager: {fileID: 1935509451}
+--- !u!114 &1935509459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935509449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13d716fb4cbe447cb32b61904bb15aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.TeamStatus
+--- !u!114 &1935509460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935509449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473d5318b496436d996bbdbc6ab4de2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Wallet
+  _Gold: 0
+--- !u!114 &1935509461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935509449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da6ddc798ba46fe96febad6d929c6a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.EnemyDeathController
+--- !u!114 &1935509462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935509449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70b8587d56854f70bc1c0afcf178d2da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.EnemySpawner
+  _enemyConfig: {fileID: 11400000, guid: 59764f096cccf124b8b56eeeb5dc6bf7, type: 2}
+  _spawnPointService: {fileID: 382391469}
+  _portal: {fileID: 1317087209}
+--- !u!114 &1935509463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935509449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a6e313c5b3d4cb99b28f2161cb76dbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.EnemyRegistry
 --- !u!1 &1938807761
 GameObject:
   m_ObjectHideFlags: 0

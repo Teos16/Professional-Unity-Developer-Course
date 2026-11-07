@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 459751611818726679}
   - component: {fileID: 5753042340434870068}
   - component: {fileID: 886048577996711577}
+  - component: {fileID: 5479853521680238794}
   - component: {fileID: 216082409229877555}
   m_Layer: 7
   m_Name: Enemy
@@ -97,6 +98,7 @@ MonoBehaviour:
   - {fileID: 459751611818726679}
   - {fileID: 5753042340434870068}
   - {fileID: 886048577996711577}
+  - {fileID: 5479853521680238794}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &-2445862597429754730
 MonoBehaviour:
@@ -110,9 +112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0801d9cc4e47eda18a1845fd49e594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.Enemy
-  _healthComponent: {fileID: 4731694360847145852}
-  _moveComponent: {fileID: 459751611818726679}
-  _meleeAttackComponent: {fileID: 886048577996711577}
   _config: {fileID: 11400000, guid: 59764f096cccf124b8b56eeeb5dc6bf7, type: 2}
 --- !u!114 &3048519538045990359
 MonoBehaviour:
@@ -166,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d921f8fa44a94a1cae0fba485ad0e1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.HealthComponent
-  _Current: 1
+  _Current: 3
 --- !u!114 &459751611818726679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,8 +191,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db82b6a7e1774fd5901a1b78d6060ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.EnemyController
-  _moveComponent: {fileID: 459751611818726679}
-  _meleeAttackComponent: {fileID: 886048577996711577}
 --- !u!114 &886048577996711577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +207,18 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &5479853521680238794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011030080782938114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373137682d9f4d989c121105091a36e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.RewardComponent
 --- !u!65 &216082409229877555
 BoxCollider:
   m_ObjectHideFlags: 0

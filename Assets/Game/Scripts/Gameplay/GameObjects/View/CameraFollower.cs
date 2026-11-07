@@ -5,9 +5,6 @@ namespace Game
 {
     public sealed class CameraFollower : NetworkBehaviour
     {
-        [SerializeField]
-        private Character _character;
-        
         private Transform _pivot;
 
         public override void Spawned()

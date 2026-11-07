@@ -12,11 +12,13 @@ namespace Game
         
         private static readonly Collider[] s_colliders = new Collider[16];
 
-        [SerializeField] private float _radius = 8;
         [SerializeField] private LayerMask _targetMask;
         
+        private float _radius;
         private ICondition _condition;
         
+        public void Initialize(float radius) => _radius = radius;
+
         public void SetCondition(ICondition condition) => _condition = condition;
 
         public bool TryFindTarget(out Collider target)

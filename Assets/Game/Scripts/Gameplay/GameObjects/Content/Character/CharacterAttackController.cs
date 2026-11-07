@@ -5,8 +5,14 @@ namespace Game
 {
     public sealed class CharacterAttackController : NetworkBehaviour
     {
-        [SerializeField] private TargetFinderComponent _targetFinder;
-        [SerializeField] private RangeAttackComponent _rangeAttack;
+        private TargetFinderComponent _targetFinder;
+        private RangeAttackComponent _rangeAttack;
+
+        public override void Spawned()
+        {
+            _targetFinder = GetBehaviour<TargetFinderComponent>();
+            _rangeAttack = GetBehaviour<RangeAttackComponent>();
+        }
 
         public override void FixedUpdateNetwork()
         {

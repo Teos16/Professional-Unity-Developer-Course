@@ -11,13 +11,15 @@ namespace Game
         }
 
         [SerializeField] private Transform _attackPoint;
-        [SerializeField] private ProjectileWorld _projectileWorld;
 
         [Networked] private TickTimer _cooldownTimer { get; set; }
-        
-        private float _cooldown = 1;
+
+        private float _cooldown;
+        private ProjectileWorld _projectileWorld;
         private ICondition _condition;
-        
+
+        public override void Spawned() => _projectileWorld = GetBehaviour<ProjectileWorld>();
+
         public void Initialize(float cooldown) => _cooldown = cooldown;
         
         public void SetCondition(ICondition condition) => _condition = condition;

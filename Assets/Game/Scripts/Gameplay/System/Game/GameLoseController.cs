@@ -6,10 +6,18 @@ namespace Game
     public sealed class GameLoseController : NetworkBehaviour
     {
         [SerializeField] private Portal _portal;
-        [SerializeField] private GameCycle _gameCycle;
-        [SerializeField] private WaveManager _waveManager;
-        [SerializeField] private TeamStatus _teamStatus;
-        
+
+        private GameCycle _gameCycle;
+        private WaveManager _waveManager;
+        private TeamStatus _teamStatus;
+
+        public override void Spawned()
+        {
+            _gameCycle = GetBehaviour<GameCycle>();
+            _waveManager = GetBehaviour<WaveManager>();
+            _teamStatus = GetBehaviour<TeamStatus>();
+        }
+
         public override void FixedUpdateNetwork()
         {
             if (_gameCycle.State == GameStatus.Playing &&
