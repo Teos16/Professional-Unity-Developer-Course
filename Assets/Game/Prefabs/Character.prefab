@@ -81,8 +81,9 @@ GameObject:
   - component: {fileID: 8686441220146617939}
   - component: {fileID: 8010789962816170863}
   - component: {fileID: 1215375974614702222}
-  - component: {fileID: 1935903716429025650}
   - component: {fileID: 8570012588414631508}
+  - component: {fileID: 1935903716429025650}
+  - component: {fileID: -3715275800956084078}
   m_Layer: 6
   m_Name: Character
   m_TagString: Player
@@ -133,8 +134,9 @@ MonoBehaviour:
   - {fileID: 8686441220146617939}
   - {fileID: 8010789962816170863}
   - {fileID: 1215375974614702222}
-  - {fileID: 1935903716429025650}
   - {fileID: 8570012588414631508}
+  - {fileID: 1935903716429025650}
+  - {fileID: -3715275800956084078}
   ForceRemoteRenderTimeframe: 0
 --- !u!136 &665074989976056792
 CapsuleCollider:
@@ -171,10 +173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b4737bb79234812bd251e5f494ccfc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.Character
-  _healthComponent: {fileID: 5175328433247198385}
-  _moveComponent: {fileID: 3130235134801957412}
-  _targetFinder: {fileID: 1215375974614702222}
-  _rangeAttack: {fileID: 8010789962816170863}
   _config: {fileID: 11400000, guid: 5b5f0cd30cd972c4db258a142d8bf7dc, type: 2}
 --- !u!114 &6879256012616284617
 MonoBehaviour:
@@ -254,7 +252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ff1ae6ae2b04719980e915023d629a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.CameraFollower
-  _character: {fileID: 4102418137334617694}
 --- !u!114 &8010789962816170863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +265,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.RangeAttackComponent
   _attackPoint: {fileID: 517923931653866580}
-  _projectileWorld: {fileID: 1935903716429025650}
 --- !u!114 &1215375974614702222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,10 +277,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7ee4dd5bcf4f219cbcea5df57afcb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.TargetFinderComponent
-  _radius: 10
   _targetMask:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &8570012588414631508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5122920686815828235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a9b00c6fac4c2b8069e3079707e47c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.CharacterAttackController
 --- !u!114 &1935903716429025650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,7 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.ProjectileWorld
   _config: {fileID: 11400000, guid: 3d097180675db9246b75d3afa375f742, type: 2}
---- !u!114 &8570012588414631508
+--- !u!114 &-3715275800956084078
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -307,11 +314,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5122920686815828235}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60a9b00c6fac4c2b8069e3079707e47c, type: 3}
+  m_Script: {fileID: 11500000, guid: 92a25122ff80490f8dc9a7e5ae9c36ba, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Game::Game.CharacterAttackController
-  _targetFinder: {fileID: 1215375974614702222}
-  _rangeAttack: {fileID: 8010789962816170863}
+  m_EditorClassIdentifier: Game::Game.ProjectileWorldView
+  _viewPrefab: {fileID: 7643986166152560335, guid: e144f4fff9860bb4c836bc81264974ff, type: 3}
 --- !u!1 &7146220762343846745
 GameObject:
   m_ObjectHideFlags: 0

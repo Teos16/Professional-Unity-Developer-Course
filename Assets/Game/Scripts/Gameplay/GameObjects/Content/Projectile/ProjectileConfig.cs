@@ -40,19 +40,11 @@ namespace Game
 
             if (wasHit)
             {
-                this.DealDamage(hit.collider, player);
+                this.DealDamage(hit.collider);
                 finished = true;
             }
         }
 
-        private void DealDamage(Collider collider, PlayerRef player)
-        {
-            NetworkObject target = collider.GetComponentInParent<NetworkObject>();
-            if (target != null && target.IsValid &&
-                target.TryGetBehaviour(out HealthComponent health) && health.IsAlive)
-                health.TakeDamage(_damage);
-        }
-        
         public void DrawGizmos(in Projectile projectile, PlayerRef player, NetworkRunner runner)
         {
             Color prevColor = Gizmos.color;
@@ -67,6 +59,25 @@ namespace Game
             const float radius = 0.125f;
             Gizmos.DrawSphere(position, radius);
             Gizmos.color = prevColor;
+        }
+
+        public Vector3 GetRenderPosition(in Projectile projectile, PlayerRef player, NetworkRunner runner)
+        {
+            float deltaTime = runner.DeltaTime;
+            float spawnTime = projectile.startTick * deltaTime;
+            float renderTime = runner.LocalPlayer == player
+                ? runner.LocalRenderTime + deltaTime
+                : runner.RemoteRenderTime + deltaTime;
+            float t = renderTime - spawnTime;
+            return projectile.startPosition + projectile.StartDirection * t * _speed;
+        }
+
+        private void DealDamage(Collider collider)
+        {
+            NetworkObject target = collider.GetComponentInParent<NetworkObject>();
+            if (target != null && target.IsValid &&
+                target.TryGetBehaviour(out HealthComponent health) && health.IsAlive)
+                health.TakeDamage(_damage);
         }
     }
 }

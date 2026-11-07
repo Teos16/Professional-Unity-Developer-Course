@@ -16,5 +16,5 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 128
-  _lifetime: 3
+  _lifetime: 1
   _damage: 1

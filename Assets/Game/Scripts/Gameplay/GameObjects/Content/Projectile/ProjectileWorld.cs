@@ -10,7 +10,14 @@ namespace Game
         [Networked, Capacity(PROJECTILE_CAPACITY)]
         private NetworkArray<Projectile> _projectiles { get; }
 
+        public int Length => PROJECTILE_CAPACITY;
+        
         [SerializeField] private ProjectileConfig _config;
+
+        public ref readonly Projectile GetProjectileAt(int index)
+        {
+            return ref _projectiles.GetRef(index);
+        }
         
         public bool TrySpawn(Vector3 position, Quaternion rotation)
         {
@@ -27,22 +34,6 @@ namespace Game
             return true;
         }
 
-        private bool FindFreeSlot(out int index)
-        {
-            for (int i = 0; i < PROJECTILE_CAPACITY; i++)
-            {
-                Projectile projectile = _projectiles[i];
-                if (!projectile.IsAlive)
-                {
-                    index = i;
-                    return true;
-                }
-            }
-
-            index = -1;
-            return false;
-        }
-        
         public override void FixedUpdateNetwork()
         {
             PlayerRef player = this.Object.InputAuthority;
@@ -60,7 +51,23 @@ namespace Game
                     projectile = default;
             }
         }
-        
+
+        private bool FindFreeSlot(out int index)
+        {
+            for (int i = 0; i < PROJECTILE_CAPACITY; i++)
+            {
+                Projectile projectile = _projectiles[i];
+                if (!projectile.IsAlive)
+                {
+                    index = i;
+                    return true;
+                }
+            }
+
+            index = -1;
+            return false;
+        }
+
         private void OnDrawGizmos()
         {
             if (!this.StateBufferIsValid)
