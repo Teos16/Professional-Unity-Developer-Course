@@ -10,16 +10,16 @@ namespace Game
             bool IsMet();
         }
 
-        private static readonly Collider[] s_colliders = new Collider[5];
+        private static readonly Collider[] s_colliders = new Collider[8];
 
         [SerializeField] private Transform _attackPoint;
         [SerializeField] private LayerMask _layerMask;
         
         [Networked] private TickTimer _timestamp { get; set; }
 
-        private float _attackRadius = 0.5f;
-        private float _cooldown = 1;
-        private int _damage = 1;
+        private float _attackRadius;
+        private float _cooldown;
+        private int _damage;
 
         private ICondition _condition;
 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1231370781976454233}
   - component: {fileID: 4651454134627686794}
   - component: {fileID: 3906299286447050794}
+  - component: {fileID: 8898671984042697300}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -54,6 +55,7 @@ MonoBehaviour:
   - {fileID: 7042967124135393491}
   NetworkedBehaviours:
   - {fileID: 3906299286447050794}
+  - {fileID: 8898671984042697300}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &3906299286447050794
 MonoBehaviour:
@@ -68,6 +70,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.Player
   <Character>k__BackingField: {fileID: 7042967124135393491}
+--- !u!114 &8898671984042697300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404067246571692652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8a64b2631744ebabd8c636ed5683793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.TrapSpawner
+  _minePrefab:
+    RawGuidValue: adda297a5e7b0c74890e871f1b9d4171
+  _mineCost: 10
 --- !u!1001 &3650942419358379065
 PrefabInstance:
   m_ObjectHideFlags: 0

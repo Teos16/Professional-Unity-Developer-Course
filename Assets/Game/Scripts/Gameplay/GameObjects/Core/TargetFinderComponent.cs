@@ -10,7 +10,7 @@ namespace Game
             bool IsMet();
         }
         
-        private static readonly Collider[] s_colliders = new Collider[16];
+        private static readonly Collider[] s_colliders = new Collider[8];
 
         [SerializeField] private LayerMask _targetMask;
         
