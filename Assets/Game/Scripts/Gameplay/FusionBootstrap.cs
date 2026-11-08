@@ -28,7 +28,14 @@ namespace Game
                 });
 
             if (result.Ok)
+            {
                 Debug.Log("Game started successfully");
+            }
+            else
+            {
+                Debug.LogError($"StartGame failed: {result.ShutdownReason}");
+                SceneManager.LoadScene("Menu");
+            }
         }
     }
 }

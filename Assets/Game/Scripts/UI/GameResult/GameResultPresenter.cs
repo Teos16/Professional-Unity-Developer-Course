@@ -5,10 +5,11 @@ namespace Game
 {
     public sealed class GameResultPresenter : NetworkBehaviour
     {
-        [SerializeField] private GameCycle _gameCycle;
         [SerializeField] private GameResultView _view;
         [SerializeField] private string _winText = "Victory";
         [SerializeField] private string _loseText = "Defeat";
+        
+        private GameCycle _gameCycle;
 
         public override void Spawned()
         {

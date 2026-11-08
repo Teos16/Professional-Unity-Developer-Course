@@ -6,11 +6,13 @@ namespace Game
 {
     public sealed class GoldPresenter : NetworkBehaviour
     {
-        [SerializeField] private Wallet _wallet;
         [SerializeField] private TMP_Text _view;
+
+        private Wallet _wallet;
 
         public override void Spawned()
         {
+            _wallet = GetBehaviour<Wallet>();
             _wallet.OnGoldChanged += this.OnGoldChanged;
             this.OnGoldChanged(_wallet.Gold);
         }

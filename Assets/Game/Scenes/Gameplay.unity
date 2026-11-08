@@ -47298,6 +47298,7 @@ GameObject:
   - component: {fileID: 1872066585}
   - component: {fileID: 1872066584}
   - component: {fileID: 1872066583}
+  - component: {fileID: 1872066586}
   m_Layer: 0
   m_Name: Bootstrap & Events
   m_TagString: Untagged
@@ -47439,6 +47440,19 @@ MonoBehaviour:
   _networkEvents: {fileID: 1872066582}
   _playerPrefab: {fileID: 1404067246571692652, guid: 343607b7b8f81424d97be5e61fc664d6, type: 3}
   _spawnPointService: {fileID: 1569224910}
+--- !u!114 &1872066586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872066579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9e22e1f3b4c4b558ba2dc4ba50cf96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.SessionShutdownController
+  _menuScene: Menu
 --- !u!1 &1877885070
 GameObject:
   m_ObjectHideFlags: 0
@@ -49298,7 +49312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d8341d6b284e33ac1379fcbcaa4d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.GameResultPresenter
-  _gameCycle: {fileID: 1935509455}
   _view: {fileID: 343090204}
   _winText: Victory
   _loseText: Defeat
@@ -49314,7 +49327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da0997d8ec0c4ec4a3ece7ec9b04f6cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.GoldPresenter
-  _wallet: {fileID: 1935509460}
   _view: {fileID: 1767864885}
 --- !u!1 &1938807761
 GameObject:
