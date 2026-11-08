@@ -6,6 +6,5 @@ namespace Game
     public struct PlayerInputData : INetworkInput
     {
         public Vector2 moveDirection;
-        public NetworkButtons buttons;
     }
 }

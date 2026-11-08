@@ -7,16 +7,10 @@ namespace Game
     {
         [field:SerializeField] public NetworkObject Character { get; private set; }
         
-        [Networked] private NetworkButtons _previousButtons { get; set; }
-
         public override void FixedUpdateNetwork()
         {
-            if (this.GetInput(out PlayerInputData inputData))
-            {
-                NetworkButtons inputButtons = inputData.buttons;
+            if (this.GetInput(out PlayerInputData inputData)) 
                 this.ProcessMove(inputData);
-                _previousButtons = inputButtons;
-            }
         }
         
         private void ProcessMove(PlayerInputData inputData)

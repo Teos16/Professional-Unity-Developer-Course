@@ -100,6 +100,7 @@ MonoBehaviour:
   - {fileID: 886048577996711577}
   - {fileID: 5479853521680238794}
   - {fileID: 1508246514017798269}
+  - {fileID: 8422057516629355014}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &-2445862597429754730
 MonoBehaviour:
@@ -253,6 +254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4110996159869562643}
   - component: {fileID: 1508246514017798269}
+  - component: {fileID: 8422057516629355014}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -289,6 +291,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.MoveAnimationView
   _animator: {fileID: 4406589717366456297}
+--- !u!114 &8422057516629355014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6681128362121645732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c4d7e6051bf4f8ab2fa7a2b7e2d3787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.DespawnVfxView
+  _vfx: {fileID: 5511031309674076297}
 --- !u!1 &7136196916883076713
 GameObject:
   m_ObjectHideFlags: 0
