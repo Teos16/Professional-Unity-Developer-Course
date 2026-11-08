@@ -123,8 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.Archer
   _lifetime: 15
-  _attackCooldown: 2
-  _attackRange: 8
 --- !u!114 &1532313025554686919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62876c90e6a9492884234a223fdfaff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.RangeAttackComponent
+  _config: {fileID: 11400000, guid: 155215c4c933490b816dd3d5ab2d38ad, type: 2}
   _AttackCount: 0
   _AttackDirection: {x: 0, y: 0, z: 0}
   _attackPoint: {fileID: 177299969250516970}
@@ -152,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7ee4dd5bcf4f219cbcea5df57afcb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.TargetFinderComponent
+  _config: {fileID: 11400000, guid: a4f4d3f8b2e04468a94014e8d3718974, type: 2}
   _targetMask:
     serializedVersion: 2
     m_Bits: 128

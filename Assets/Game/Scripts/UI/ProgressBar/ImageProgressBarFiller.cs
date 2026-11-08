@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game
 {
-    public class ImageProgressBarFiller : ProgressBarFiller
+    public sealed class ImageProgressBarFiller : ProgressBarFiller
     {
         [SerializeField] private Image _image;
 

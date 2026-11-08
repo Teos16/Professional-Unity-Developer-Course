@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
@@ -9,13 +9,13 @@ namespace Game
         private MeleeAttackComponent _meleeAttackComponent;
 
         private Transform _target;
-        
+
         public override void Spawned()
         {
             _moveComponent = GetBehaviour<MoveComponent>();
             _meleeAttackComponent = GetBehaviour<MeleeAttackComponent>();
         }
-        
+
         public void SetTarget(Transform target) => _target = target;
 
         public override void FixedUpdateNetwork()
@@ -23,7 +23,7 @@ namespace Game
             if (!HasStateAuthority || _target == null)
                 return;
 
-            Vector3 direction = _target.position - this.transform.position;
+            Vector3 direction = _target.position - transform.position;
             direction.y = 0;
             _moveComponent.Move(direction.normalized);
             _meleeAttackComponent.Attack();

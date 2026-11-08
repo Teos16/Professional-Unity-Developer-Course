@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
@@ -8,11 +8,11 @@ namespace Game
         private static readonly int IsMoving = Animator.StringToHash(nameof(IsMoving));
 
         [SerializeField] private Animator _animator;
-        
+
         private MoveComponent _move;
-        
-        public override void Spawned() => _move = this.Object.GetBehaviour<MoveComponent>();
-        
+
+        public override void Spawned() => _move = Object.GetBehaviour<MoveComponent>();
+
         public override void Render() => _animator.SetBool(IsMoving, _move.IsMoving);
     }
 }

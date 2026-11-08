@@ -47466,11 +47466,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ff5127b04f43e4b4cd51fb64de8322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.TrapInputController
-  _bindings:
-  - key: 113
-    trap: {fileID: 11400000, guid: f8cde65d7a64dee45a1c6d6f7bebbe02, type: 2}
-  - key: 101
-    trap: {fileID: 11400000, guid: e2b0eb40a73bb9a45820220eaedffdac, type: 2}
 --- !u!1 &1877885070
 GameObject:
   m_ObjectHideFlags: 0
@@ -49303,7 +49298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b8587d56854f70bc1c0afcf178d2da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.EnemySpawner
-  _enemyConfig: {fileID: 11400000, guid: 59764f096cccf124b8b56eeeb5dc6bf7, type: 2}
+  _enemyPrefab:
+    RawGuidValue: b5e3677b4a8dab949bfca93b64572662
   _spawnPointService: {fileID: 382391469}
   _portal: {fileID: 1317087209}
 --- !u!114 &1935509463

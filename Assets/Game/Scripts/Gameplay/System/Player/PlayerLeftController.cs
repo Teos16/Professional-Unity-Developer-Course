@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
@@ -7,20 +7,14 @@ namespace Game
     {
         [SerializeField] private NetworkEvents _events;
 
-        private void OnEnable()
-        {
-            _events.PlayerLeft.AddListener(this.OnPlayerLeft);
-        }
+        private void OnEnable() => _events.PlayerLeft.AddListener(OnPlayerLeft);
 
-        private void OnDisable()
-        {
-            _events.PlayerLeft.RemoveListener(this.OnPlayerLeft);
-        }
+        private void OnDisable() => _events.PlayerLeft.RemoveListener(OnPlayerLeft);
 
         private void OnPlayerLeft(NetworkRunner runner, PlayerRef playerRef)
         {
-            if (runner.IsServer && runner.TryGetPlayerObject(playerRef, out NetworkObject character))
-                runner.Despawn(character);
+            if (runner.IsServer && runner.TryGetPlayerObject(playerRef, out NetworkObject player))
+                runner.Despawn(player);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
@@ -15,22 +15,24 @@ namespace Game
         {
             _world = GetBehaviour<ProjectileWorld>();
             _projectileViews = new ProjectileView[_world.Length];
-            
+
             ProjectileContainer container = FindFirstObjectByType<ProjectileContainer>();
             _container = container != null ? container.transform : null;
         }
-        
+
         public override void Despawned(NetworkRunner runner, bool hasState)
         {
             foreach (ProjectileView view in _projectileViews)
+            {
                 if (view != null)
                     Destroy(view.gameObject);
+            }
         }
-        
+
         public override void Render()
         {
-            PlayerRef player = this.Object.InputAuthority;
-            NetworkRunner runner = this.Runner;
+            PlayerRef player = Object.InputAuthority;
+            NetworkRunner runner = Runner;
 
             for (int i = 0; i < _world.Length; i++)
             {

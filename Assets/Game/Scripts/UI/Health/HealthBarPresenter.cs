@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
@@ -12,16 +12,14 @@ namespace Game
         public override void Spawned()
         {
             _health = GetBehaviour<HealthComponent>();
-            _health.OnHealthChanged += this.OnHealthChanged;
-            this.UpdateView(smooth: false);
+            _health.OnHealthChanged += OnHealthChanged;
+            UpdateView(smooth: false);
         }
 
-        public override void Despawned(NetworkRunner runner, bool hasState)
-        {
-            _health.OnHealthChanged -= this.OnHealthChanged;
-        }
+        public override void Despawned(NetworkRunner runner, bool hasState) =>
+            _health.OnHealthChanged -= OnHealthChanged;
 
-        private void OnHealthChanged(int _) => this.UpdateView(smooth: true);
+        private void OnHealthChanged(int _) => UpdateView(smooth: true);
 
         private void UpdateView(bool smooth)
         {

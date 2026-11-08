@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Fusion;
 using Sirenix.OdinInspector;
 
@@ -17,15 +17,16 @@ namespace Game
             if (HasStateAuthority && amount > 0)
                 Gold += amount;
         }
-        
+
         public bool TrySpend(int amount)
         {
             if (!HasStateAuthority || Gold < amount)
                 return false;
+
             Gold -= amount;
             return true;
         }
-        
+
         private void InvokeGoldChanged() => OnGoldChanged?.Invoke(Gold);
     }
 }

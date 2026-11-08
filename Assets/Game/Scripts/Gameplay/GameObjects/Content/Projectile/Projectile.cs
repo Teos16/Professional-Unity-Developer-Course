@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
@@ -9,7 +9,7 @@ namespace Game
         public Vector3 startPosition;
         public Quaternion startRotation;
 
-        public bool IsAlive => this.startTick > 0;
-        public Vector3 StartDirection => this.startRotation * Vector3.forward;
+        public bool IsAlive => startTick > 0;
+        public Vector3 StartDirection => startRotation * Vector3.forward;
     }
 }

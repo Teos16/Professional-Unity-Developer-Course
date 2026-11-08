@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Fusion;
 
 namespace Game
@@ -16,7 +16,7 @@ namespace Game
             }
         }
 
-        public int Count => this.Enemies.Count;
+        public int Count => Enemies.Count;
 
         public void Register(NetworkObject enemy) => _enemies.Add(enemy);
     }

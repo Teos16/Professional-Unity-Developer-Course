@@ -1,9 +1,9 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
 {
-    [CreateAssetMenu(menuName = "Game/Projectile",order = 2)]
+    [CreateAssetMenu(menuName = "Game/Projectile", order = 2)]
     public sealed class ProjectileConfig : ScriptableObject
     {
         [SerializeField] private float _speed = 5;
@@ -18,7 +18,7 @@ namespace Game
             out bool finished)
         {
             finished = false;
-            
+
             float deltaTime = runner.DeltaTime;
             float currentTime = (runner.Tick - projectile.startTick) * deltaTime;
             if (currentTime > _lifetime)
@@ -40,7 +40,7 @@ namespace Game
 
             if (wasHit)
             {
-                this.DealDamage(hit.collider);
+                DealDamage(hit.collider);
                 finished = true;
             }
         }

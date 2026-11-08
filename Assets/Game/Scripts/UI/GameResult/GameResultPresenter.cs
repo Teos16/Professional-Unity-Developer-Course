@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
@@ -8,22 +8,22 @@ namespace Game
         [SerializeField] private GameResultView _view;
         [SerializeField] private string _winText = "Victory";
         [SerializeField] private string _loseText = "Defeat";
-        
+
         private GameCycle _gameCycle;
 
         public override void Spawned()
         {
             _gameCycle = GetBehaviour<GameCycle>();
-            _gameCycle.OnStateChanged += this.OnStateChanged;
-            _view.OnMenuClicked += this.OnMenuClicked;
+            _gameCycle.OnStateChanged += OnStateChanged;
+            _view.OnMenuClicked += OnMenuClicked;
 
-            this.OnStateChanged(_gameCycle.State);
+            OnStateChanged(_gameCycle.State);
         }
 
         public override void Despawned(NetworkRunner runner, bool hasState)
         {
-            _gameCycle.OnStateChanged -= this.OnStateChanged;
-            _view.OnMenuClicked -= this.OnMenuClicked;
+            _gameCycle.OnStateChanged -= OnStateChanged;
+            _view.OnMenuClicked -= OnMenuClicked;
         }
 
         private void OnStateChanged(GameStatus state)

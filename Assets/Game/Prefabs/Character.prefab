@@ -218,7 +218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b4737bb79234812bd251e5f494ccfc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.Character
-  _config: {fileID: 11400000, guid: 5b5f0cd30cd972c4db258a142d8bf7dc, type: 2}
 --- !u!114 &6879256012616284617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2fc024c0b1047ed959140837a994286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.MoveComponent
-  _angularSpeed: 720
+  _config: {fileID: 11400000, guid: 89a81e9021d04be0b6651cec865975df, type: 2}
   _IsMoving:
     RawValue: 0
 --- !u!114 &5175328433247198385
@@ -286,6 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d921f8fa44a94a1cae0fba485ad0e1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.HealthComponent
+  _config: {fileID: 11400000, guid: 3c9d2af03211411fa1b527ca1bf76166, type: 2}
   _Current: 10
 --- !u!114 &8686441220146617939
 MonoBehaviour:
@@ -311,6 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62876c90e6a9492884234a223fdfaff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.RangeAttackComponent
+  _config: {fileID: 11400000, guid: 2dd6ce684750479385afa7ab860c77eb, type: 2}
   _AttackCount: 0
   _AttackDirection: {x: 0, y: 0, z: 0}
   _attackPoint: {fileID: 517923931653866580}
@@ -326,6 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7ee4dd5bcf4f219cbcea5df57afcb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.TargetFinderComponent
+  _config: {fileID: 11400000, guid: ea0b2c12bb554410916c76a728cb6a73, type: 2}
   _targetMask:
     serializedVersion: 2
     m_Bits: 128

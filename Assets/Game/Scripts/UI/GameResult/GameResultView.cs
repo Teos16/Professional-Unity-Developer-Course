@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,18 +12,18 @@ namespace Game
         [SerializeField] private TMP_Text _caption;
         [SerializeField] private Button _menuButton;
 
-        private void Awake() => _menuButton.onClick.AddListener(this.InvokeMenuClicked);
+        private void Awake() => _menuButton.onClick.AddListener(InvokeMenuClicked);
 
-        private void OnDestroy() => _menuButton.onClick.RemoveListener(this.InvokeMenuClicked);
+        private void OnDestroy() => _menuButton.onClick.RemoveListener(InvokeMenuClicked);
 
         public void Show(string caption)
         {
             _caption.text = caption;
-            this.gameObject.SetActive(true);
+            gameObject.SetActive(true);
         }
 
-        public void Hide() => this.gameObject.SetActive(false);
+        public void Hide() => gameObject.SetActive(false);
 
-        private void InvokeMenuClicked() => this.OnMenuClicked?.Invoke();
+        private void InvokeMenuClicked() => OnMenuClicked?.Invoke();
     }
 }

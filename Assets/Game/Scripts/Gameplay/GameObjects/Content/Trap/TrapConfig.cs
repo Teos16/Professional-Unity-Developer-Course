@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
@@ -8,8 +8,10 @@ namespace Game
     {
         [SerializeField] private NetworkPrefabRef _prefab;
         [SerializeField] private int _cost;
+        [SerializeField] private KeyCode _key;
 
         public NetworkPrefabRef Prefab => _prefab;
         public int Cost => _cost;
+        public KeyCode Key => _key;
     }
 }

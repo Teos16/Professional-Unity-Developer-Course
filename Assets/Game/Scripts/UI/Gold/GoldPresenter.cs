@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using TMPro;
 using UnityEngine;
 
@@ -13,14 +13,12 @@ namespace Game
         public override void Spawned()
         {
             _wallet = GetBehaviour<Wallet>();
-            _wallet.OnGoldChanged += this.OnGoldChanged;
-            this.OnGoldChanged(_wallet.Gold);
+            _wallet.OnGoldChanged += OnGoldChanged;
+            OnGoldChanged(_wallet.Gold);
         }
 
-        public override void Despawned(NetworkRunner runner, bool hasState)
-        {
-            _wallet.OnGoldChanged -= this.OnGoldChanged;
-        }
+        public override void Despawned(NetworkRunner runner, bool hasState) =>
+            _wallet.OnGoldChanged -= OnGoldChanged;
 
         private void OnGoldChanged(int gold) => _view.text = gold.ToString();
     }

@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,13 +8,13 @@ namespace Game
     {
         private async void Start()
         {
-            NetworkRunner runner = this.gameObject.AddComponent<NetworkRunner>();
+            NetworkRunner runner = gameObject.AddComponent<NetworkRunner>();
 
             NetworkSceneInfo sceneInfo = new NetworkSceneInfo();
             sceneInfo.AddSceneRef(SceneRef.FromIndex(
                 SceneManager.GetActiveScene().buildIndex));
 
-            INetworkSceneManager sceneManager = this.gameObject
+            INetworkSceneManager sceneManager = gameObject
                 .AddComponent<NetworkSceneManagerDefault>();
 
             StartGameResult result = await runner.StartGame(

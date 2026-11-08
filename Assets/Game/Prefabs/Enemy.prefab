@@ -114,7 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0801d9cc4e47eda18a1845fd49e594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.Enemy
-  _config: {fileID: 11400000, guid: 59764f096cccf124b8b56eeeb5dc6bf7, type: 2}
 --- !u!114 &3048519538045990359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d921f8fa44a94a1cae0fba485ad0e1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.HealthComponent
+  _config: {fileID: 11400000, guid: f04dd32fb1e448ffa0d776161df870bc, type: 2}
   _Current: 3
 --- !u!114 &459751611818726679
 MonoBehaviour:
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2fc024c0b1047ed959140837a994286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.MoveComponent
-  _angularSpeed: 720
+  _config: {fileID: 11400000, guid: 7420bd38300c4d2bbbabcc899277157c, type: 2}
   _IsMoving:
     RawValue: 0
 --- !u!114 &5753042340434870068
@@ -207,6 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a916695462fd4941a7e51eab8af49fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.MeleeAttackComponent
+  _config: {fileID: 11400000, guid: 1b822d549c5d41cf842ca86d9bcbad24, type: 2}
   _attackPoint: {fileID: 6737908105938027602}
   _layerMask:
     serializedVersion: 2
@@ -223,6 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373137682d9f4d989c121105091a36e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.RewardComponent
+  _config: {fileID: 11400000, guid: a823ae76170647b3b8bba39dff441e50, type: 2}
 --- !u!65 &216082409229877555
 BoxCollider:
   m_ObjectHideFlags: 0

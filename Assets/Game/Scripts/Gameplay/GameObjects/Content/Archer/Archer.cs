@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
@@ -8,24 +8,13 @@ namespace Game
         TargetFinderComponent.ICondition
     {
         [SerializeField] private float _lifetime = 15;
-        [SerializeField] private float _attackCooldown = 2;
-        [SerializeField] private float _attackRange = 8;
 
         [Networked] private TickTimer _lifeTimer { get; set; }
 
-        private RangeAttackComponent _rangeAttack;
-        private TargetFinderComponent _targetFinder;
-
         public override void Spawned()
         {
-            _rangeAttack = GetBehaviour<RangeAttackComponent>();
-            _targetFinder = GetBehaviour<TargetFinderComponent>();
-
-            _rangeAttack.SetCondition(this);
-            _targetFinder.SetCondition(this);
-
-            _rangeAttack.Initialize(_attackCooldown);
-            _targetFinder.Initialize(_attackRange);
+            GetBehaviour<RangeAttackComponent>().SetCondition(this);
+            GetBehaviour<TargetFinderComponent>().SetCondition(this);
 
             if (HasStateAuthority)
                 _lifeTimer = TickTimer.CreateFromSeconds(Runner, _lifetime);

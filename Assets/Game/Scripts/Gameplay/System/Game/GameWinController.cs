@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
@@ -11,6 +11,7 @@ namespace Game
         private WaveManager _waveManager;
         private TeamStatus _teamStatus;
         private EnemyRegistry _enemyRegistry;
+        private HealthComponent _portalHealth;
 
         public override void Spawned()
         {
@@ -18,14 +19,15 @@ namespace Game
             _waveManager = GetBehaviour<WaveManager>();
             _teamStatus = GetBehaviour<TeamStatus>();
             _enemyRegistry = GetBehaviour<EnemyRegistry>();
+            _portalHealth = _portal.GetBehaviour<HealthComponent>();
         }
 
         public override void FixedUpdateNetwork()
         {
-            if (_gameCycle.State == GameStatus.Playing && 
-                _waveManager.IsFinished && 
-                _enemyRegistry.Count == 0 && 
-                _portal.GetBehaviour<HealthComponent>().IsAlive &&
+            if (_gameCycle.State == GameStatus.Playing &&
+                _waveManager.IsFinished &&
+                _enemyRegistry.Count == 0 &&
+                _portalHealth.IsAlive &&
                 _teamStatus.AreAllCharactersAlive())
                 _gameCycle.Win();
         }

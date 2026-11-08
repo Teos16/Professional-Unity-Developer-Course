@@ -262,7 +262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 736f4ce8145b4052bf6a419ed08c652b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.Portal
-  _maxHealth: 10
   _radius: 0.5
   _layerMask:
     serializedVersion: 2
@@ -301,6 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d921f8fa44a94a1cae0fba485ad0e1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.HealthComponent
+  _config: {fileID: 11400000, guid: 8a81438e17644fa19107f3077530da19, type: 2}
   _Current: 10
 --- !u!136 &1883574040571837546
 CapsuleCollider:

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Fusion;
 
 namespace Game
@@ -12,19 +12,19 @@ namespace Game
 
         public void StartGame()
         {
-            if (HasStateAuthority && State == GameStatus.Waiting) 
+            if (HasStateAuthority && State == GameStatus.Waiting)
                 State = GameStatus.Playing;
         }
 
         public void Win()
         {
-            if (HasStateAuthority && State == GameStatus.Playing) 
+            if (HasStateAuthority && State == GameStatus.Playing)
                 State = GameStatus.Won;
         }
-        
-        public void Lose()      
+
+        public void Lose()
         {
-            if (HasStateAuthority && State == GameStatus.Playing) 
+            if (HasStateAuthority && State == GameStatus.Playing)
                 State = GameStatus.Lost;
         }
 

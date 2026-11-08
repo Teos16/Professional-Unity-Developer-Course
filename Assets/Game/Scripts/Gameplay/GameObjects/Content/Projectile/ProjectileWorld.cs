@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
@@ -7,28 +7,25 @@ namespace Game
     {
         private const int PROJECTILE_CAPACITY = 32;
 
+        [SerializeField] private ProjectileConfig _config;
+
         [Networked, Capacity(PROJECTILE_CAPACITY)]
         private NetworkArray<Projectile> _projectiles { get; }
 
         public int Length => PROJECTILE_CAPACITY;
-        
-        [SerializeField] private ProjectileConfig _config;
 
-        public ref readonly Projectile GetProjectileAt(int index)
-        {
-            return ref _projectiles.GetRef(index);
-        }
-        
+        public ref readonly Projectile GetProjectileAt(int index) => ref _projectiles.GetRef(index);
+
         public bool TrySpawn(Vector3 position, Quaternion rotation)
         {
-            if (!this.FindFreeSlot(out int index))
+            if (!FindFreeSlot(out int index))
                 return false;
 
             _projectiles.Set(index, new Projectile
             {
                 startPosition = position,
                 startRotation = rotation,
-                startTick = this.Runner.Tick
+                startTick = Runner.Tick
             });
 
             return true;
@@ -36,8 +33,7 @@ namespace Game
 
         public override void FixedUpdateNetwork()
         {
-            PlayerRef player = this.Object.InputAuthority;
-            NetworkRunner runner = this.Runner;
+            PlayerRef player = Object.InputAuthority;
 
             for (int i = 0; i < PROJECTILE_CAPACITY; i++)
             {
@@ -45,7 +41,7 @@ namespace Game
                 if (!projectile.IsAlive)
                     continue;
 
-                _config.Simulate(in projectile, player, runner, out bool finished);
+                _config.Simulate(in projectile, player, Runner, out bool finished);
 
                 if (finished)
                     projectile = default;
@@ -56,8 +52,7 @@ namespace Game
         {
             for (int i = 0; i < PROJECTILE_CAPACITY; i++)
             {
-                Projectile projectile = _projectiles[i];
-                if (!projectile.IsAlive)
+                if (!_projectiles[i].IsAlive)
                 {
                     index = i;
                     return true;
@@ -70,17 +65,16 @@ namespace Game
 
         private void OnDrawGizmos()
         {
-            if (!this.StateBufferIsValid)
+            if (!StateBufferIsValid)
                 return;
 
-            PlayerRef player = this.Object.InputAuthority;
-            NetworkRunner runner = this.Runner;
+            PlayerRef player = Object.InputAuthority;
 
             for (int i = 0; i < PROJECTILE_CAPACITY; i++)
             {
                 ref readonly Projectile projectile = ref _projectiles.GetRef(i);
                 if (projectile.IsAlive)
-                    _config.DrawGizmos(in projectile, player, runner);
+                    _config.DrawGizmos(in projectile, player, Runner);
             }
         }
     }

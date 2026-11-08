@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using Fusion;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace Game
         private Player _player;
         private Wallet _wallet;
 
+        public IReadOnlyList<TrapConfig> Traps => _traps;
+
         public override void Spawned()
         {
             _player = GetBehaviour<Player>();
@@ -22,7 +25,7 @@ namespace Game
         {
             int index = Array.IndexOf(_traps, trap);
             if (index >= 0)
-                this.RpcPlace(index);
+                RpcPlace(index);
         }
 
         [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]

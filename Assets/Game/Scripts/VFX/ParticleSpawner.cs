@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Game
 {
@@ -7,9 +7,6 @@ namespace Game
         [SerializeField] private ParticleSystem _effectPrefab;
         [SerializeField] private Transform _playPoint;
 
-        public void Play()
-        {
-            Instantiate(_effectPrefab, _playPoint.position, _playPoint.rotation, null);
-        }
+        public void Play() => Instantiate(_effectPrefab, _playPoint.position, _playPoint.rotation);
     }
 }

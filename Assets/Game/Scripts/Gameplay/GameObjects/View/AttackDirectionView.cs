@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
@@ -9,7 +9,7 @@ namespace Game
 
         private RangeAttackComponent _rangeAttack;
 
-        public override void Spawned() => _rangeAttack = this.Object.GetBehaviour<RangeAttackComponent>();
+        public override void Spawned() => _rangeAttack = Object.GetBehaviour<RangeAttackComponent>();
 
         public override void Render()
         {
@@ -18,8 +18,8 @@ namespace Game
             if (direction == Vector3.zero)
                 return;
 
-            this.transform.rotation = Quaternion.RotateTowards(
-                this.transform.rotation, Quaternion.LookRotation(direction), _turnSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation, Quaternion.LookRotation(direction), _turnSpeed * Time.deltaTime);
         }
     }
 }

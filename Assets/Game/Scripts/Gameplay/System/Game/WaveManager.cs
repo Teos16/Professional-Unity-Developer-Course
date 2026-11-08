@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
@@ -11,7 +11,7 @@ namespace Game
         [Networked] private NetworkBool _isRunning { get; set; }
         [Networked] private int _spawnedEnemyCount { get; set; }
         [Networked] private TickTimer _timestamp { get; set; }
-        
+
         private EnemySpawner _enemySpawner;
 
         public bool IsFinished => _spawnedEnemyCount >= _enemyCountToSpawn;
@@ -20,20 +20,11 @@ namespace Game
 
         public override void FixedUpdateNetwork()
         {
-            if(!HasStateAuthority)
-                return;
-            
-            if (!_isRunning)
-                return;
-            
-            if (_timestamp.IsRunning(this.Runner))
-                return;
-            
-            if (IsFinished)
+            if (!HasStateAuthority || !_isRunning || IsFinished || _timestamp.IsRunning(Runner))
                 return;
 
             _enemySpawner.Spawn();
-            _timestamp = TickTimer.CreateFromSeconds(this.Runner, _spawnInterval);
+            _timestamp = TickTimer.CreateFromSeconds(Runner, _spawnInterval);
             _spawnedEnemyCount++;
         }
 

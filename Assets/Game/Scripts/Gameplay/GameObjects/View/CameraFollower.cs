@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using UnityEngine;
 
 namespace Game
@@ -17,7 +17,7 @@ namespace Game
         public override void Render()
         {
             if (HasInputAuthority && _pivot != null)
-                _pivot.position = this.transform.position;
+                _pivot.position = transform.position;
         }
     }
 }

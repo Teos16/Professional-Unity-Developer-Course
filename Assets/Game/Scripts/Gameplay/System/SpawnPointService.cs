@@ -8,14 +8,8 @@ namespace Game
 
         public int Count => _spawnPoints.Length;
 
-        public Transform GetSpawnPoint(int index)
-        {
-            return _spawnPoints[index];
-        }
+        public Transform GetSpawnPoint(int index) => _spawnPoints[index];
 
-        public Transform GetRandomSpawnPoint()
-        {
-            return _spawnPoints[Random.Range(0, Count)];
-        }
+        public Transform GetRandomSpawnPoint() => _spawnPoints[Random.Range(0, Count)];
     }
 }
