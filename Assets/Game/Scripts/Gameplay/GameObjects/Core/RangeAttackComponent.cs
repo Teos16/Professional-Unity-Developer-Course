@@ -9,6 +9,9 @@ namespace Game
         {
             bool IsMet();
         }
+        
+        [Networked] public int AttackCount { get; private set; }
+        [Networked] public Vector3 AttackDirection { get; private set; }
 
         [SerializeField] private Transform _attackPoint;
 
@@ -36,8 +39,12 @@ namespace Game
             if (direction == Vector3.zero)
                 return;
             
-            if (_projectileWorld.TrySpawn(_attackPoint.position, Quaternion.LookRotation(direction))) 
+            if (_projectileWorld.TrySpawn(_attackPoint.position, Quaternion.LookRotation(direction)))
+            {
                 _cooldownTimer = TickTimer.CreateFromSeconds(this.Runner, _cooldown);
+                this.AttackDirection = direction;
+                this.AttackCount++;
+            }
         }
     }
 }

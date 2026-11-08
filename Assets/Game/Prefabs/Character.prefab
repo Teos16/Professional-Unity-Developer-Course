@@ -40,6 +40,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6476319681422880639}
+  - component: {fileID: 2581235801809340574}
+  - component: {fileID: 2749790151866407368}
+  - component: {fileID: 187407130893388166}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -63,6 +66,45 @@ Transform:
   - {fileID: 6415206681360092988}
   m_Father: {fileID: 178078904466650922}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2581235801809340574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4973538991842845006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c12223d91742b5b79b90e20d17150c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.AttackAnimationView
+  _animator: {fileID: 6360339201215998620}
+--- !u!114 &2749790151866407368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4973538991842845006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5b44b7648d74ebbac316dcfed7cdaf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.DeathAnimationView
+  _animator: {fileID: 6360339201215998620}
+--- !u!114 &187407130893388166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4973538991842845006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3a988390bb240978d0ad768b79ff744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.MoveAnimationView
+  _animator: {fileID: 6360339201215998620}
 --- !u!1 &5122920686815828235
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,6 +179,9 @@ MonoBehaviour:
   - {fileID: 8570012588414631508}
   - {fileID: 1935903716429025650}
   - {fileID: -3715275800956084078}
+  - {fileID: 2581235801809340574}
+  - {fileID: 2749790151866407368}
+  - {fileID: 187407130893388166}
   ForceRemoteRenderTimeframe: 0
 --- !u!136 &665074989976056792
 CapsuleCollider:
@@ -227,6 +272,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.MoveComponent
   _angularSpeed: 720
+  _IsMoving:
+    RawValue: 0
 --- !u!114 &5175328433247198385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62876c90e6a9492884234a223fdfaff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.RangeAttackComponent
+  _AttackCount: 0
+  _AttackDirection: {x: 0, y: 0, z: 0}
   _attackPoint: {fileID: 517923931653866580}
 --- !u!114 &1215375974614702222
 MonoBehaviour:
@@ -1146,6 +1195,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd6b4bcb851859344bd1e27a940062b4, type: 3}
+--- !u!95 &6360339201215998620 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95165183339062752, guid: fd6b4bcb851859344bd1e27a940062b4, type: 3}
+  m_PrefabInstance: {fileID: 6419440317150285692}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6415206681360092988 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4796654838218816, guid: fd6b4bcb851859344bd1e27a940062b4, type: 3}

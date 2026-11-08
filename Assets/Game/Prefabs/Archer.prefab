@@ -67,6 +67,8 @@ MonoBehaviour:
   - {fileID: 34195629619742492}
   - {fileID: 8696182542838089155}
   - {fileID: 1054892825959924470}
+  - {fileID: 1359676013436681478}
+  - {fileID: 4040919160880057106}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &8508178492402872720
 MonoBehaviour:
@@ -135,6 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62876c90e6a9492884234a223fdfaff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.RangeAttackComponent
+  _AttackCount: 0
+  _AttackDirection: {x: 0, y: 0, z: 0}
   _attackPoint: {fileID: 177299969250516970}
 --- !u!114 &8337567557050417737
 MonoBehaviour:
@@ -198,6 +202,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6102358279507327716}
+  - component: {fileID: 1359676013436681478}
+  - component: {fileID: 4040919160880057106}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -221,6 +227,33 @@ Transform:
   - {fileID: 6286560523619345109}
   m_Father: {fileID: 3619561492003249435}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1359676013436681478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8238304049770696048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c12223d91742b5b79b90e20d17150c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.AttackAnimationView
+  _animator: {fileID: 6225347916180879293}
+--- !u!114 &4040919160880057106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8238304049770696048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9642ccffb6d4e54a7ec781c47df2e86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.AttackDirectionView
+  _visual: {fileID: 6102358279507327716}
+  _turnSpeed: 720
 --- !u!1 &8797532627708878894
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,6 +393,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c48b4eb55b673a3409e5b6fbf626fd75, type: 3}
+--- !u!95 &6225347916180879293 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95722885424299478, guid: c48b4eb55b673a3409e5b6fbf626fd75, type: 3}
+  m_PrefabInstance: {fileID: 6282789242632063595}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6286560523619345109 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4128641884219582, guid: c48b4eb55b673a3409e5b6fbf626fd75, type: 3}

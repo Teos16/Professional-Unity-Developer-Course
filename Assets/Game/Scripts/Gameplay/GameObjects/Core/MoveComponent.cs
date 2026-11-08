@@ -11,6 +11,8 @@ namespace Game
         }
 
         [SerializeField] private float _angularSpeed = 720;
+        
+        [Networked] public NetworkBool IsMoving { get; private set; }
 
         private float _moveSpeed;
         private ICondition _condition;
@@ -24,7 +26,8 @@ namespace Game
 
         public void Move(Vector3 direction)
         {
-            if (direction == Vector3.zero || _condition == null || !_condition.IsMet())
+            this.IsMoving = direction != Vector3.zero && _condition != null && _condition.IsMet();
+            if (!this.IsMoving)
                 return;
 
             float deltaTime = this.Runner.DeltaTime;

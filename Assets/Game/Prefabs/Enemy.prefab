@@ -99,6 +99,7 @@ MonoBehaviour:
   - {fileID: 5753042340434870068}
   - {fileID: 886048577996711577}
   - {fileID: 5479853521680238794}
+  - {fileID: 1508246514017798269}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &-2445862597429754730
 MonoBehaviour:
@@ -179,6 +180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.MoveComponent
   _angularSpeed: 720
+  _IsMoving:
+    RawValue: 0
 --- !u!114 &5753042340434870068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +252,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4110996159869562643}
+  - component: {fileID: 1508246514017798269}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -272,6 +276,19 @@ Transform:
   - {fileID: 4406589717359022089}
   m_Father: {fileID: 4010362202926120242}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1508246514017798269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6681128362121645732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3a988390bb240978d0ad768b79ff744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.MoveAnimationView
+  _animator: {fileID: 4406589717366456297}
 --- !u!1 &7136196916883076713
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,5 +999,10 @@ PrefabInstance:
 --- !u!4 &4406589717359022089 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3118294153675890160, guid: 4ee150fee7825a148b7ceb77408044b5, type: 3}
+  m_PrefabInstance: {fileID: 1612625129254522361}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4406589717366456297 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3118294153684955664, guid: 4ee150fee7825a148b7ceb77408044b5, type: 3}
   m_PrefabInstance: {fileID: 1612625129254522361}
   m_PrefabAsset: {fileID: 0}
