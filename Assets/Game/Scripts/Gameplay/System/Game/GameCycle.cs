@@ -1,10 +1,14 @@
-﻿using Fusion;
+﻿using System;
+using Fusion;
 
 namespace Game
 {
     public sealed class GameCycle : NetworkBehaviour
     {
-        [Networked] public GameStatus State { get; private set; } = GameStatus.Waiting;
+        public event Action<GameStatus> OnStateChanged;
+
+        [Networked, OnChangedRender(nameof(InvokeStateChanged))]
+        public GameStatus State { get; private set; } = GameStatus.Waiting;
 
         public void StartGame()
         {
@@ -23,5 +27,7 @@ namespace Game
             if (HasStateAuthority && State == GameStatus.Playing) 
                 State = GameStatus.Lost;
         }
+
+        private void InvokeStateChanged() => OnStateChanged?.Invoke(State);
     }
 }

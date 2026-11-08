@@ -6,7 +6,10 @@ namespace Game
 {
     public sealed class HealthComponent : NetworkBehaviour
     {
-        [Networked] public int Current { get; set; } = 10;
+        public event Action<int> OnHealthChanged;
+        
+        [Networked, OnChangedRender(nameof(InvokeHealthChanged))] 
+        public int Current { get; set; } = 10;
     
         public int Max { get; set; } = 10;
 
@@ -35,5 +38,7 @@ namespace Game
         {
             this.Current = 0;
         }
+        
+        private void InvokeHealthChanged() => OnHealthChanged?.Invoke(Current);
     }
 }

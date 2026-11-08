@@ -8716,6 +8716,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 343090203}
+  - component: {fileID: 343090204}
   m_Layer: 5
   m_Name: LosePopup
   m_TagString: Untagged
@@ -8745,6 +8746,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &343090204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343090202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14aa25af51f418fb42601c25e8cd6ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.GameResultView
+  _caption: {fileID: 1340969987}
+  _menuButton: {fileID: 1213502217}
 --- !u!1 &344369138
 GameObject:
   m_ObjectHideFlags: 0
@@ -21602,7 +21617,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -32616,6 +32631,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3583182426496600530, guid: c4c58b8d98fa4874c8902ced03964d3c, type: 3}
+      propertyPath: _view
+      value: 
+      objectReference: {fileID: 363295879}
     - target: {fileID: 6133417917219992832, guid: c4c58b8d98fa4874c8902ced03964d3c, type: 3}
       propertyPath: SortKey
       value: 1074709758
@@ -33724,7 +33743,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -49082,6 +49101,8 @@ GameObject:
   - component: {fileID: 1935509462}
   - component: {fileID: 1935509461}
   - component: {fileID: 1935509460}
+  - component: {fileID: 1935509464}
+  - component: {fileID: 1935509465}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -49146,6 +49167,8 @@ MonoBehaviour:
   - {fileID: 1935509462}
   - {fileID: 1935509461}
   - {fileID: 1935509460}
+  - {fileID: 1935509464}
+  - {fileID: 1935509465}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &1935509455
 MonoBehaviour:
@@ -49263,6 +49286,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a6e313c5b3d4cb99b28f2161cb76dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.EnemyRegistry
+--- !u!114 &1935509464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935509449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59d8341d6b284e33ac1379fcbcaa4d8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.GameResultPresenter
+  _gameCycle: {fileID: 1935509455}
+  _view: {fileID: 343090204}
+  _winText: Victory
+  _loseText: Defeat
+--- !u!114 &1935509465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935509449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0997d8ec0c4ec4a3ece7ec9b04f6cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.GoldPresenter
+  _wallet: {fileID: 1935509460}
+  _view: {fileID: 1767864885}
 --- !u!1 &1938807761
 GameObject:
   m_ObjectHideFlags: 0

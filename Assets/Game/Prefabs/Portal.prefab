@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 6133417917219992832}
   - component: {fileID: 8997157032377934031}
   - component: {fileID: 1883574040571837546}
+  - component: {fileID: 3583182426496600530}
   m_Layer: 8
   m_Name: Portal
   m_TagString: Portal
@@ -261,12 +262,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 736f4ce8145b4052bf6a419ed08c652b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.Portal
+  _maxHealth: 10
   _radius: 0.5
   _layerMask:
     serializedVersion: 2
     m_Bits: 128
-  _portalHealth: {fileID: 8997157032377934031}
-  _maxHealth: 10
 --- !u!114 &6133417917219992832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +287,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 6416745625862693654}
   - {fileID: 8997157032377934031}
+  - {fileID: 3583182426496600530}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &8997157032377934031
 MonoBehaviour:
@@ -324,3 +325,17 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3583182426496600530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2755872164277444644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e576496386e94058a72d423fdbc80928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.HealthBarPresenter
+  _health: {fileID: 0}
+  _view: {fileID: 0}
