@@ -82,9 +82,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8a64b2631744ebabd8c636ed5683793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.TrapSpawner
-  _minePrefab:
-    RawGuidValue: adda297a5e7b0c74890e871f1b9d4171
-  _mineCost: 10
+  _traps:
+  - {fileID: 11400000, guid: f8cde65d7a64dee45a1c6d6f7bebbe02, type: 2}
+  - {fileID: 11400000, guid: e2b0eb40a73bb9a45820220eaedffdac, type: 2}
 --- !u!1001 &3650942419358379065
 PrefabInstance:
   m_ObjectHideFlags: 0

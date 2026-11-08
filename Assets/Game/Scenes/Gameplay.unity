@@ -47466,7 +47466,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03df29b6d23e44c1a6aedaf06c338b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.TrapInputController
-  _mineKey: 113
+  _bindings:
+  - key: 113
+    trap: {fileID: 11400000, guid: f8cde65d7a64dee45a1c6d6f7bebbe02, type: 2}
+  - key: 101
+    trap: {fileID: 11400000, guid: e2b0eb40a73bb9a45820220eaedffdac, type: 2}
 --- !u!1 &1877885070
 GameObject:
   m_ObjectHideFlags: 0

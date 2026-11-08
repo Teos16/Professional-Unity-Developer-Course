@@ -1,12 +1,20 @@
-﻿using Fusion;
+﻿using System;
+using Fusion;
 using UnityEngine;
 
 namespace Game
 {
     public sealed class TrapInputController : SimulationBehaviour
     {
-        [SerializeField] private KeyCode _mineKey = KeyCode.Q;
-        
+        [Serializable]
+        private struct TrapBinding
+        {
+            public KeyCode key;
+            public TrapConfig trap;
+        }
+
+        [SerializeField] private TrapBinding[] _bindings;
+
         private TrapSpawner _spawner;
 
         private void Update()
@@ -14,8 +22,11 @@ namespace Game
             if (Runner == null || !Runner.IsRunning)
                 return;
 
-            if (Input.GetKeyDown(_mineKey) && TryGetLocalTrapSpawner(out TrapSpawner spawner))
-                spawner.PlaceMine();
+            foreach (TrapBinding binding in _bindings)
+            {
+                if (Input.GetKeyDown(binding.key) && TryGetLocalTrapSpawner(out TrapSpawner spawner))
+                    spawner.Place(binding.trap);
+            }
         }
 
         private bool TryGetLocalTrapSpawner(out TrapSpawner spawner)

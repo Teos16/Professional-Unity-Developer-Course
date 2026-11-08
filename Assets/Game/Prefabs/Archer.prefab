@@ -9,6 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3619561492003249435}
+  - component: {fileID: 2713979981955099122}
+  - component: {fileID: 8508178492402872720}
+  - component: {fileID: 4830691445775272115}
+  - component: {fileID: 1532313025554686919}
+  - component: {fileID: 8337567557050417737}
+  - component: {fileID: 34195629619742492}
+  - component: {fileID: 8696182542838089155}
+  - component: {fileID: 1054892825959924470}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -34,6 +42,153 @@ Transform:
   - {fileID: 2462073563590946765}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2713979981955099122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642741965293177958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkObject
+  SortKey: 1429573082
+  SendPriority: 1
+  EnableInterpolation: 1
+  Flags: 262402
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 8508178492402872720}
+  - {fileID: 4830691445775272115}
+  - {fileID: 1532313025554686919}
+  - {fileID: 8337567557050417737}
+  - {fileID: 34195629619742492}
+  - {fileID: 8696182542838089155}
+  - {fileID: 1054892825959924470}
+  ForceRemoteRenderTimeframe: 0
+--- !u!114 &8508178492402872720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642741965293177958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkTransform
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  ConfigFlags: 0
+  PhysicsSettings:
+    ForecastEnabled: 1
+    DebugPhysics: 0
+    GravityForecast: 2
+    MaxExtrapolationTime: 0.15
+    MinLinearDetectedError: 0.02
+    MinAngularDetectedError: 3
+    MaxLinearError: 0
+    MaxAngularError: 0
+    LowCorrectionProgressThreshold: 0.015
+    HighErrorSimilarityThreshold: 1
+    MaxErrorTotalTime: 0.5
+    MaxRemoteSleepIgnoreTime: 0.5
+    ErrorCorrectionType: 0
+    LinearVelCorrectionMul: 1
+    AngularVelCorrectionMul: 1
+    PositionCorrectionLerp: 0.15
+    RotationCorrectionLerp: 0.15
+    Spring: 75
+    Damper: 2
+    MinImpactfulCollisionAlignment: 0.3
+    ImpactStartCorrectionTime: 0.1
+    ImpactCorrectionTimeComplete: 0.3
+--- !u!114 &4830691445775272115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642741965293177958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13e002fac64e438abf26f1afd9d0ec89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Archer
+  _lifetime: 15
+  _attackCooldown: 2
+  _attackRange: 8
+--- !u!114 &1532313025554686919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642741965293177958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62876c90e6a9492884234a223fdfaff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.RangeAttackComponent
+  _attackPoint: {fileID: 177299969250516970}
+--- !u!114 &8337567557050417737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642741965293177958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a7ee4dd5bcf4f219cbcea5df57afcb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.TargetFinderComponent
+  _targetMask:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &34195629619742492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642741965293177958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a9b00c6fac4c2b8069e3079707e47c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.AutoAttackController
+--- !u!114 &8696182542838089155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642741965293177958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea8f2fd38f6c4c9faf6eb61a3f12f1b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.ProjectileWorld
+  _config: {fileID: 11400000, guid: 3d097180675db9246b75d3afa375f742, type: 2}
+--- !u!114 &1054892825959924470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642741965293177958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92a25122ff80490f8dc9a7e5ae9c36ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.ProjectileWorldView
+  _viewPrefab: {fileID: 7643986166152560335, guid: e144f4fff9860bb4c836bc81264974ff, type: 3}
 --- !u!1 &8238304049770696048
 GameObject:
   m_ObjectHideFlags: 0

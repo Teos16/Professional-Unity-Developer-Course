@@ -5,7 +5,7 @@ namespace Game
 {
     public sealed class Portal : NetworkBehaviour
     {
-        private static readonly Collider[] s_colliders = new Collider[5];
+        private static readonly Collider[] s_colliders = new Collider[8];
 
         [SerializeField] private int _maxHealth = 10;
         [SerializeField] private float _radius;

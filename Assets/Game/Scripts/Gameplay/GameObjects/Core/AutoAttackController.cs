@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public sealed class CharacterAttackController : NetworkBehaviour
+    public sealed class AutoAttackController : NetworkBehaviour
     {
         private TargetFinderComponent _targetFinder;
         private RangeAttackComponent _rangeAttack;
