@@ -7,20 +7,12 @@ namespace SampleGame
     {
         [SerializeField]
         private Blackboard _blackboard;
-
-        [SerializeField]
-        [BlackboardValueKey(typeof(float))]
-        private string _stoppingDistanceKey;
-
-        [SerializeField]
-        [BlackboardValueKey(typeof(Vector3))]
-        private string _positionKey;
-
+        
         protected override BehaviourResult OnUpdate(float deltaTime)
         {
             if (!_blackboard.TryGetValue(BlackboardAPI.Character, out GameObject character) ||
-                !_blackboard.TryGetValue(_positionKey, out Vector3 position) || 
-                !_blackboard.TryGetValue(_stoppingDistanceKey, out float stoppingDistance))
+                !_blackboard.TryGetValue(BlackboardAPI.MovementPosition, out Vector3 position) ||
+                !_blackboard.TryGetValue(BlackboardAPI.StoppingDistance, out float stoppingDistance))
                 return BehaviourResult.Failure;
             
             Vector3 delta = position - character.transform.position;

@@ -8,14 +8,9 @@ namespace SampleGame
         [SerializeField] private GameObject _character;
         [SerializeField] private InputHandler _next;
 
-        private Blackboard _blackboard;
         private CommandManager _commandManager;
 
-        private void Start()
-        {
-            _blackboard = _character.GetComponentInChildren<Blackboard>();
-            _commandManager = _character.GetComponentInChildren<CommandManager>();
-        }
+        private void Start() => _commandManager = _character.GetComponentInChildren<CommandManager>();
 
         public override void Handle(ref InputContext context)
         {
@@ -24,22 +19,13 @@ namespace SampleGame
                 ICommand command = null;
 
                 if (context.target != null && context.target != _character)
-                    command = new MoveToTargetCommand(_blackboard, context.target);
-                else if (context.point != null) 
-                    command = new MoveToPositionCommand(_blackboard, context.point.Value);
+                    command = new MoveToTargetCommand(context.target);
+                else if (context.point != null)
+                    command = new MoveToPositionCommand(context.point.Value);
 
-                if (context.enqueueCommand)
-                {
-                    _commandManager.Enqueue(command);
-                }
-                else
-                {
-                    _commandManager.Clear();
-                    _blackboard.Reset();
-                    _commandManager.Enqueue(command);
-                }
+                _commandManager.Execute(command, context.enqueueCommand);
             }
-            else if (_next) 
+            else if (_next)
                 _next.Handle(ref context);
         }
     }

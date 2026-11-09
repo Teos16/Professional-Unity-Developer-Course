@@ -3,44 +3,15 @@ using UnityEngine;
 
 namespace SampleGame
 {
-    public class MoveToPositionCommand : PositionCommand 
+    public sealed class MoveToPositionCommand : ICommand
     {
-        private readonly Blackboard _blackboard;
+        public CommandId Id => CommandId.MoveToPosition;
+        public Vector3 Position { get; }
 
-        public MoveToPositionCommand(Blackboard blackboard, Vector3 target) : base(target) => _blackboard = blackboard;
+        public MoveToPositionCommand(Vector3 position) => Position = position;
 
-        public override bool CanExecute()
-        {
-            return _blackboard != null && TargetPosition.HasValue;
-        }
+        public void Unpack(Blackboard blackboard) => blackboard.SetPrimitiveValue(BlackboardAPI.MovementPosition, Position);
 
-        public override bool Execute() 
-        {
-            if (!_blackboard.TryGetValue(BlackboardAPI.MovementPosition, out Vector3 current) 
-                || current != TargetPosition.Value)
-            {
-                _blackboard.SetPrimitiveValue(BlackboardAPI.MovementPosition, TargetPosition.Value);
-                return false;
-            }
-
-            if (!_blackboard.TryGetValue(BlackboardAPI.Character, out GameObject character))
-                return false;
-
-            if (!_blackboard.TryGetValue(BlackboardAPI.StoppingDistance, out float stoppingDistance))
-                return false;
-
-            Vector3 delta = TargetPosition.Value - character.transform.position;
-            delta.y = 0;
-
-            if (delta.sqrMagnitude <= stoppingDistance * stoppingDistance)
-            {
-                _blackboard.DelValue(BlackboardAPI.MovementPosition);
-                return true;
-            }
-
-            return false;
-        }
-
-        public override void Cancel() => _blackboard.DelValue(BlackboardAPI.MovementPosition);
+        public void Dispose(Blackboard blackboard) => blackboard.DelValue(BlackboardAPI.MovementPosition);
     }
 }

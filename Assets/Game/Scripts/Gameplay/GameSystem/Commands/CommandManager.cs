@@ -1,117 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
 using Modules.AI;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 
-namespace SampleGame 
+namespace SampleGame
 {
-    public class CommandManager : MonoBehaviour 
+    public sealed class CommandManager : SerializedMonoBehaviour
     {
         public event Action<ICommand> OnCommandTrigger;
-        
+
+        [OdinSerialize] private Dictionary<CommandId, BehaviourNode> _nodes = new();
+
         private readonly Queue<ICommand> _queue = new();
-        private ICommand _currentCommand;
-        private bool _isExecuting;
 
         private Blackboard _blackboard;
-        private GameObject _character;
+        private ICommand _current;
+        private BehaviourNode _currentNode;
 
-        private void Start()
+        private void Start() => _blackboard = GetComponentInChildren<Blackboard>();
+
+        private void Update()
         {
-            _blackboard = GetComponentInChildren<Blackboard>();
-            _character = gameObject;
-        }
+            if (_current == null)
+                SwitchToNext();
 
-        private void Update() 
-        {
-            if (_isExecuting && _currentCommand != null)
-            {
-                bool isFinished = _currentCommand.Execute(); 
-                if (isFinished) 
-                {
-                    _isExecuting = false;
-                    _currentCommand = null;
-                }
-                
-                UpdateIdleState();
-                return;
-            }
-
-            while (!_isExecuting && _queue.TryPeek(out ICommand nextCommand)) 
-            {
-                if (nextCommand.CanExecute()) 
-                {
-                    _currentCommand = _queue.Dequeue();
-                    OnCommandTrigger?.Invoke(_currentCommand);
-
-                    _isExecuting = true;
-                    
-                    bool isFinished = _currentCommand.Execute(); 
-                    if (isFinished) 
-                    {
-                        _isExecuting = false;
-                        _currentCommand = null;
-                    }
-                    
-                    break;
-                }
-                else
-                {
-                    _queue.Dequeue(); 
-                }
-            }
-            
-            UpdateIdleState();
-        }
-
-        private void UpdateIdleState()
-        {
-            if (_blackboard == null || _character == null)
+            if (_current == null)
                 return;
 
-            bool shouldBeIdle = !_isExecuting && _queue.Count == 0;
-
-            if (shouldBeIdle)
-            {
-                if(!_blackboard.TryGetValue(BlackboardAPI.IdlePosition, out Vector3 _))
-                    _blackboard.SetPrimitiveValue(BlackboardAPI.IdlePosition, _character.transform.position);
-            }
-            else
-                _blackboard.DelValue(BlackboardAPI.IdlePosition);
+            BehaviourResult result = _currentNode.Run(Time.deltaTime);
+            if (result != BehaviourResult.Running)
+                SwitchToNext();
         }
 
-        public void Enqueue(ICommand command) 
+        public void Execute(ICommand command, bool enqueue = false)
         {
-            if (command == null) return;
-            
+            if (command == null)
+                return;
+
+            if (!enqueue)
+                Stop();
+
             _queue.Enqueue(command);
             OnCommandTrigger?.Invoke(command);
         }
 
-        public void Execute(ICommand command)
+        public void Stop()
         {
-            if(command == null) 
-                return;
-
-            if (command.CanExecute())
-            {
-                command.Execute();
-                OnCommandTrigger?.Invoke(command);
-            }
+            _queue.Clear();
+            StopCurrent();
         }
 
-        public void Clear() 
+        private void SwitchToNext()
         {
-            if (_isExecuting && _currentCommand != null) 
-            {
-                _currentCommand.Cancel();
-            }
-            
-            _queue.Clear();
-            _isExecuting = false;
-            _currentCommand = null;
-            
-            UpdateIdleState();
+            StopCurrent();
+
+            if (_queue.Count == 0)
+                return;
+
+            _current = _queue.Dequeue();
+            _currentNode = _nodes[_current.Id];
+            _current.Unpack(_blackboard);
+        }
+
+        private void StopCurrent()
+        {
+            if (_current == null)
+                return;
+
+            _currentNode.Abort();
+            _current.Dispose(_blackboard);
+            _current = null;
+            _currentNode = null;
         }
     }
 }

@@ -1,4 +1,4 @@
-using Game;
+using SampleGame;
 using UnityEngine;
 
 namespace SampleGame

@@ -1,9 +1,13 @@
-﻿namespace SampleGame
+﻿using Modules.AI;
+
+namespace SampleGame
 {
     public interface ICommand
     {
-        public bool CanExecute();
-        public bool Execute();
-        public void Cancel();
+        CommandId Id { get; }
+
+        void Unpack(Blackboard blackboard);
+
+        void Dispose(Blackboard blackboard);
     }
 }
