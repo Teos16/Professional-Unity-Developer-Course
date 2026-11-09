@@ -22,6 +22,12 @@ namespace SampleGame
                 case MoveToTargetCommand c:
                     _view.ShowMoveMarker(c.Target.transform);
                     break;
+                case FollowCommand c:
+                    _view.ShowFollowMarker(c.Target.transform);
+                    break;
+                case HoldCommand:
+                    _view.ShowHoldPositionMarker(_commandManager.transform.position);
+                    break;
             }
         }
     }

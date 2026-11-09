@@ -259,6 +259,8 @@ GameObject:
   - component: {fileID: 4061442942049697340}
   - component: {fileID: 3544162592585801607}
   - component: {fileID: 2437476182308076608}
+  - component: {fileID: 4617552854306361502}
+  - component: {fileID: 2009489212182473283}
   m_Layer: 0
   m_Name: <BehaviourNodes>
   m_TagString: Untagged
@@ -308,6 +310,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b724c9f89804820818a2c56844ba649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SampleGame.MoveToTargetNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 918500183971215658}
+--- !u!114 &4617552854306361502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433717024279619638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb3368a6ba74d2eba4aff0563d41ae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.FollowNode
+  _useUnityLifecycle: 0
+  _updateMode: 0
+  _blackboard: {fileID: 918500183971215658}
+--- !u!114 &2009489212182473283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433717024279619638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83cf6f7f48a942e0ac19df95ef73a792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SampleGame.HoldNode
   _useUnityLifecycle: 0
   _updateMode: 0
   _blackboard: {fileID: 918500183971215658}
@@ -453,13 +485,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2953320428583348997}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2fcbee4164c48f6ac585f012a7517c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SampleGame.FindClosestEnemyBehaviour
   _blackboard: {fileID: 918500183971215658}
-  _targetKey: Character
+  _targetKey: ClosestEnemy
 --- !u!1 &4656303723494667352
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,6 +854,8 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 3544162592585801607}
     - {fileID: 2437476182308076608}
+    - {fileID: 4617552854306361502}
+    - {fileID: 2009489212182473283}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -846,7 +880,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 4
     - Name: 
       Entry: 7
       Data: 
@@ -868,6 +902,30 @@ MonoBehaviour:
     - Name: $v
       Entry: 10
       Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 10
+      Data: 3
     - Name: 
       Entry: 8
       Data: 

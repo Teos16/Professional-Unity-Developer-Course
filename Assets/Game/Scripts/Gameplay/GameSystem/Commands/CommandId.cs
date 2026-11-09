@@ -4,5 +4,7 @@
     {
         MoveToPosition,
         MoveToTarget,
+        Follow,
+        Hold,
     }
 }

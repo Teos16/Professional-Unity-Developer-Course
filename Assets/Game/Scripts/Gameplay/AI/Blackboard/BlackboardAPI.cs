@@ -27,6 +27,7 @@ namespace SampleGame
         public static readonly BlackboardValueKey<float> StoppingAngle = new(nameof(StoppingAngle));
         
         // Sensing
+        public static readonly BlackboardValueKey<GameObject> ClosestEnemy = new(nameof(ClosestEnemy));
         public static readonly BlackboardValueKey<Collider[]> ColliderBuffer = new(nameof(ColliderBuffer));
         public static readonly BlackboardValueKey<int> ColliderCount = new(nameof(ColliderCount));
     }

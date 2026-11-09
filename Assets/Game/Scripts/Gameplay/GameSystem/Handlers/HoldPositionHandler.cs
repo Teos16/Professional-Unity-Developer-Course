@@ -15,7 +15,9 @@ namespace SampleGame
 
         public override void Handle(ref InputContext context)
         {
-            if (_next)
+            if (Input.GetKeyDown(_keyCode))
+                _commandManager.Execute(new HoldCommand(), context.enqueueCommand);
+            else if (_next)
                 _next.Handle(ref context);
         }
     }
