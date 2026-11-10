@@ -28,6 +28,12 @@ namespace SampleGame
                 case HoldCommand:
                     _view.ShowHoldPositionMarker(_commandManager.transform.position);
                     break;
+                case AttackTargetCommand c:
+                    _view.ShowAttackMarker(c.Target.transform);
+                    break;
+                case AttackPositionCommand c:
+                    _view.ShowAttackMarker(c.Position);
+                    break;
             }
         }
     }

@@ -8,36 +8,41 @@ namespace SampleGame
         [SerializeField]
         private Blackboard _blackboard;
 
-        [SerializeField]
-        [BlackboardValueKey(typeof(float))]
-        private string _distanceKey;
-
-        [SerializeField]
-        [BlackboardValueKey(typeof(GameObject))]
-        private string _targetKey;
-
         protected override BehaviourResult OnUpdate(float deltaTime)
         {
             if (!_blackboard.TryGetValue(BlackboardAPI.Character, out GameObject character) ||
-                !_blackboard.TryGetValue(_targetKey, out GameObject target) ||
-                !_blackboard.TryGetValue(_distanceKey, out float attackDistance))
+                !_blackboard.TryGetValue(BlackboardAPI.AttackTarget, out GameObject target))
                 return BehaviourResult.Failure;
-            
-            if (!target || !target.activeInHierarchy || !target.TryGetComponent(out HealthComponent health) || health.IsDead)
+
+            if (!target || !target.activeInHierarchy ||
+                !target.TryGetComponent(out HealthComponent health) || health.IsDead)
                 return BehaviourResult.Success;
-            
-            Vector3 delta = target.transform.position - character.transform.position;
-            delta.y = 0;
-            
-            if (delta.sqrMagnitude > attackDistance * attackDistance)
-                return BehaviourResult.Failure;
-            
-            AttackComponent component = character.GetComponent<AttackComponent>();
-            if (!component.CanFire(target))
-                return BehaviourResult.Failure;
-            
-            component.Attack(target);
+
+            FightEnemy(character, target, deltaTime);
             return BehaviourResult.Running;
+        }
+
+        private void FightEnemy(GameObject character, GameObject enemy, float deltaTime)
+        {
+            float chaseDistance = _blackboard.GetValue(BlackboardAPI.MinRangeDistance);
+            float attackDistance = _blackboard.GetValue(BlackboardAPI.MaxRangeDistance);
+            float stoppingAngle = _blackboard.GetValue(BlackboardAPI.StoppingAngle);
+
+            Vector3 delta = enemy.transform.position - character.transform.position;
+            delta.y = 0;
+            float sqrDistance = delta.sqrMagnitude;
+
+            // MoveToEnemy
+            if (sqrDistance > chaseDistance * chaseDistance)
+                character.GetComponent<MoveComponent>().MoveStep(delta.normalized, deltaTime);
+            
+            // LookAtEnemy
+            else if (Vector3.Angle(character.transform.forward, delta.normalized) > stoppingAngle)
+                character.GetComponent<RotateTransformComponent>().RotateTowards(delta.normalized, deltaTime);
+
+            // AttackEnemy
+            if (sqrDistance <= attackDistance * attackDistance)
+                character.GetComponent<AttackComponent>().Attack(enemy);
         }
     }
 }

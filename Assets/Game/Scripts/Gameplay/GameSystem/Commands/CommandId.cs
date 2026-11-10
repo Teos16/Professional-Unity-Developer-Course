@@ -6,5 +6,9 @@
         MoveToTarget,
         Follow,
         Hold,
+        AttackTarget,
+        AttackPosition,
+        Guard,
+        Patrol,
     }
 }

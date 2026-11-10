@@ -15,7 +15,18 @@ namespace SampleGame
 
         public override void Handle(ref InputContext context)
         {
-            if (_next)
+            if (Input.GetKey(_keyCode) && context.leftClick)
+            {
+                ICommand command = null;
+
+                if (context.target != null && context.target != _character)
+                    command = new AttackTargetCommand(context.target);
+                else if (context.point != null)
+                    command = new AttackPositionCommand(context.point.Value);
+
+                _commandManager.Execute(command, context.enqueueCommand);
+            }
+            else if (_next)
                 _next.Handle(ref context);
         }
     }

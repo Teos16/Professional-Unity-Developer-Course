@@ -11,6 +11,7 @@ namespace SampleGame
         public static readonly BlackboardValueKey<GameObject> Character = new(nameof(Character));
         public static readonly BlackboardValueKey<GameObject> FollowTarget = new(nameof(FollowTarget));
         public static readonly BlackboardValueKey<GameObject> MovementTarget = new(nameof(MovementTarget));
+        public static readonly BlackboardValueKey<GameObject> AttackTarget = new(nameof(AttackTarget));
         
         // Combat
         public static readonly BlackboardValueKey<Vector3> AttackPosition = new(nameof(AttackPosition));
