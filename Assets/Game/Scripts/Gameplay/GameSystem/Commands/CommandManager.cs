@@ -69,7 +69,13 @@ namespace SampleGame
             if (_current == null)
                 return;
 
-            _currentNode = _nodes[_current.Id];
+            if (!_nodes.TryGetValue(_current.Id, out _currentNode))
+            {
+                Debug.LogError($"No node for command {_current.Id}. Add it to Nodes in {name}.", this);
+                _current = null;
+                return;
+            }
+
             _current.Unpack(_blackboard);
         }
 
