@@ -10,10 +10,8 @@ namespace SampleGame
 
         public AttackTargetCommand(GameObject target) => Target = target;
 
-        public void Unpack(Blackboard blackboard) =>
-            blackboard.SetReferenceValue(BlackboardAPI.AttackTarget, Target);
+        public void Unpack(Blackboard blackboard) => blackboard.SetReferenceValue(BlackboardAPI.AttackTarget, Target);
 
-        public void Dispose(Blackboard blackboard) =>
-            blackboard.DelValue(BlackboardAPI.AttackTarget);
+        public void Dispose(Blackboard blackboard) => blackboard.DelValue(BlackboardAPI.AttackTarget);
     }
 }

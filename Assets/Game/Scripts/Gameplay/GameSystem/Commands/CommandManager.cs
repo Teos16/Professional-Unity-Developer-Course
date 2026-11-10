@@ -12,18 +12,21 @@ namespace SampleGame
         public event Action<ICommand> OnCommandTrigger;
 
         [OdinSerialize] private Dictionary<CommandId, BehaviourNode> _nodes = new();
+        [OdinSerialize] private ICommand _defaultCommand;
 
         private readonly Queue<ICommand> _queue = new();
 
         private Blackboard _blackboard;
         private ICommand _current;
         private BehaviourNode _currentNode;
+        
+        private bool IsIdle => _current == null || _current == _defaultCommand;
 
         private void Start() => _blackboard = GetComponentInChildren<Blackboard>();
 
         private void Update()
         {
-            if (_current == null)
+            if (_current == null || (IsIdle && _queue.Count > 0))
                 SwitchToNext();
 
             if (_current == null)
@@ -56,13 +59,14 @@ namespace SampleGame
         {
             StopCurrent();
 
-            if (_queue.Count == 0)
+            _current = _queue.Count > 0 ? _queue.Dequeue() : _defaultCommand;
+            if (_current == null)
                 return;
 
-            _current = _queue.Dequeue();
             _currentNode = _nodes[_current.Id];
             _current.Unpack(_blackboard);
         }
+
 
         private void StopCurrent()
         {

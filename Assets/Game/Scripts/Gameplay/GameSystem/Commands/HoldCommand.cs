@@ -1,7 +1,9 @@
-﻿using Modules.AI;
+﻿using System;
+using Modules.AI;
 
 namespace SampleGame
 {
+    [Serializable]
     public sealed class HoldCommand : ICommand
     {
         public CommandId Id => CommandId.Hold;

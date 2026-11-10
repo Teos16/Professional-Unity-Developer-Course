@@ -19,6 +19,7 @@ namespace SampleGame
         public static readonly BlackboardValueKey<float> MaxRangeDistance = new(nameof(MaxRangeDistance));
 
         // Patrol & Hold
+        public static readonly BlackboardValueKey<Vector3> GuardPosition = new(nameof(GuardPosition));
         public static readonly BlackboardValueKey<List<IWaypoint>> Waypoints = new(nameof(Waypoints)); 
         public static readonly BlackboardValueKey<int> WaypointIndex = new(nameof(WaypointIndex));
 
