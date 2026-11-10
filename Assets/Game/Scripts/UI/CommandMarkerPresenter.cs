@@ -34,6 +34,12 @@ namespace SampleGame
                 case AttackPositionCommand c:
                     _view.ShowAttackMarker(c.Position);
                     break;
+                case PatrolCommand c:
+                    if (c.Target)
+                        _view.ShowPatrolMarker(c.Target.transform);
+                    else
+                        _view.ShowPatrolMarker(c.Point);
+                    break;
             }
         }
     }

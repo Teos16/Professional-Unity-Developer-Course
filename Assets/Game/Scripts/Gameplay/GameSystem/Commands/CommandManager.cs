@@ -44,8 +44,14 @@ namespace SampleGame
 
             if (!enqueue)
                 Stop();
+            
+            bool merged = enqueue &&
+                          _current is IMergeableCommand mergeable &&
+                          mergeable.TryMerge(command);
 
-            _queue.Enqueue(command);
+            if (!merged)
+                _queue.Enqueue(command);
+            
             OnCommandTrigger?.Invoke(command);
         }
 
