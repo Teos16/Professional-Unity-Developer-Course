@@ -15,17 +15,15 @@ namespace SampleGame
                 !_blackboard.TryGetValue(BlackboardAPI.StoppingDistance, out float stoppingDistance))
                 return BehaviourResult.Failure;
 
-            if (!target || !target.activeInHierarchy ||
-                !target.TryGetComponent(out HealthComponent health) || health.IsDead)
+            if (!target.IsAlive())
                 return BehaviourResult.Failure;
 
-            Vector3 delta = target.transform.position - character.transform.position;
-            delta.y = 0;
+            Vector3 targetPosition = target.transform.position;
 
-            if (delta.sqrMagnitude <= stoppingDistance * stoppingDistance)
+            if (character.IsWithin(targetPosition, stoppingDistance))
                 return BehaviourResult.Success;
 
-            character.GetComponent<MoveComponent>().MoveStep(delta.normalized, deltaTime);
+            character.MoveTowards(targetPosition, deltaTime);
             return BehaviourResult.Running;
         }
     }

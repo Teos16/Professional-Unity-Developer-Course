@@ -38,8 +38,7 @@ namespace SampleGame
                 if (!other || other.gameObject == character)
                     continue;
 
-                if (!other.TryGetComponent(out HealthComponent health) ||
-                    !health.IsAlive)
+                if (!other.gameObject.IsAlive())
                     continue;
                 
                 if(!other.TryGetComponent(out TeamComponent team) ||

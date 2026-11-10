@@ -16,23 +16,12 @@ namespace SampleGame
             if (!_blackboard.TryGetValue(BlackboardAPI.ClosestEnemy, out GameObject enemy) || !enemy)
                 return BehaviourResult.Running;
 
-            float lookDistance = _blackboard.GetValue(BlackboardAPI.MinRangeDistance);
-            float attackDistance = _blackboard.GetValue(BlackboardAPI.MaxRangeDistance);
-            float stoppingAngle = _blackboard.GetValue(BlackboardAPI.StoppingAngle);
+            Vector3 enemyPosition = enemy.transform.position;
 
-            Vector3 delta = enemy.transform.position - character.transform.position;
-            delta.y = 0;
-            float sqrDistance = delta.sqrMagnitude;
+            if (character.IsWithin(enemyPosition, _blackboard.GetValue(BlackboardAPI.MinRangeDistance)))
+                character.RotateTo(enemyPosition, _blackboard.GetValue(BlackboardAPI.StoppingAngle), deltaTime);
 
-            // LookAtEnemy
-            if (sqrDistance <= lookDistance * lookDistance &&
-                Vector3.Angle(character.transform.forward, delta.normalized) > stoppingAngle)
-                character.GetComponent<RotateTransformComponent>().RotateTowards(delta.normalized, deltaTime);
-
-            // AttackEnemy
-            if (sqrDistance <= attackDistance * attackDistance)
-                character.GetComponent<AttackComponent>().Attack(enemy);
-
+            character.AttackInRange(enemy, _blackboard.GetValue(BlackboardAPI.MaxRangeDistance));
             return BehaviourResult.Running;
         }
     }

@@ -16,7 +16,12 @@ namespace SampleGame
 
             if (_blackboard.TryGetValue(BlackboardAPI.ClosestEnemy, out GameObject enemy) && enemy)
             {
-                FightEnemy(character, enemy, deltaTime);
+                character.Fight(enemy,
+                    _blackboard.GetValue(BlackboardAPI.MinRangeDistance),
+                    _blackboard.GetValue(BlackboardAPI.MaxRangeDistance),
+                    _blackboard.GetValue(BlackboardAPI.StoppingAngle),
+                    deltaTime);
+
                 return BehaviourResult.Running;
             }
 
@@ -28,7 +33,6 @@ namespace SampleGame
             if (waypoints.Count == 0)
                 return BehaviourResult.Failure;
 
-            // запоминаем текущую точку до удаления: удаление точек перед ней сдвигает индексы
             index %= waypoints.Count;
             IWaypoint current = waypoints[index];
 
@@ -36,40 +40,18 @@ namespace SampleGame
             if (waypoints.Count == 0)
                 return BehaviourResult.Failure;
 
-            // текущая точка удалена — идём к той, что встала на её место
             int currentIndex = waypoints.IndexOf(current);
             index = currentIndex >= 0 ? currentIndex : index % waypoints.Count;
 
-            Vector3 delta = waypoints[index].GetPosition - character.transform.position;
-            delta.y = 0;
+            Vector3 destination = waypoints[index].GetPosition;
 
-            if (delta.sqrMagnitude <= stoppingDistance * stoppingDistance)
+            if (character.IsWithin(destination, stoppingDistance))
                 index = (index + 1) % waypoints.Count;
             else
-                character.GetComponent<MoveComponent>().MoveStep(delta.normalized, deltaTime);
+                character.MoveTowards(destination, deltaTime);
 
             _blackboard.SetPrimitiveValue(BlackboardAPI.WaypointIndex, index);
             return BehaviourResult.Running;
-        }
-
-        private void FightEnemy(GameObject character, GameObject enemy, float deltaTime)
-        {
-            float chaseDistance = _blackboard.GetValue(BlackboardAPI.MinRangeDistance);
-            float attackDistance = _blackboard.GetValue(BlackboardAPI.MaxRangeDistance);
-            float stoppingAngle = _blackboard.GetValue(BlackboardAPI.StoppingAngle);
-
-            Vector3 delta = enemy.transform.position - character.transform.position;
-            delta.y = 0;
-            float sqrDistance = delta.sqrMagnitude;
-
-            if (sqrDistance > chaseDistance * chaseDistance)
-                character.GetComponent<MoveComponent>().MoveStep(delta.normalized, deltaTime);
-            
-            else if (Vector3.Angle(character.transform.forward, delta.normalized) > stoppingAngle)
-                character.GetComponent<RotateTransformComponent>().RotateTowards(delta.normalized, deltaTime);
-
-            if (sqrDistance <= attackDistance * attackDistance)
-                character.GetComponent<AttackComponent>().Attack(enemy);
         }
     }
 }

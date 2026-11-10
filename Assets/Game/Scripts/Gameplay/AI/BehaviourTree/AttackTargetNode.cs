@@ -14,35 +14,16 @@ namespace SampleGame
                 !_blackboard.TryGetValue(BlackboardAPI.AttackTarget, out GameObject target))
                 return BehaviourResult.Failure;
 
-            if (!target || !target.activeInHierarchy ||
-                !target.TryGetComponent(out HealthComponent health) || health.IsDead)
+            if (!target.IsAlive())
                 return BehaviourResult.Success;
 
-            FightEnemy(character, target, deltaTime);
+            character.Fight(target,
+                _blackboard.GetValue(BlackboardAPI.MinRangeDistance),
+                _blackboard.GetValue(BlackboardAPI.MaxRangeDistance),
+                _blackboard.GetValue(BlackboardAPI.StoppingAngle),
+                deltaTime);
+
             return BehaviourResult.Running;
-        }
-
-        private void FightEnemy(GameObject character, GameObject enemy, float deltaTime)
-        {
-            float chaseDistance = _blackboard.GetValue(BlackboardAPI.MinRangeDistance);
-            float attackDistance = _blackboard.GetValue(BlackboardAPI.MaxRangeDistance);
-            float stoppingAngle = _blackboard.GetValue(BlackboardAPI.StoppingAngle);
-
-            Vector3 delta = enemy.transform.position - character.transform.position;
-            delta.y = 0;
-            float sqrDistance = delta.sqrMagnitude;
-
-            // MoveToEnemy
-            if (sqrDistance > chaseDistance * chaseDistance)
-                character.GetComponent<MoveComponent>().MoveStep(delta.normalized, deltaTime);
-            
-            // LookAtEnemy
-            else if (Vector3.Angle(character.transform.forward, delta.normalized) > stoppingAngle)
-                character.GetComponent<RotateTransformComponent>().RotateTowards(delta.normalized, deltaTime);
-
-            // AttackEnemy
-            if (sqrDistance <= attackDistance * attackDistance)
-                character.GetComponent<AttackComponent>().Attack(enemy);
         }
     }
 }
